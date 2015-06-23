@@ -2,7 +2,7 @@
   	<modelVersion>4.0.0</modelVersion>
   	<groupId>com.realexpayments.remote.sdk</groupId>
   	<artifactId>rxp-remote-java</artifactId>
-  	<version>0.2-SNAPSHOT</version>
+  	<version>0.3-SNAPSHOT</version>
   	<name>Realex Payments Remote Java SDK</name>
   	<description>The official Realex Payments Remote Java SDK</description> 
   	<url>http://www.realexpayments.com</url>
