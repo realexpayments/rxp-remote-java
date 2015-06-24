@@ -18,9 +18,7 @@ Add this dependency to your project's build file:
 ```
 compile "com.realexpayments.remote.sdk:rxp-remote-java:1.0"
 ```
-
-
-Usage
+##Usage
 =====
 
 ```
