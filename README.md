@@ -1,16 +1,10 @@
 # Realex Remote Java SDK
-
 You can sign up for a Realex account at https://www.realexpayments.com.
-
 ## Requirements
 Java 1.6 and later.
-
 ## Installation
-
 ### Maven users
-
 Add this dependency to your project's POM:
-
 ```xml
 <dependency>
   <groupId>com.realexpayments.remote.sdk</groupId>
@@ -20,9 +14,7 @@ Add this dependency to your project's POM:
 ```
 
 ### Gradle users
-
 Add this dependency to your project's build file:
-
 ```
 compile "com.realexpayments.remote.sdk:rxp-remote-java:1.0"
 ```
