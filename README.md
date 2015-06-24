@@ -52,6 +52,3 @@ PaymentRequest request = new PaymentRequest()
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
-
-Testing
-=======
