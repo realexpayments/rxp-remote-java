@@ -1,8 +1,11 @@
 package com.realexpayments.remote.sdk.domain;
 
+import com.realexpayments.remote.sdk.utils.CvnAdapter;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * <p>
@@ -67,7 +70,8 @@ public class Cvn {
 	 * A three-digit number on the reverse of the card. It is called the CVC for VISA and the CVV2 for MasterCard. 
 	 * For an AMEX card, it is a four digit number.
 	 */
-	@XmlElement(name = "number")
+	@XmlElement(required = true, type = String.class, name = "number")
+	@XmlJavaTypeAdapter(CvnAdapter.class)
 	private Integer number;
 
 	/**
