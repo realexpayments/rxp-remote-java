@@ -68,7 +68,7 @@ public class Cvn {
 	 * For an AMEX card, it is a four digit number.
 	 */
 	@XmlElement(name = "number")
-	private Integer number;
+	private String number;
 
 	/**
 	 * <p>
@@ -93,9 +93,9 @@ public class Cvn {
 	/**
 	 * Getter for verification number.
 	 * 
-	 * @return Integer
+	 * @return String
 	 */
-	public Integer getNumber() {
+	public String getNumber() {
 		return number;
 	}
 
@@ -104,7 +104,7 @@ public class Cvn {
 	 * 
 	 * @param number
 	 */
-	public void setNumber(Integer number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 
@@ -132,7 +132,7 @@ public class Cvn {
 	 * @param number
 	 * @return Cvn
 	 */
-	public Cvn addNumber(Integer number) {
+	public Cvn addNumber(String number) {
 		this.number = number;
 		return this;
 	}

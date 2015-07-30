@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlElement;
  * 		.addNumber("420000000000000000")
  *		.addType(CardType.VISA)
  *		.addCardHolderName("Joe Smith")
- *		.addCvn(123)
+ *		.addCvn("123")
  *		.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT); 
  * </pre></code></p>
  * 
@@ -235,7 +235,7 @@ public class Card {
 	 * @param cvn
 	 * @return Card
 	 */
-	public Card addCvn(Integer cvn) {
+	public Card addCvn(String cvn) {
 		if (null == this.cvn) {
 			this.cvn = new Cvn().addNumber(cvn);
 		} else {

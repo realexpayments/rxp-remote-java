@@ -9,14 +9,14 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.realexpayments.remote.sdk</groupId>
   <artifactId>rxp-remote-java</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
 ### Gradle users
 Add this dependency to your project's build file:
 ```
-compile "com.realexpayments.remote.sdk:rxp-remote-java:1.0"
+compile "com.realexpayments.remote.sdk:rxp-remote-java:1.0.1"
 ```
 ##Usage
 ```
@@ -25,7 +25,7 @@ Card card = new Card()
 		.addNumber("420000000000000000")
 		.addType(CardType.VISA)
 		.addCardHolderName("Joe Smith")
-		.addCvn(123)
+		.addCvn("123")
 		.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
 
 PaymentRequest request = new PaymentRequest()
