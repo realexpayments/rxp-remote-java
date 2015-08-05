@@ -22,7 +22,7 @@ compile "com.realexpayments.remote.sdk:rxp-remote-java:1.0.1"
 ```
 Card card = new Card()
 		.addExpiryDate("0119")
-		.addNumber("420000000000000000")
+		.addNumber("4242424242424242")
 		.addType(CardType.VISA)
 		.addCardHolderName("Joe Smith")
 		.addCvn("123")
