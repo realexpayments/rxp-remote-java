@@ -38,7 +38,7 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * 	.addNumber("420000000000000000")
  * 	.addType(CardType.VISA)
  * 	.addCardHolderName("Joe Smith")
- * 	.addCvn(123)
+ * 	.addCvn("123")
  * 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
  * 
  * ThreeDSecureRequest request = new ThreeDSecureRequest()

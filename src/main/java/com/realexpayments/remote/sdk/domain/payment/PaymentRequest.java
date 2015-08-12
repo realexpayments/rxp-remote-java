@@ -38,7 +38,7 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * 	.addNumber("420000000000000000")
  * 	.addType(CardType.VISA)
  * 	.addCardHolderName("Joe Smith")
- * 	.addCvn(123)
+ * 	.addCvn("123")
  * 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
  * 
  * PaymentRequest request = new PaymentRequest()
@@ -60,7 +60,7 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * 	.addNumber("420000000000000000")
  * 	.addType(CardType.VISA)
  * 	.addCardHolderName("Joe Smith")
- * 	.addCvn(123)
+ * 	.addCvn("123")
  * 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
  * 
  * PaymentRequest request = new PaymentRequest()
@@ -213,7 +213,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	private String refundHash;
 
 	/**
-	 * TODO - info on this
+	 * Fraud filter flag
 	 */
 	@XmlElement(name = "fraudfilter")
 	private String fraudFilter;

@@ -45,7 +45,7 @@ public class SampleXmlValidationUtils {
 	public static final String CARD_NUMBER = "420000000000000000";
 	public static final CardType CARD_TYPE = CardType.VISA;
 	public static final String CARD_HOLDER_NAME = "Joe Smith";
-	public static final Integer CARD_CVN_NUMBER = 123;
+	public static final String CARD_CVN_NUMBER = "123";
 	public static final PresenceIndicator CARD_CVN_PRESENCE = PresenceIndicator.CVN_PRESENT;
 	public static final String CARD_EXPIRY_DATE = "0119";
 	public static final Integer CARD_ISSUE_NUMBER = 1;
