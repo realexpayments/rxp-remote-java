@@ -34,6 +34,7 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CVN_R
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.FRAUD_FILTER;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MERCHANT_ID;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MESSAGE;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MOBILE_AUTH_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ORDER_ID;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PASREF;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_REQUEST_XML_PATH;
@@ -59,6 +60,7 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_SIG_RESPONSE_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_XID;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP_RESPONSE;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIME_TAKEN;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK1_ID;
@@ -366,7 +368,7 @@ public class XmlUtilsTest {
 		response.setPaymentsReference(PASREF);
 		response.setResult(RESULT_SUCCESS);
 		response.setHash(RESPONSE_HASH);
-		response.setTimeStamp(TIMESTAMP);
+		response.setTimeStamp(TIMESTAMP_RESPONSE);
 		response.setTimeTaken(TIME_TAKEN);
 
 		TssResult tssResult = new TssResult();
@@ -665,5 +667,20 @@ public class XmlUtilsTest {
 	public void threeDSecureFromXmlErrorTest() {
 		//Try to unmarshal invalid XML
 		XmlUtils.fromXml(new StreamSource(new StringReader("<xml>test</xml>")), MessageType.THREE_D_SECURE);
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for mobile-auth payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileMobileAuthTest() {
+
+		File file = new File(this.getClass().getResource(MOBILE_AUTH_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledPaymentRequest(fromXmlRequest);
+
 	}
 }
