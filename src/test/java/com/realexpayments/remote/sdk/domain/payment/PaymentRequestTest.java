@@ -1,9 +1,25 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AMOUNT;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_MERCHANT_ID;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_ORDER_ID;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_REQUEST_HASH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_TIMESTAMP;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_TOKEN;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_NUMBER;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CURRENCY;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MERCHANT_ID;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ORDER_ID;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SECRET;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.realexpayments.remote.sdk.domain.Card;
 import com.realexpayments.remote.sdk.domain.payment.Address.AddressType;
+import com.realexpayments.remote.sdk.domain.payment.PaymentRequest.PaymentType;
 
 /**
  * Unit test class for PaymentRequest utility methods.
@@ -88,6 +104,31 @@ public class PaymentRequestTest {
 
 		Assert.assertEquals(expectedBillingCode, request.getTssInfo().getAddresses().get(0).getCode());
 		Assert.assertEquals(AddressType.BILLING.getAddressType(), request.getTssInfo().getAddresses().get(0).getType());
+	}
+
+	/**
+	 * Tests the hash calculation for an auth payment.
+	 */
+	@Test
+	public void authHashGenerationTest() {
+		PaymentRequest request = new PaymentRequest().addType(PaymentType.AUTH).addTimeStamp(TIMESTAMP).addMerchantId(MERCHANT_ID)
+				.addOrderId(ORDER_ID).addAmount(AMOUNT).addCurrency(CURRENCY).addCard(new Card().addNumber(CARD_NUMBER));
+		request.hash(SECRET);
+
+		Assert.assertEquals(REQUEST_HASH, request.getHash());
+
+	}
+
+	/**
+	 * Tests the hash calculation for an auth-mobile payment.
+	 */
+	@Test
+	public void authMobileHashGenerationTest() {
+		PaymentRequest request = new PaymentRequest().addType(PaymentType.AUTH_MOBILE).addTimeStamp(AUTH_MOBILE_TIMESTAMP)
+				.addMerchantId(AUTH_MOBILE_MERCHANT_ID).addOrderId(AUTH_MOBILE_ORDER_ID).addToken(AUTH_MOBILE_TOKEN);
+		request.hash(SECRET);
+
+		Assert.assertEquals(AUTH_MOBILE_REQUEST_HASH, request.getHash());
 	}
 
 }

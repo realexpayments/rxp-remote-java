@@ -41,6 +41,9 @@ public class SampleXmlValidationUtils {
 	public static final String THREE_D_SECURE_VERIFY_SIG_REQUEST_XML_PATH = "/sample-xml/3ds-verify-sig-request-sample.xml";
 	public static final String THREE_D_SECURE_VERIFY_SIG_RESPONSE_XML_PATH = "/sample-xml/3ds-verify-sig-response-sample.xml";
 
+	//mobile auth payment sample XML
+	public static final String MOBILE_AUTH_PAYMENT_REQUEST_XML_PATH = "/sample-xml/auth-mobile-payment-request-sample.xml";
+
 	//Card
 	public static final String CARD_NUMBER = "420000000000000000";
 	public static final CardType CARD_TYPE = CardType.VISA;
@@ -56,10 +59,10 @@ public class SampleXmlValidationUtils {
 	public static final Long AMOUNT = 29900l;
 	public static final String CURRENCY = "EUR";
 	public static final AutoSettleFlag AUTO_SETTLE_FLAG = AutoSettleFlag.MULTI;
-	public static final String TIMESTAMP = "20120926112654";
+	public static final String TIMESTAMP = "20151201094345";
 	public static final String CHANNEL = "yourChannel";
 	public static final String ORDER_ID = "ORD453-11";
-	public static final String REQUEST_HASH = "581b84c1dbfd0a6c9c7d4e2d0a620157e879dac5";
+	public static final String REQUEST_HASH = "085f09727da50c2392b64894f962e7eb5050f762";
 	public static final String COMMENT1 = "comment 1";
 	public static final String COMMENT2 = "comment 2";
 	public static final String REFUND_HASH = "hjfdg78h34tyvklasjr89t";
@@ -105,6 +108,8 @@ public class SampleXmlValidationUtils {
 	public static final String AUTH_CODE = "79347";
 	public static final String AVS_POSTCODE = "M";
 	public static final String AVS_ADDRESS = "P";
+	public static final String MOBILE = "apple-pay";
+	public static final String TIMESTAMP_RESPONSE = "20120926112654";
 
 	//basic response error fields
 	public static final String MESSAGE_BASIC_ERROR = "error message returned from system";
@@ -118,8 +123,8 @@ public class SampleXmlValidationUtils {
 	public static final String RESPONSE_FULL_ERROR_HASH = "0ad8a9f121c4041b4b832ae8069e80674269e22f";
 
 	//3DS request fields
-	public static final String THREE_D_SECURE_VERIFY_ENROLLED_REQUEST_HASH = "1f6db5dc1a72c35b4c07cc9405a9674e272d57e7";
-	public static final String THREE_D_SECURE_VERIFY_SIG_REQUEST_HASH = "1f6db5dc1a72c35b4c07cc9405a9674e272d57e7";
+	public static final String THREE_D_SECURE_VERIFY_ENROLLED_REQUEST_HASH = "085f09727da50c2392b64894f962e7eb5050f762";
+	public static final String THREE_D_SECURE_VERIFY_SIG_REQUEST_HASH = "085f09727da50c2392b64894f962e7eb5050f762";
 
 	//3DS response fields
 	public static final String THREE_D_SECURE_ENROLLED_RESULT = "00";
@@ -142,6 +147,17 @@ public class SampleXmlValidationUtils {
 	public static final String THREE_D_SECURE_ENROLLED_RESPONSE_HASH = "728cdbef90ff535ed818748f329ed8b1df6b8f5a";
 	public static final String THREE_D_SECURE_SIG_RESPONSE_HASH = "e5a7745da5dc32d234c3f52860132c482107e9ac";
 
+	//auth-mobile fields
+	public static final String AUTH_MOBILE_TIMESTAMP = "20150820154047";
+	public static final String AUTH_MOBILE_TYPE = "AUTH_MOBILE";
+	public static final String AUTH_MOBILE_MERCHANT_ID = "thestore";
+	public static final String AUTH_MOBILE_ACCOUNT = "internet";
+	public static final String AUTH_MOBILE_ORDER_ID = "8cdbf036-73e2-44ff-bf11-eba8cab33a14";
+	public static final String AUTH_MOBILE_MOBILE = "apple-pay";
+	public static final AutoSettleFlag AUTH_MOBILE_AUTOSETTLE_FLAG = AutoSettleFlag.TRUE;
+	public static final String AUTH_MOBILE_TOKEN = "{\"version\":\"EC_v1\",\"data\":\"Ft+dvmdfgnsdfnbg+zerKtkh/RWWjdfgdjhHGFHGFlkjdfgkljlkfs78678hEPnsbXZnMDy3o7qDg+iDHB0JVEjDHxjQIAPcNN1Cqdtq63nX4+VRU3eXzdo1QGqSptH6D5KW5SxZLAdnMEmCxG9vkVEdHTTlhVPddxiovAkFTBWBFTJ2uf5f2grXC/VnK0X/efAowXrhJIX1ngsGfAk3/EVRzADGHJFGHJKH78hjkhdfgih80UU05zSluzATidvvBoHBz/WpytSYyrUx1QI9nyH/Nbv8f8lOUjPzBFb+EFOzJaIf+fr0swKU6EB2/2Sm0Y20mD0IvyomtKQ7Tf3VHKA7zhFrDvZUdtX808oHnrqDFRAQZHWAppGUVstqkOyibA0C4suxnOQlsQNZT0r70Tz84=\",\"signature\":\"MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCAMIID4jCCA4igAwIBAgIIJEPyqAad9XcwCgYIKoZIzj0EAwIwejEuMCwGA1UEAwwlQXBwbGUgQXBwbGljYXRpb24gSW50ZWdyYXRpb24gQ0EgLSBHMzEmMCQGA1UECwwdQXBwbGUgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxEzARBgNVBAoMCkFwcGxlIEluYy4xCzAJBgNVBAYTAlVTMB4XDTE0MDkyNTIyMDYxMVoXDTE5MDkyNDIyMDYxMVowXzElMCMGA1UEAwwcZWNjLXNtcC1icm9rZXItc2lnbl9VQzQtUFJPRDEUMBIGA1UECwwLaU9TIFN5c3RlbXMxEzARBgNVBAoMCkFwcGxlIEluYy4xCzAJBgNVBAYTAlVTMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEwhV37evWx7Ihj2jdcJChIY3HsL1vLCg9hGCV2Ur0pUEbg0IO2BHzQH6DMx8cVMP36zIg1rrV1O/0komJPnwPE6OCAhEwggINMEUGCCsGAQUFBwEBBDkwNzA1BggrBgEFBQcwAYYpaHR0cDovL29jc3AuYXBwbGUuY29tL29jc3AwNC1hcHBsZWFpY2EzMDEwHQYDVR0OBBYEFJRX22/VdIGGiYl2L35XhQfnm1gkMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUI/JJxE+T5O8n5sT2KGw/orv9LkswggEdBgNVHSAEggEUMIIBEDCCAQwGCSqGSIb3Y2QFATCB/jCBwwYIKwYBBQUHAgIwgbYMgbNSZWxpYW5jZSBvbiB0aGlzIGNlcnRpZmljYXRlIGJ5IGFueSBwYXJ0eSBhc3N1bWVzIGFjY2VwdGFuY2Ugb2YgdGhlIHRoZW4gYXBwbGljYWJsZSBzdGFuZGFyZCB0ZXJtcyBhbmQgY29uZGl0aW9ucyBvZiB1c2UsIGNlcnRpZmljYXRlIHBvbGljeSBhbmQgY2VydGlmaWNhdGlvbiBwcmFjdGljZSBzdGF0ZW1lbnRzLjA2BggrBgEFBQcCARYqaHR0cDovL3d3dy5hcHBsZS5jb20vY2VydGlmaWNhdGVhdXRob3JpdHkvMDQGA1UdHwQtMCswKaAnoCWGI2h0dHA6Ly9jcmwuYXBwbGUuY29tL2FwcGxlYWljYTMuY3JsMA4GA1UdDwEB/wQEAwIHgDAPBgkqhkiG92NkBh0EAgUAMAoGCCqGSM49BAMCA0gAMEUCIHKKnw+Soyq5mXQr1V62c0BXKpaHodYu9TWXEPUWPpbpAiEAkTecfW6+W5l0r0ADfzTCPq2YtbS39w01XIayqBNy8bEwggLuMIICdaADAgECAghJbS+/OpjalzAKBggqhkjOPQQDAjBnMRswGQYDVQQDDBJBcHBsZSBSb290IENBIC0gRzMxJjAkBgNVBAsMHUFwcGxlIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MRMwEQYDVQQKDApBcHBsZSBJbmMuMQswCQYDVQQGEwJVUzAeFw0xNDA1MDYyMzQ2MzBaFw0yOTA1MDYyMzQ2MzBaMHoxLjAsBgNVBAMMJUFwcGxlIEFwcGxpY2F0aW9uIEludGVncmF0aW9uIENBIC0gRzMxJjAkBgNVBAsMHUFwcGxlIENlcnRpZmljYXRpb24gQXV0aG9yaXR5MRMwEQYDVQQKDApBcHBsZSBJbmMuMQswCQYDVQQGEwJVUzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABPAXEYQZ12SF1RpeJYEHduiAou/ee65N4I38S5PhM1bVZls1riLQl3YNIk57ugj9dhfOiMt2u2ZwvsjoKYT/VEWjgfcwgfQwRgYIKwYBBQUHAQEEOjA4MDYGCCsGAQUFBzABhipodHRwOi8vb2NzcC5hcHBsZS5jb20vb2NzcDA0LWFwcGxlcm9vdGNhZzMwHQYDVR0OBBYEFCPyScRPk+TvJ+bE9ihsP6K7/S5LMA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAUu7DeoVgziJqkipnevr3rr9rLJKswNwYDVR0fBDAwLjAsoCqgKIYmaHR0cDovL2NybC5hcHBsZS5jb20vYXBwbGVyb290Y2FnMy5jcmwwDgYDVR0PAQH/BAQDAgEGMBAGCiqGSIb3Y2QGAg4EAgUAMAoGCCqGSM49BAMCA2cAMGQCMDrPcoNRFpmxhvs1w1bKYr/0F+3ZD3VNoo6+8ZyBXkK3ifiY95tZn5jVQQ2PnenC/gIwMi3VRCGwowV3bF3zODuQZ/0XfCwhbZZPxnJpghJvVPh6fRuZy5sJiSFhBpkPCZIdAAAxggFgMIIBXAIBATCBhjB6MS4wLAYDVQQDDCVBcHBsZSBBcHBsaWNhdGlvbiBJbnRlZ3JhdGlvbiBDQSAtIEczMSYwJAYDVQQLDB1BcHBsZSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTETMBEGA1UECgwKQXBwbGUgSW5jLjELMAkGA1UEBhMCVVMCCCRD8qgGnfV3MA0GCWCGSAFlAwQCAQUAoGkwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTUxMDAzMTI1NjE0WjAvBgkqhkiG9w0BCQQxIgQgX2PuBLPWoqZa8uDvFenDTHTwXkeF3/XINbPpoQfbFe8wCgYIKoZIzj0EAwIESDBGAiEAkF4y5/FgTRquNdpi23Cqat7YV2kdYEC6Z+OJGB8JCgYCIQChUiQiTHgjzB7oTo7xfJWEzir2sDyzDkjIUJ0TFCQd/QAAAAAAAA==\",\"header\":{\"ephemeralPublicKey\":\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEWdNhNAHy9kO2Kol33kIh7k6wh6E/lxriM46MR1FUrn7SHugprkaeFmWKZPgGpWgZ+telY/G1+YSoaCbR57bdGA==\",\"transactionId\":\"fd88874954acdb29976gfnjd784ng8ern8BDF8gT7G3fd4ebc22a864398684198644c3\",\"publicKeyHash\":\"h7njghUJVz2gmpTSkHqETOWsskhsdfjj4mgf3sPTS2cBxgrk=\"}}";
+	public static final String AUTH_MOBILE_REQUEST_HASH = "b13f183cd3ea2a0b63033fb53bdeb4894c684643";
+
 	/**
 	 * Check all fields match expected values.
 	 * 
@@ -149,50 +165,67 @@ public class SampleXmlValidationUtils {
 	 */
 	public static void checkUnmarshalledPaymentRequest(PaymentRequest fromXmlRequest) {
 		Assert.assertNotNull(fromXmlRequest);
-		Assert.assertEquals(CARD_NUMBER, fromXmlRequest.getCard().getNumber());
-		Assert.assertEquals(CARD_TYPE.getType(), fromXmlRequest.getCard().getType());
-		Assert.assertEquals(CARD_HOLDER_NAME, fromXmlRequest.getCard().getCardHolderName());
-		Assert.assertEquals(String.valueOf(CARD_CVN_NUMBER), String.valueOf(fromXmlRequest.getCard().getCvn().getNumber()));
-		Assert.assertEquals(CARD_CVN_PRESENCE.getIndicator(), fromXmlRequest.getCard().getCvn().getPresenceIndicator());
-		Assert.assertEquals(String.valueOf(CARD_ISSUE_NUMBER), String.valueOf(fromXmlRequest.getCard().getIssueNumber()));
-		Assert.assertEquals(CARD_EXPIRY_DATE, fromXmlRequest.getCard().getExpiryDate());
 
-		Assert.assertEquals(ACCOUNT, fromXmlRequest.getAccount());
-		Assert.assertEquals(MERCHANT_ID, fromXmlRequest.getMerchantId());
-		Assert.assertEquals(PaymentType.AUTH.getType(), fromXmlRequest.getType());
-		Assert.assertEquals(String.valueOf(AMOUNT), fromXmlRequest.getAmount().getAmount().toString());
-		Assert.assertEquals(CURRENCY, fromXmlRequest.getAmount().getCurrency());
-		Assert.assertEquals(AUTO_SETTLE_FLAG.getFlag(), fromXmlRequest.getAutoSettle().getFlag());
-		Assert.assertEquals(TIMESTAMP, fromXmlRequest.getTimeStamp());
-		Assert.assertEquals(CHANNEL, fromXmlRequest.getChannel());
-		Assert.assertEquals(ORDER_ID, fromXmlRequest.getOrderId());
-		Assert.assertEquals(REQUEST_HASH, fromXmlRequest.getHash());
-		Assert.assertEquals(COMMENT1, fromXmlRequest.getComments().get(0).getComment());
-		Assert.assertEquals("1", fromXmlRequest.getComments().get(0).getId().toString());
-		Assert.assertEquals(COMMENT2, fromXmlRequest.getComments().get(1).getComment());
-		Assert.assertEquals("2", fromXmlRequest.getComments().get(1).getId().toString());
-		Assert.assertEquals(PASREF, fromXmlRequest.getPaymentsReference());
-		Assert.assertEquals(AUTH_CODE, fromXmlRequest.getAuthCode());
-		Assert.assertEquals(REFUND_HASH, fromXmlRequest.getRefundHash());
-		Assert.assertEquals(FRAUD_FILTER, fromXmlRequest.getFraudFilter());
-		Assert.assertEquals(RECURRING_FLAG.getRecurringFlag(), fromXmlRequest.getRecurring().getFlag());
-		Assert.assertEquals(RECURRING_TYPE.getType(), fromXmlRequest.getRecurring().getType());
-		Assert.assertEquals(RECURRING_SEQUENCE.getSequence(), fromXmlRequest.getRecurring().getSequence());
+		if (PaymentType.AUTH.getType().equals(fromXmlRequest.getType())) {
 
-		Assert.assertEquals(CUSTOMER_NUMBER, fromXmlRequest.getTssInfo().getCustomerNumber());
-		Assert.assertEquals(PRODUCT_ID, fromXmlRequest.getTssInfo().getProductId());
-		Assert.assertEquals(VARIABLE_REFERENCE, fromXmlRequest.getTssInfo().getVariableReference());
-		Assert.assertEquals(CUSTOMER_IP, fromXmlRequest.getTssInfo().getCustomerIpAddress());
-		Assert.assertEquals(ADDRESS_TYPE_BUSINESS.getAddressType(), fromXmlRequest.getTssInfo().getAddresses().get(0).getType());
-		Assert.assertEquals(ADDRESS_CODE_BUSINESS, fromXmlRequest.getTssInfo().getAddresses().get(0).getCode());
-		Assert.assertEquals(ADDRESS_COUNTRY_BUSINESS, fromXmlRequest.getTssInfo().getAddresses().get(0).getCountry());
-		Assert.assertEquals(ADDRESS_TYPE_SHIPPING.getAddressType(), fromXmlRequest.getTssInfo().getAddresses().get(1).getType());
-		Assert.assertEquals(ADDRESS_CODE_SHIPPING, fromXmlRequest.getTssInfo().getAddresses().get(1).getCode());
-		Assert.assertEquals(ADDRESS_COUNTRY_SHIPPING, fromXmlRequest.getTssInfo().getAddresses().get(1).getCountry());
+			Assert.assertEquals(CARD_NUMBER, fromXmlRequest.getCard().getNumber());
+			Assert.assertEquals(CARD_TYPE.getType(), fromXmlRequest.getCard().getType());
+			Assert.assertEquals(CARD_HOLDER_NAME, fromXmlRequest.getCard().getCardHolderName());
+			Assert.assertEquals(String.valueOf(CARD_CVN_NUMBER), String.valueOf(fromXmlRequest.getCard().getCvn().getNumber()));
+			Assert.assertEquals(CARD_CVN_PRESENCE.getIndicator(), fromXmlRequest.getCard().getCvn().getPresenceIndicator());
+			Assert.assertEquals(String.valueOf(CARD_ISSUE_NUMBER), String.valueOf(fromXmlRequest.getCard().getIssueNumber()));
+			Assert.assertEquals(CARD_EXPIRY_DATE, fromXmlRequest.getCard().getExpiryDate());
 
-		Assert.assertEquals(THREE_D_SECURE_CAVV, fromXmlRequest.getMpi().getCavv());
-		Assert.assertEquals(THREE_D_SECURE_XID, fromXmlRequest.getMpi().getXid());
-		Assert.assertEquals(THREE_D_SECURE_ECI, fromXmlRequest.getMpi().getEci());
+			Assert.assertEquals(ACCOUNT, fromXmlRequest.getAccount());
+			Assert.assertEquals(MERCHANT_ID, fromXmlRequest.getMerchantId());
+			Assert.assertEquals(String.valueOf(AMOUNT), fromXmlRequest.getAmount().getAmount().toString());
+			Assert.assertEquals(CURRENCY, fromXmlRequest.getAmount().getCurrency());
+			Assert.assertEquals(AUTO_SETTLE_FLAG.getFlag(), fromXmlRequest.getAutoSettle().getFlag());
+			Assert.assertEquals(TIMESTAMP, fromXmlRequest.getTimeStamp());
+			Assert.assertEquals(CHANNEL, fromXmlRequest.getChannel());
+			Assert.assertEquals(ORDER_ID, fromXmlRequest.getOrderId());
+			Assert.assertEquals(REQUEST_HASH, fromXmlRequest.getHash());
+			Assert.assertEquals(COMMENT1, fromXmlRequest.getComments().get(0).getComment());
+			Assert.assertEquals("1", fromXmlRequest.getComments().get(0).getId().toString());
+			Assert.assertEquals(COMMENT2, fromXmlRequest.getComments().get(1).getComment());
+			Assert.assertEquals("2", fromXmlRequest.getComments().get(1).getId().toString());
+			Assert.assertEquals(PASREF, fromXmlRequest.getPaymentsReference());
+			Assert.assertEquals(AUTH_CODE, fromXmlRequest.getAuthCode());
+			Assert.assertEquals(REFUND_HASH, fromXmlRequest.getRefundHash());
+			Assert.assertEquals(FRAUD_FILTER, fromXmlRequest.getFraudFilter());
+			Assert.assertEquals(RECURRING_FLAG.getRecurringFlag(), fromXmlRequest.getRecurring().getFlag());
+			Assert.assertEquals(RECURRING_TYPE.getType(), fromXmlRequest.getRecurring().getType());
+			Assert.assertEquals(RECURRING_SEQUENCE.getSequence(), fromXmlRequest.getRecurring().getSequence());
+
+			Assert.assertEquals(CUSTOMER_NUMBER, fromXmlRequest.getTssInfo().getCustomerNumber());
+			Assert.assertEquals(PRODUCT_ID, fromXmlRequest.getTssInfo().getProductId());
+			Assert.assertEquals(VARIABLE_REFERENCE, fromXmlRequest.getTssInfo().getVariableReference());
+			Assert.assertEquals(CUSTOMER_IP, fromXmlRequest.getTssInfo().getCustomerIpAddress());
+			Assert.assertEquals(ADDRESS_TYPE_BUSINESS.getAddressType(), fromXmlRequest.getTssInfo().getAddresses().get(0).getType());
+			Assert.assertEquals(ADDRESS_CODE_BUSINESS, fromXmlRequest.getTssInfo().getAddresses().get(0).getCode());
+			Assert.assertEquals(ADDRESS_COUNTRY_BUSINESS, fromXmlRequest.getTssInfo().getAddresses().get(0).getCountry());
+			Assert.assertEquals(ADDRESS_TYPE_SHIPPING.getAddressType(), fromXmlRequest.getTssInfo().getAddresses().get(1).getType());
+			Assert.assertEquals(ADDRESS_CODE_SHIPPING, fromXmlRequest.getTssInfo().getAddresses().get(1).getCode());
+			Assert.assertEquals(ADDRESS_COUNTRY_SHIPPING, fromXmlRequest.getTssInfo().getAddresses().get(1).getCountry());
+
+			Assert.assertEquals(THREE_D_SECURE_CAVV, fromXmlRequest.getMpi().getCavv());
+			Assert.assertEquals(THREE_D_SECURE_XID, fromXmlRequest.getMpi().getXid());
+			Assert.assertEquals(THREE_D_SECURE_ECI, fromXmlRequest.getMpi().getEci());
+
+		} else if (PaymentType.AUTH_MOBILE.getType().equals(fromXmlRequest.getType())) {
+
+			Assert.assertEquals(AUTH_MOBILE_ACCOUNT, fromXmlRequest.getAccount());
+			Assert.assertEquals(AUTH_MOBILE_MERCHANT_ID, fromXmlRequest.getMerchantId());
+			Assert.assertEquals(AUTH_MOBILE_AUTOSETTLE_FLAG.getFlag(), fromXmlRequest.getAutoSettle().getFlag());
+			Assert.assertEquals(AUTH_MOBILE_TIMESTAMP, fromXmlRequest.getTimeStamp());
+			Assert.assertEquals(AUTH_MOBILE_ORDER_ID, fromXmlRequest.getOrderId());
+			Assert.assertEquals(AUTH_MOBILE_MOBILE, fromXmlRequest.getMobile());
+			Assert.assertEquals(AUTH_MOBILE_TOKEN, fromXmlRequest.getToken());
+			Assert.assertEquals(AUTH_MOBILE_REQUEST_HASH, fromXmlRequest.getHash());
+
+		} else {
+			Assert.fail("Invalid payment type.");
+		}
 
 	}
 
@@ -218,7 +251,7 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(PASREF, fromXmlResponse.getPaymentsReference());
 		Assert.assertEquals(RESULT_SUCCESS, fromXmlResponse.getResult());
 		Assert.assertEquals(RESPONSE_HASH, fromXmlResponse.getHash());
-		Assert.assertEquals(TIMESTAMP, fromXmlResponse.getTimeStamp());
+		Assert.assertEquals(TIMESTAMP_RESPONSE, fromXmlResponse.getTimeStamp());
 		Assert.assertEquals(TIME_TAKEN.toString(), fromXmlResponse.getTimeTaken().toString());
 		Assert.assertEquals(TSS_RESULT, fromXmlResponse.getTssResult().getResult());
 		Assert.assertEquals(TSS_RESULT_CHECK1_ID, fromXmlResponse.getTssResult().getChecks().get(0).getId());
@@ -264,7 +297,7 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(PASREF, fromXmlResponse.getPaymentsReference());
 		Assert.assertEquals(RESULT_FULL_ERROR, fromXmlResponse.getResult());
 		Assert.assertEquals(RESPONSE_FULL_ERROR_HASH, fromXmlResponse.getHash());
-		Assert.assertEquals(TIMESTAMP, fromXmlResponse.getTimeStamp());
+		Assert.assertEquals(TIMESTAMP_RESPONSE, fromXmlResponse.getTimeStamp());
 		Assert.assertEquals(TIME_TAKEN.toString(), fromXmlResponse.getTimeTaken().toString());
 		Assert.assertEquals(TSS_RESULT, fromXmlResponse.getTssResult().getResult());
 		Assert.assertEquals(TSS_RESULT_CHECK1_ID, fromXmlResponse.getTssResult().getChecks().get(0).getId());
@@ -313,7 +346,7 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(PASREF, fromXmlResponse.getPaymentsReference());
 		Assert.assertEquals(THREE_D_SECURE_ENROLLED_RESULT, fromXmlResponse.getResult());
 		Assert.assertEquals(THREE_D_SECURE_ENROLLED_RESPONSE_HASH, fromXmlResponse.getHash());
-		Assert.assertEquals(TIMESTAMP, fromXmlResponse.getTimeStamp());
+		Assert.assertEquals(TIMESTAMP_RESPONSE, fromXmlResponse.getTimeStamp());
 		Assert.assertEquals(TIME_TAKEN.toString(), fromXmlResponse.getTimeTaken().toString());
 		Assert.assertEquals(THREE_D_SECURE_URL, fromXmlResponse.getUrl());
 		Assert.assertEquals(THREE_D_SECURE_PAREQ, fromXmlResponse.getPareq());
@@ -334,7 +367,7 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(ORDER_ID, fromXmlResponse.getOrderId());
 		Assert.assertEquals(THREE_D_SECURE_SIG_RESULT, fromXmlResponse.getResult());
 		Assert.assertEquals(THREE_D_SECURE_SIG_RESPONSE_HASH, fromXmlResponse.getHash());
-		Assert.assertEquals(TIMESTAMP, fromXmlResponse.getTimeStamp());
+		Assert.assertEquals(TIMESTAMP_RESPONSE, fromXmlResponse.getTimeStamp());
 		Assert.assertEquals(THREE_D_SECURE_STATUS, fromXmlResponse.getThreeDSecure().getStatus());
 		Assert.assertEquals(THREE_D_SECURE_ECI, fromXmlResponse.getThreeDSecure().getEci());
 		Assert.assertEquals(THREE_D_SECURE_XID, fromXmlResponse.getThreeDSecure().getXid());
