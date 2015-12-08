@@ -20,6 +20,8 @@ compile "com.realexpayments.remote.sdk:rxp-remote-java:1.1"
 ```
 ## Usage
 
+Please see https://developer.realexpayments.com for more comprehensive integration guides.
+
 ### Authorisation
 
 ```
