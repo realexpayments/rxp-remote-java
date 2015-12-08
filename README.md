@@ -24,7 +24,7 @@ Please see https://developer.realexpayments.com for more comprehensive integrati
 
 ### Authorisation
 
-```
+```java
 Card card = new Card()
 	.addExpiryDate("0119")
 	.addNumber("4242424242424242")
@@ -48,7 +48,7 @@ PaymentResponse response = client.send(request);
 
 ### Authorisation (With Address Verification)
 
-```
+```java
 Card card = new Card()
 	.addExpiryDate("0119")
 	.addNumber("420000000000000000")
@@ -73,7 +73,7 @@ PaymentResponse response = client.send(request);
 
 ### Authorisation (Mobile)
 
-```
+```java
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
@@ -89,7 +89,7 @@ PaymentResponse response = client.send(request);
 
 ### Settle
 
-```
+```java
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
@@ -107,7 +107,7 @@ PaymentResponse response = client.send(request);
 
 ### Void
 
-```
+```java
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
@@ -122,7 +122,7 @@ PaymentResponse response = client.send(request);
 
 ### Rebate
 
-```
+```java
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
@@ -140,7 +140,7 @@ PaymentResponse response = client.send(request);
 
 ### OTB
 
-```
+```java
 Card card = new Card()
 	.addExpiryDate("0119")
 	.addNumber("420000000000000000")
@@ -161,7 +161,7 @@ PaymentResponse response = client.send(request);
 
 ### Credit
 
-```
+```java
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
@@ -178,7 +178,7 @@ PaymentResponse response = client.send(request);
 
 ### Hold
 
-```
+```java
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
@@ -192,7 +192,7 @@ PaymentResponse response = client.send(request);
 
 ### Release
 
-```
+```java
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
