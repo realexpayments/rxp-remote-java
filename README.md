@@ -204,5 +204,26 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+### Receipt-In
+
+```java
+PaymentData paymentData = new PaymentData()
+  	.addCvnNumber("123");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.RECEIPT_IN)
+ 	.addOrderId("Order ID from original transaction")
+ 	.addAmount(100)
+ 	.addCurrency("EUR")
+ 	.addPayerRef("payer ref from customer")
+ 	.addPaymentMethod("payment method ref from customer")
+ 	.addPaymentData(paymentData);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
 ## License
 See the LICENSE file.

@@ -50,6 +50,7 @@ public class SampleXmlValidationUtils {
 	public static final String CREDIT_PAYMENT_REQUEST_XML_PATH = "/sample-xml/credit-payment-request-sample.xml";
 	public static final String HOLD_PAYMENT_REQUEST_XML_PATH = "/sample-xml/hold-payment-request-sample.xml";
 	public static final String RELEASE_PAYMENT_REQUEST_XML_PATH = "/sample-xml/release-payment-request-sample.xml";
+	public static final String RECEIPT_IN_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-payment-request-sample.xml";
 
 	//Card
 	public static final String CARD_NUMBER = "420000000000000000";
@@ -231,6 +232,18 @@ public class SampleXmlValidationUtils {
 	public static final String RELEASE_PASREF = "ABC123456";
 	public static final String RELEASE_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78d95";
 	public static final String RELEASE_REQUEST_HASH = "eec6d1f5dcc51a6a2d2b59af5d2cdb965806d96c";
+
+	// receipt-in fields
+	public static final String RECEIPT_IN_TIMESTAMP = "20160119171625";
+	public static final String RECEIPT_IN_MERCHANT_ID = "thestore";
+	public static final String RECEIPT_IN_ACCOUNT = "internet";
+	public static final String RECEIPT_IN_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78d95";
+	public static final String RECEIPT_IN_AMOUNT = "3000";
+	public static final String RECEIPT_IN_CURRENCY = "EUR";
+	public static final String RECEIPT_IN_PAYER = "bloggsj01";
+	public static final String RECEIPT_IN_PAYMENT_METHOD = "visa01";
+	public static final String RECEIPT_IN_CVN = "123";
+	public static final String RECEIPT_IN_REQUEST_HASH = "373a4a7ce0c2cf7613dee027112e66faf0233b6c";
 
 	/**
 	 * Check all fields match expected values.
@@ -429,6 +442,25 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(RELEASE_ORDER_ID, fromXmlRequest.getOrderId());
 		Assert.assertEquals(RELEASE_REQUEST_HASH, fromXmlRequest.getHash());
 		Assert.assertEquals(RELEASE_PASREF, fromXmlRequest.getPaymentsReference());
+	}
+
+	/**
+	 * Check all fields match expected values.
+	 *
+	 * @param fromXmlRequest
+	 */
+	public static void checkUnmarshalledReceiptInPaymentRequest(PaymentRequest fromXmlRequest) {
+		Assert.assertNotNull(fromXmlRequest);
+		Assert.assertEquals(PaymentType.RECEIPT_IN.getType(), fromXmlRequest.getType());
+		Assert.assertEquals(RECEIPT_IN_ACCOUNT, fromXmlRequest.getAccount());
+		Assert.assertEquals(RECEIPT_IN_MERCHANT_ID, fromXmlRequest.getMerchantId());
+		Assert.assertEquals(RECEIPT_IN_TIMESTAMP, fromXmlRequest.getTimeStamp());
+		Assert.assertEquals(RECEIPT_IN_ORDER_ID, fromXmlRequest.getOrderId());
+		Assert.assertEquals(RECEIPT_IN_REQUEST_HASH, fromXmlRequest.getHash());
+		Assert.assertEquals(RECEIPT_IN_PAYER, fromXmlRequest.getPayerRef());
+		Assert.assertEquals(RECEIPT_IN_PAYMENT_METHOD, fromXmlRequest.getPaymentMethod());
+		Assert.assertEquals(RECEIPT_IN_CVN, fromXmlRequest.getPaymentData().getCvnNumber().getNumber());
+		Assert.assertEquals(RECEIPT_IN_CURRENCY, fromXmlRequest.getAmount().getCurrency());
 	}
 
 	/**

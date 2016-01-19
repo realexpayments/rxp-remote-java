@@ -1,71 +1,13 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AMOUNT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_MOBILE_TOKEN;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_NUMBER;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_AMOUNT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_AUTH_CODE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_CURRENCY;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_PASREF;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_REFUND_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CURRENCY;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.HOLD_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.HOLD_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.HOLD_PASREF;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.HOLD_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.HOLD_TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.OTB_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.OTB_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.OTB_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.OTB_TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_AMOUNT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_AUTH_CODE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_CURRENCY;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_PASREF;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_REFUND_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_PASREF;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SECRET;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_AMOUNT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_AUTH_CODE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_CURRENCY;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_PASREF;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_AUTH_CODE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_PASREF;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_TIMESTAMP;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.realexpayments.remote.sdk.domain.Card;
 import com.realexpayments.remote.sdk.domain.payment.Address.AddressType;
 import com.realexpayments.remote.sdk.domain.payment.PaymentRequest.PaymentType;
+
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.*;
 
 /**
  * Unit test class for PaymentRequest utility methods.
@@ -262,5 +204,17 @@ public class PaymentRequestTest {
 		request.hash(SECRET);
 
 		Assert.assertEquals(RELEASE_REQUEST_HASH, request.getHash());
+	}
+
+	/**
+	 * Tests the hash calculation for a receipt-in payment.
+	 */
+	@Test
+	public void receiptInHashGenerationTest() {
+		PaymentRequest request = new PaymentRequest().addType(PaymentType.RECEIPT_IN).addTimeStamp(RECEIPT_IN_TIMESTAMP).addMerchantId(RECEIPT_IN_MERCHANT_ID)
+				.addOrderId(RECEIPT_IN_ORDER_ID).addAmount(Long.parseLong(RECEIPT_IN_AMOUNT)).addCurrency(RECEIPT_IN_CURRENCY).addPayerRef(RECEIPT_IN_PAYER);
+		request.hash(SECRET);
+
+		Assert.assertEquals(RECEIPT_IN_REQUEST_HASH, request.getHash());
 	}
 }

@@ -16,6 +16,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import com.realexpayments.remote.sdk.domain.Amount;
 import com.realexpayments.remote.sdk.domain.Card;
+import com.realexpayments.remote.sdk.domain.PaymentData;
 import com.realexpayments.remote.sdk.domain.Request;
 import com.realexpayments.remote.sdk.domain.payment.Address.AddressType;
 import com.realexpayments.remote.sdk.utils.GenerationUtils;
@@ -44,7 +45,8 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * PaymentRequest request = new PaymentRequest()
  *	.addAccount("yourAccount")
  *	.addMerchantId("yourMerchantId")
- *	.addType(PaymentType.AUTH)
+ *	.addType(
+ *	.AUTH)
  *	.addAmount(100)
  *	.addCurrency("EUR")
  *	.addCard(card)
@@ -187,10 +189,30 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *	.addType(PaymentType.RELEASE)
  *	.addOrderId("Order ID from original transaction")
  *	.addPaymentsReference("Pasref from original transaction");
- * </pre></code></p> 
+ * </pre></code></p>
+ *
+ * <p>
+ * Example Receipt-in:
+ * </p>
+ * <p><code><pre>
+ * PaymentData paymentData = new PaymentData()
+ * 	.addCvnNumber("123");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.RECEIPT_IN)
+ *	.addOrderId("Order ID from original transaction")
+ *	.addAmount(100)
+ *	.addCurrency("EUR")
+ *	.addPayerRef("payer ref from customer")
+ *	.addPaymentMethod("payment method ref from customer")
+ *	.addPaymentData(paymentData);
+ * </pre></code></p>
  * 
  * @author markstanford
  */
+
 @XmlRootElement(name = "request")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> {
@@ -207,7 +229,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		OTB("otb"),
 		CREDIT("credit"),
 		HOLD("hold"),
-		RELEASE("release");
+		RELEASE("release"),
+		RECEIPT_IN("receipt-in");
 
 		/**
 		 * The payment type String value 
@@ -372,6 +395,27 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	 */
 	@XmlElement(name = "token")
 	private String token;
+
+	/**
+	 * The payer ref for this customer
+	 */
+	@XmlElement(name = "payerref")
+	private String payerRef;
+
+	/**
+	 * The payment reference
+	 */
+	@XmlElement(name = "paymentmethod")
+	private String paymentMethod;
+
+
+	/**
+	 * Contains payment information to be used on Receipt-in transactions
+	 */
+	@XmlElement(name = "paymentdata")
+	private PaymentData paymentData;
+
+
 
 	/**
 	 * Constructor for PaymentRequest.
@@ -733,12 +777,67 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 
 	/**
 	 * Setter for token.
-	 * 
+	 *
 	 * @param token
 	 */
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+	/**
+	 * Setter for payerRef.
+	 * 
+	 * @param payerRef
+	 */
+	public void setPayerRef(String payerRef) {
+		this.payerRef = payerRef;
+	}
+
+	/**
+	 * Getter for payerRef.
+	 *
+	 * @return String
+	 */
+	public String getPayerRef() {
+		return payerRef;
+	}
+
+	/**
+	 * Setter for paymentMethod.
+	 *
+	 * @param paymentMethod
+	 */
+	public void setPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+
+	/**
+	 * Getter for paymentMethod.
+	 *
+	 * @return String
+	 */
+	public String getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	/**
+	 * Setter for paymentData.
+	 *
+	 * @param paymentData
+	 */
+	public void setPaymentData(PaymentData paymentData) {
+		this.paymentData = paymentData;
+	}
+
+	/**
+	 * Getter for paymentData.
+	 *
+	 * @return PaymentData
+	 */
+	public PaymentData getPaymentData() {
+		return paymentData;
+	}
+
 
 	/**
 	 * Helper method for adding a merchant ID.
@@ -997,6 +1096,39 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	}
 
 	/**
+	 * Helper method for adding a payer ref.
+	 *
+	 * @param payerRef
+	 * @return PaymentRequest
+	 */
+	public PaymentRequest addPayerRef(String payerRef) {
+		this.payerRef = payerRef;
+		return this;
+	}
+
+	/**
+	 * Helper method for adding a payment method.
+	 *
+	 * @param paymentMethod
+	 * @return PaymentRequest
+	 */
+	public PaymentRequest addPaymentMethod(String paymentMethod) {
+		this.paymentMethod = paymentMethod;
+		return this;
+	}
+
+	/**
+	 * Helper method for adding payment data.
+	 *
+	 * @param paymentData
+	 * @return PaymentRequest
+	 */
+	public PaymentRequest addPaymentData(PaymentData paymentData) {
+		this.paymentData = paymentData;
+		return this;
+	}
+
+	/**
 	 * <p>
 	 * This helper method adds Address Verification Service (AVS) fields to the request.
 	 * </p>
@@ -1099,6 +1231,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		String amount = "";
 		String currency = "";
 		String token = null == this.token ? "" : this.token;
+		String payerRef = null == this.payerRef ? "" : this.payerRef;
 
 		if (null != this.amount) {
 			amount = null == this.amount.getAmount() ? "" : this.amount.getAmount().toString();
@@ -1131,6 +1264,20 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.append(orderId)
 					.append(".")
 					.append(cardNumber)
+					.toString();
+
+		} else if (PaymentType.RECEIPT_IN.getType().equals(this.type)) {
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(orderId)
+					.append(".")
+					.append(amount)
+					.append(".")
+					.append(currency)
+					.append(".")
+					.append(payerRef)
 					.toString();
 
 		} else {
