@@ -14,10 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
-import com.realexpayments.remote.sdk.domain.Amount;
-import com.realexpayments.remote.sdk.domain.Card;
-import com.realexpayments.remote.sdk.domain.PaymentData;
-import com.realexpayments.remote.sdk.domain.Request;
+import com.realexpayments.remote.sdk.domain.*;
 import com.realexpayments.remote.sdk.domain.payment.Address.AddressType;
 import com.realexpayments.remote.sdk.utils.GenerationUtils;
 import com.realexpayments.remote.sdk.utils.XmlUtils;
@@ -225,6 +222,47 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *
  *  RealexClient client = new RealexClient("shared secret");
  *  PaymentResponse response = client.send(request);
+ * </pre></code></p>
+ *
+ * <p>
+ * Example Payer-new:
+ * </p>
+ * <p><code><pre>
+ *
+ *
+ * PayerAddress address = new PayerAddress()
+ * .addLine1("Apt 167 Block 10")
+ * .addLine2("The Hills")
+ * .addLine3("67-69 High St")
+ * .addCity("Hytown")
+ * .addCounty("Dunham")
+ * .addPostCode("3")
+ * .addCountryCode("IE")
+ * .addCountryName("Ireland");
+ *
+ * Payer payer = new Payer()
+ * .addType("Business")
+ * .addRef("smithj01")
+ * .addTitle("Mr")
+ * .addFirstName("John")
+ * .addSurname("Smith")
+ * .addCompany("Acme")
+ * .addAddress(address)
+ * .addHomePhoneNumber("+35317285355")
+ * .addWorkPhoneNumber("+35317433923")
+ * .addFaxPhoneNumber("+35317893248")
+ * .addMobilePhoneNumber("+353873748392")
+ * .addEmail("jsmith@acme.com")
+ * .addComment("Comment1")
+ * .addComment("Comment2");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ * .addAccount("yourAccount")
+ * .addMerchantId("yourMerchantId")
+ * .addType(PaymentType.PAYER_NEW)
+ * .addPayer(payer);
+ *
+ * </pre></code></p>
  *
  * @author markstanford
  */
@@ -247,7 +285,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		HOLD("hold"),
 		RELEASE("release"),
 		RECEIPT_IN("receipt-in"),
-		PAYMENT_OUT("payment-out");
+		PAYMENT_OUT("payment-out"),
+		PAYER_NEW("payer-new");
 
 		/**
 		 * The payment type String value 
@@ -432,7 +471,11 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	@XmlElement(name = "paymentdata")
 	private PaymentData paymentData;
 
-
+	/**
+	 * Contains payer information to be used on Payer-new transactions
+	 */
+	@XmlElement(name = "payer")
+	private Payer payer;
 
 	/**
 	 * Constructor for PaymentRequest.
@@ -857,6 +900,26 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 
 
 	/**
+	 * Setter for the payer.
+	 *
+	 * @param payer
+	 */
+	public void setPayer(Payer payer) {
+		this.payer = payer;
+	}
+
+	/**
+	 * Getter for the payer.
+	 *
+	 * @return Payer
+	 */
+	public Payer getPayer() {
+		return payer;
+	}
+
+
+
+	/**
 	 * Helper method for adding a merchant ID.
 	 * 
 	 * @param merchantId
@@ -1146,6 +1209,17 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	}
 
 	/**
+	 * Helper method for adding a payer.
+	 *
+	 * @param payer
+	 * @return PaymentRequest
+	 */
+	public PaymentRequest addPayer(Payer payer) {
+		this.payer = payer;
+		return this;
+	}
+
+	/**
 	 * <p>
 	 * This helper method adds Address Verification Service (AVS) fields to the request.
 	 * </p>
@@ -1249,6 +1323,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		String currency = "";
 		String token = null == this.token ? "" : this.token;
 		String payerRef = null == this.payerRef ? "" : this.payerRef;
+		String payerNewRef =  null == this.payer ? "" : this.payer.getRef();
 
 		if (null != this.amount) {
 			amount = null == this.amount.getAmount() ? "" : this.amount.getAmount().toString();
@@ -1297,7 +1372,19 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.append(".")
 					.append(payerRef)
 					.toString();
-
+		} else if (PaymentType.PAYER_NEW.getType().equals(this.type)) {
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(orderId)
+					.append(".")
+					.append(amount)
+					.append(".")
+					.append(currency)
+					.append(".")
+					.append(payerNewRef)
+					.toString();
 		} else {
 			toHash = new StringBuilder().append(timeStamp)
 					.append(".")

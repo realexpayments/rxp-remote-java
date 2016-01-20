@@ -1,5 +1,6 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
+import com.realexpayments.remote.sdk.domain.Payer;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -229,5 +230,22 @@ public class PaymentRequestTest {
 		request.hash(SECRET);
 
 		Assert.assertEquals(PAYMENT_OUT_REQUEST_HASH, request.getHash());
+	}
+
+	/**
+	 * Tests the hash calculation for a payer-new transaction.
+	 */
+	@Test
+	public void payerNewInHashGenerationTest() {
+
+		Payer payer = new Payer()
+				.addRef(PAYER_NEW_PAYER_REF);
+
+		PaymentRequest request = new PaymentRequest().addType(PaymentType.PAYER_NEW).addTimeStamp(PAYER_NEW_TIMESTAMP).addMerchantId(PAYER_NEW_MERCHANT_ID)
+				.addOrderId(PAYER_NEW_ORDER_ID).addPayer(payer);
+
+		request.hash(SECRET);
+
+		Assert.assertEquals(PAYER_NEW_REQUEST_HASH, request.getHash());
 	}
 }

@@ -52,6 +52,7 @@ public class SampleXmlValidationUtils {
 	public static final String RELEASE_PAYMENT_REQUEST_XML_PATH = "/sample-xml/release-payment-request-sample.xml";
 	public static final String RECEIPT_IN_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-payment-request-sample.xml";
 	public static final String PAYMENT_OUT_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payment-out-payment-request-sample.xml";
+	public static final String PAYER_NEW_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payer-new-payment-request-sample.xml";
 
 	//Card
 	public static final String CARD_NUMBER = "420000000000000000";
@@ -258,6 +259,40 @@ public class SampleXmlValidationUtils {
 	public static final String PAYMENT_OUT_PAYMENT_METHOD = "visa01";
 	public static final String PAYMENT_OUT_REQUEST_HASH = "57b592b6a3a3e550b319dcc336b0a79faa976b86";
 	public static final String PAYMENT_OUT_REFUND_HASH = "52ed08590ab0bb6c2e5e4c9584aca0f6e9635a3a";
+
+
+	// payer-new fields
+	public static final String PAYER_NEW_TIMESTAMP = "20160121175725";
+	public static final String PAYER_NEW_MERCHANT_ID = "thestore";
+	public static final String PAYER_NEW_ACCOUNT = "internet";
+	public static final String PAYER_NEW_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78A77";
+	public static final String PAYER_NEW_REQUEST_HASH = "fa007978fb6b897c56f25e9dd50f4f4ddeae822a";
+
+	public static final String PAYER_NEW_PAYER_REF = "bloggsj01";
+	public static final String PAYER_NEW_PAYER_TYPE = "Business";
+	public static final String PAYER_NEW_PAYER_TITLE = "Mr";
+	public static final String PAYER_NEW_PAYER_FIRSTNAME = "John";
+	public static final String PAYER_NEW_PAYER_SURNAME = "Smith";
+	public static final String PAYER_NEW_PAYER_COMPANY = "Acme Inc";
+	public static final String PAYER_NEW_PAYER_ADDRESS_LINE_1 = "Apt 167 Block 10";
+	public static final String PAYER_NEW_PAYER_ADDRESS_LINE_2 = "The Hills";
+	public static final String PAYER_NEW_PAYER_ADDRESS_LINE_3 = "";
+	public static final String PAYER_NEW_PAYER_ADDRESS_CITY = "Hytown";
+	public static final String PAYER_NEW_PAYER_ADDRESS_COUNTY = "Dunham";
+	public static final String PAYER_NEW_PAYER_ADDRESS_POSTCODE = "3";
+	public static final String PAYER_NEW_PAYER_ADDRESS_COUNTRY_CODE = "IE";
+	public static final String PAYER_NEW_PAYER_ADDRESS_COUNTRY_NAME = "Ireland";
+	public static final String PAYER_NEW_PAYER_HOME_NUMBER = "";
+	public static final String PAYER_NEW_PAYER_WORK_NUMBER = "+35317433923";
+	public static final String PAYER_NEW_PAYER_FAX_NUMBER = "+35317893248";
+	public static final String PAYER_NEW_PAYER_MOBILE_NUMBER = "+353873748392";
+	public static final String PAYER_NEW_PAYER_EMAIL = "jsmith@acme.com";
+	public static final String PAYER_NEW_PAYER_COMMENT_1 = "comment 1";
+	public static final String PAYER_NEW_PAYER_COMMENT_2 = "";
+
+
+
+
 
 
 	/**
@@ -499,6 +534,51 @@ public class SampleXmlValidationUtils {
 
 	/**
 	 * Check all fields match expected values.
+	 *
+	 * @param fromXmlRequest
+	 */
+	public static void checkUnmarshalledPayerNewPaymentRequest(PaymentRequest fromXmlRequest) {
+		Assert.assertNotNull(fromXmlRequest);
+
+		Assert.assertEquals(PaymentType.PAYER_NEW.getType(), fromXmlRequest.getType());
+		Assert.assertEquals(PAYER_NEW_ACCOUNT, fromXmlRequest.getAccount());
+		Assert.assertEquals(PAYER_NEW_MERCHANT_ID, fromXmlRequest.getMerchantId());
+		Assert.assertEquals(PAYER_NEW_TIMESTAMP, fromXmlRequest.getTimeStamp());
+		Assert.assertEquals(PAYER_NEW_ORDER_ID, fromXmlRequest.getOrderId());
+		Assert.assertEquals(PAYER_NEW_REQUEST_HASH, fromXmlRequest.getHash());
+
+		Assert.assertEquals(PAYER_NEW_PAYER_REF, fromXmlRequest.getPayer().getRef());
+		Assert.assertEquals(PAYER_NEW_PAYER_TYPE, fromXmlRequest.getPayer().getType());
+		Assert.assertEquals(PAYER_NEW_PAYER_TITLE, fromXmlRequest.getPayer().getTitle());
+		Assert.assertEquals(PAYER_NEW_PAYER_FIRSTNAME, fromXmlRequest.getPayer().getFirstName());
+		Assert.assertEquals(PAYER_NEW_PAYER_SURNAME, fromXmlRequest.getPayer().getSurname());
+		Assert.assertEquals(PAYER_NEW_PAYER_COMPANY, fromXmlRequest.getPayer().getCompany());
+		Assert.assertEquals(PAYER_NEW_PAYER_EMAIL, fromXmlRequest.getPayer().getEmail());
+
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_LINE_1, fromXmlRequest.getPayer().getAddress().getLine1());
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_LINE_2, fromXmlRequest.getPayer().getAddress().getLine2());
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_LINE_3, fromXmlRequest.getPayer().getAddress().getLine3());
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_CITY, fromXmlRequest.getPayer().getAddress().getCity());
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_COUNTY, fromXmlRequest.getPayer().getAddress().getCounty());
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_POSTCODE, fromXmlRequest.getPayer().getAddress().getPostcode());
+
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_COUNTRY_CODE, fromXmlRequest.getPayer().getAddress().getCountry().getCode());
+		Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_COUNTRY_NAME, fromXmlRequest.getPayer().getAddress().getCountry().getName());
+
+		Assert.assertEquals(PAYER_NEW_PAYER_HOME_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getHomePhoneNumber());
+		Assert.assertEquals(PAYER_NEW_PAYER_WORK_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getWorkPhoneNumber());
+		Assert.assertEquals(PAYER_NEW_PAYER_FAX_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getFaxPhoneNumber());
+		Assert.assertEquals(PAYER_NEW_PAYER_MOBILE_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getMobilePhoneNumber());
+
+
+		Assert.assertEquals(PAYER_NEW_PAYER_COMMENT_1, fromXmlRequest.getPayer().getComments().get(0).getComment().trim());
+		Assert.assertEquals("1", fromXmlRequest.getPayer().getComments().get(0).getId().toString());
+		Assert.assertEquals(PAYER_NEW_PAYER_COMMENT_2, fromXmlRequest.getPayer().getComments().get(1).getComment().trim());
+		Assert.assertEquals("2", fromXmlRequest.getPayer().getComments().get(1).getId().toString());
+	}
+
+	/**
+	 * Check all fields match expected values.
 	 * 
 	 * @param fromXmlResponse
 	 */
@@ -534,7 +614,7 @@ public class SampleXmlValidationUtils {
 	/**
 	 * Check all fields match expected values.
 	 * 
-	 * @param fromXmlResponse
+	 * @param ex
 	 */
 	public static void checkBasicResponseError(RealexServerException ex) {
 		Assert.assertEquals(RESULT_BASIC_ERROR, ex.getErrorCode());
@@ -690,3 +770,5 @@ public class SampleXmlValidationUtils {
 	}
 
 }
+
+
