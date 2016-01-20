@@ -51,6 +51,7 @@ public class SampleXmlValidationUtils {
 	public static final String HOLD_PAYMENT_REQUEST_XML_PATH = "/sample-xml/hold-payment-request-sample.xml";
 	public static final String RELEASE_PAYMENT_REQUEST_XML_PATH = "/sample-xml/release-payment-request-sample.xml";
 	public static final String RECEIPT_IN_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-payment-request-sample.xml";
+	public static final String PAYMENT_OUT_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payment-out-payment-request-sample.xml";
 
 	//Card
 	public static final String CARD_NUMBER = "420000000000000000";
@@ -244,6 +245,20 @@ public class SampleXmlValidationUtils {
 	public static final String RECEIPT_IN_PAYMENT_METHOD = "visa01";
 	public static final String RECEIPT_IN_CVN = "123";
 	public static final String RECEIPT_IN_REQUEST_HASH = "373a4a7ce0c2cf7613dee027112e66faf0233b6c";
+
+
+	// payment-out fields
+	public static final String PAYMENT_OUT_TIMESTAMP = "20160120135725";
+	public static final String PAYMENT_OUT_MERCHANT_ID = "thestore";
+	public static final String PAYMENT_OUT_ACCOUNT = "internet";
+	public static final String PAYMENT_OUT_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78A13";
+	public static final String PAYMENT_OUT_AMOUNT = "3000";
+	public static final String PAYMENT_OUT_CURRENCY = "EUR";
+	public static final String PAYMENT_OUT_PAYER = "bloggsj01";
+	public static final String PAYMENT_OUT_PAYMENT_METHOD = "visa01";
+	public static final String PAYMENT_OUT_REQUEST_HASH = "57b592b6a3a3e550b319dcc336b0a79faa976b86";
+	public static final String PAYMENT_OUT_REFUND_HASH = "52ed08590ab0bb6c2e5e4c9584aca0f6e9635a3a";
+
 
 	/**
 	 * Check all fields match expected values.
@@ -461,6 +476,25 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(RECEIPT_IN_PAYMENT_METHOD, fromXmlRequest.getPaymentMethod());
 		Assert.assertEquals(RECEIPT_IN_CVN, fromXmlRequest.getPaymentData().getCvnNumber().getNumber());
 		Assert.assertEquals(RECEIPT_IN_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+	}
+
+	/**
+	 * Check all fields match expected values.
+	 *
+	 * @param fromXmlRequest
+	 */
+	public static void checkUnmarshalledPaymentOutPaymentRequest(PaymentRequest fromXmlRequest) {
+		Assert.assertNotNull(fromXmlRequest);
+		Assert.assertEquals(PaymentType.PAYMENT_OUT.getType(), fromXmlRequest.getType());
+		Assert.assertEquals(PAYMENT_OUT_ACCOUNT, fromXmlRequest.getAccount());
+		Assert.assertEquals(PAYMENT_OUT_MERCHANT_ID, fromXmlRequest.getMerchantId());
+		Assert.assertEquals(PAYMENT_OUT_TIMESTAMP, fromXmlRequest.getTimeStamp());
+		Assert.assertEquals(PAYMENT_OUT_ORDER_ID, fromXmlRequest.getOrderId());
+		Assert.assertEquals(PAYMENT_OUT_REQUEST_HASH, fromXmlRequest.getHash());
+		Assert.assertEquals(PAYMENT_OUT_PAYER, fromXmlRequest.getPayerRef());
+		Assert.assertEquals(PAYMENT_OUT_PAYMENT_METHOD, fromXmlRequest.getPaymentMethod());
+		Assert.assertEquals(PAYMENT_OUT_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+		Assert.assertEquals(PAYMENT_OUT_REFUND_HASH, fromXmlRequest.getRefundHash());
 	}
 
 	/**

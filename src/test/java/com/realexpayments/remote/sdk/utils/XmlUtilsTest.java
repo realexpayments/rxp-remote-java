@@ -52,6 +52,7 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REFUN
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REGION;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECEIPT_IN_PAYMENT_REQUEST_XML_PATH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_OUT_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESPONSE_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESULT_SUCCESS;
@@ -86,6 +87,7 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.check
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledReleasePaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledSettlePaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledReceiptInPaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPaymentOutPaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureEnrolledResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureSigResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVerifyEnrolledRequest;
@@ -818,6 +820,21 @@ public class XmlUtilsTest {
 		//Convert from XML back to PaymentRequest
 		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
 		checkUnmarshalledReceiptInPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for receipt-in payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFilePaymentOutTest() {
+
+			File file = new File(this.getClass().getResource(PAYMENT_OUT_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledPaymentOutPaymentRequest(fromXmlRequest);
 
 	}
 }

@@ -217,4 +217,17 @@ public class PaymentRequestTest {
 
 		Assert.assertEquals(RECEIPT_IN_REQUEST_HASH, request.getHash());
 	}
+
+	/**
+	 * Tests the hash calculation for a payment-out payment.
+	 */
+	@Test
+	public void paymentOutInHashGenerationTest() {
+		PaymentRequest request = new PaymentRequest().addType(PaymentType.PAYMENT_OUT).addTimeStamp(PAYMENT_OUT_TIMESTAMP).addMerchantId(PAYMENT_OUT_MERCHANT_ID)
+				.addOrderId(PAYMENT_OUT_ORDER_ID).addAmount(Long.parseLong(PAYMENT_OUT_AMOUNT)).addCurrency(PAYMENT_OUT_CURRENCY).addPayerRef(PAYMENT_OUT_PAYER)
+				.addRefundHash(PAYMENT_OUT_REFUND_HASH);
+		request.hash(SECRET);
+
+		Assert.assertEquals(PAYMENT_OUT_REQUEST_HASH, request.getHash());
+	}
 }

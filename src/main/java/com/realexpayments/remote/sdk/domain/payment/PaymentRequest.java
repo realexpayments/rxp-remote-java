@@ -45,8 +45,7 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * PaymentRequest request = new PaymentRequest()
  *	.addAccount("yourAccount")
  *	.addMerchantId("yourMerchantId")
- *	.addType(
- *	.AUTH)
+ *	.addType(PaymentType.AUTH)
  *	.addAmount(100)
  *	.addCurrency("EUR")
  *	.addCard(card)
@@ -209,7 +208,24 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *	.addPaymentMethod("payment method ref from customer")
  *	.addPaymentData(paymentData);
  * </pre></code></p>
- * 
+ *
+ * <p>
+ * Example Payment-out:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *  .addAccount("yourAccount")
+ *  .addMerchantId("yourMerchantId")
+ *  .addType(PaymentType.PAYMENT_OUT)
+ *  .addAmount(100)
+ *  .addCurrency("EUR")
+ *  .addPayerRef("payer ref from customer")
+ *  .addPaymentMethod("payment method ref from customer")
+ *  .addRefundHash("Hash of rebate password shared with Realex");
+ *
+ *  RealexClient client = new RealexClient("shared secret");
+ *  PaymentResponse response = client.send(request);
+ *
  * @author markstanford
  */
 
@@ -230,7 +246,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		CREDIT("credit"),
 		HOLD("hold"),
 		RELEASE("release"),
-		RECEIPT_IN("receipt-in");
+		RECEIPT_IN("receipt-in"),
+		PAYMENT_OUT("payment-out");
 
 		/**
 		 * The payment type String value 
@@ -1266,7 +1283,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.append(cardNumber)
 					.toString();
 
-		} else if (PaymentType.RECEIPT_IN.getType().equals(this.type)) {
+		} else if (PaymentType.RECEIPT_IN.getType().equals(this.type) ||
+				   PaymentType.PAYMENT_OUT.getType().equals(this.type))  {
 			toHash = new StringBuilder().append(timeStamp)
 					.append(".")
 					.append(merchantId)
