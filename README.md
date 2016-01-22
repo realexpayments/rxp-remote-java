@@ -283,5 +283,46 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+### Payer-edit
+
+```java
+
+PayerAddress address = new PayerAddress()
+    .addLine1("Apt 167 Block 10")
+    .addLine2("The Hills")
+    .addLine3("67-69 High St")
+    .addCity("Hytown")
+    .addCounty("Dunham")
+    .addPostCode("3")
+    .addCountryCode("IE")
+    .addCountryName("Ireland");
+    
+
+Payer payer = new Payer()
+    .addType("Business")
+    .addRef("smithj01")
+    .addTitle("Mr")
+    .addFirstName("John")
+    .addSurname("Smith")
+    .addCompany("Acme")
+    .addAddress(address)
+    .addHomePhoneNumber("+35317285355")
+    .addWorkPhoneNumber("+35317433923")
+    .addFaxPhoneNumber("+35317893248")
+    .addMobilePhoneNumber("+353873748392")
+    .addEmail("jsmith@acme.com")
+    .addComment("Comment1")
+    .addComment("Comment2");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.PAYER_EDIT)  	
+ 	.addPayer(payer);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
 ## License
 See the LICENSE file.

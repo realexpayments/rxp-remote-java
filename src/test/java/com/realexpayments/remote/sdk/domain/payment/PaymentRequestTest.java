@@ -223,7 +223,7 @@ public class PaymentRequestTest {
 	 * Tests the hash calculation for a payment-out payment.
 	 */
 	@Test
-	public void paymentOutInHashGenerationTest() {
+	public void paymentOutHashGenerationTest() {
 		PaymentRequest request = new PaymentRequest().addType(PaymentType.PAYMENT_OUT).addTimeStamp(PAYMENT_OUT_TIMESTAMP).addMerchantId(PAYMENT_OUT_MERCHANT_ID)
 				.addOrderId(PAYMENT_OUT_ORDER_ID).addAmount(Long.parseLong(PAYMENT_OUT_AMOUNT)).addCurrency(PAYMENT_OUT_CURRENCY).addPayerRef(PAYMENT_OUT_PAYER)
 				.addRefundHash(PAYMENT_OUT_REFUND_HASH);
@@ -236,7 +236,7 @@ public class PaymentRequestTest {
 	 * Tests the hash calculation for a payer-new transaction.
 	 */
 	@Test
-	public void payerNewInHashGenerationTest() {
+	public void payerNewHashGenerationTest() {
 
 		Payer payer = new Payer()
 				.addRef(PAYER_NEW_PAYER_REF);
@@ -247,5 +247,22 @@ public class PaymentRequestTest {
 		request.hash(SECRET);
 
 		Assert.assertEquals(PAYER_NEW_REQUEST_HASH, request.getHash());
+	}
+
+	/**
+	 * Tests the hash calculation for a payer-new transaction.
+	 */
+	@Test
+	public void payerEditHashGenerationTest() {
+
+		Payer payer = new Payer()
+				.addRef(PAYER_EDIT_PAYER_REF);
+
+		PaymentRequest request = new PaymentRequest().addType(PaymentType.PAYER_EDIT).addTimeStamp(PAYER_EDIT_TIMESTAMP).addMerchantId(PAYER_EDIT_MERCHANT_ID)
+				.addOrderId(PAYER_EDIT_ORDER_ID).addPayer(payer);
+
+		request.hash(SECRET);
+
+		Assert.assertEquals(PAYER_EDIT_REQUEST_HASH, request.getHash());
 	}
 }

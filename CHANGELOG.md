@@ -2,7 +2,7 @@
 All notable changes to the SDK will be documented in this file.
 
 ## [1.2]
-- Added Card Storage: Receipt-in, Payment-out, Payer-New
+- Added Card Storage: Receipt-in, Payment-out, Payer-New, Payer-Edit
 
 ## [1.1]
 - Added mobile payment type (auth-mobile) and relevant fields (mobile, token) to payment request.

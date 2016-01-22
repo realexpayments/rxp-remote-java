@@ -229,7 +229,6 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * </p>
  * <p><code><pre>
  *
- *
  * PayerAddress address = new PayerAddress()
  * .addLine1("Apt 167 Block 10")
  * .addLine2("The Hills")
@@ -264,6 +263,43 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *
  * </pre></code></p>
  *
+ * * <p>
+ * Example Payer-edit:
+ * </p>
+ * <p><code><pre>
+ *
+ * PayerAddress address = new PayerAddress()
+ * .addLine1("Apt 167 Block 10")
+ * .addLine2("The Hills")
+ * .addLine3("67-69 High St")
+ * .addCity("Hytown")
+ * .addCounty("Dunham")
+ * .addPostCode("3")
+ * .addCountryCode("IE")
+ * .addCountryName("Ireland");
+ *
+ * Payer payer = new Payer()
+ * .addType("Business")
+ * .addRef("smithj01")
+ * .addTitle("Mr")
+ * .addFirstName("John")
+ * .addSurname("Smith")
+ * .addCompany("Acme")
+ * .addAddress(address)
+ * .addHomePhoneNumber("+35317285355")
+ * .addWorkPhoneNumber("+35317433923")
+ * .addFaxPhoneNumber("+35317893248")
+ * .addMobilePhoneNumber("+353873748392")
+ * .addEmail("jsmith@acme.com")
+ * .addComment("Comment1")
+ * .addComment("Comment2");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ * .addAccount("yourAccount")
+ * .addMerchantId("yourMerchantId")
+ * .addType(PaymentType.PAYER_EDIT)
+ * .addPayer(payer);
+ *
  * @author markstanford
  */
 
@@ -286,7 +322,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		RELEASE("release"),
 		RECEIPT_IN("receipt-in"),
 		PAYMENT_OUT("payment-out"),
-		PAYER_NEW("payer-new");
+		PAYER_NEW("payer-new"),
+		PAYER_EDIT("payer-edit");
 
 		/**
 		 * The payment type String value 
@@ -1372,7 +1409,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.append(".")
 					.append(payerRef)
 					.toString();
-		} else if (PaymentType.PAYER_NEW.getType().equals(this.type)) {
+		} else if (PaymentType.PAYER_NEW.getType().equals(this.type) ||
+				PaymentType.PAYER_EDIT.getType().equals(this.type)) {
 			toHash = new StringBuilder().append(timeStamp)
 					.append(".")
 					.append(merchantId)

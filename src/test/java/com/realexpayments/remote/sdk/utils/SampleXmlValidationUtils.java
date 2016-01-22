@@ -53,6 +53,7 @@ public class SampleXmlValidationUtils {
 	public static final String RECEIPT_IN_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-payment-request-sample.xml";
 	public static final String PAYMENT_OUT_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payment-out-payment-request-sample.xml";
 	public static final String PAYER_NEW_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payer-new-payment-request-sample.xml";
+	public static final String PAYER_EDIT_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payer-edit-payment-request-sample.xml";
 
 	//Card
 	public static final String CARD_NUMBER = "420000000000000000";
@@ -290,6 +291,35 @@ public class SampleXmlValidationUtils {
 	public static final String PAYER_NEW_PAYER_COMMENT_1 = "comment 1";
 	public static final String PAYER_NEW_PAYER_COMMENT_2 = "";
 
+
+	// payer-edit fields
+	public static final String PAYER_EDIT_TIMESTAMP = "20160122155725";
+	public static final String PAYER_EDIT_MERCHANT_ID = "thestore";
+	public static final String PAYER_EDIT_ACCOUNT = "internet";
+	public static final String PAYER_EDIT_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78A77";
+	public static final String PAYER_EDIT_REQUEST_HASH = "9ac73a4c8e5d4904c1e6814f48aaeb9bcb4e2615";
+
+	public static final String PAYER_EDIT_PAYER_REF = "bloggsj01";
+	public static final String PAYER_EDIT_PAYER_TYPE = "Business";
+	public static final String PAYER_EDIT_PAYER_TITLE = "Mr";
+	public static final String PAYER_EDIT_PAYER_FIRSTNAME = "John";
+	public static final String PAYER_EDIT_PAYER_SURNAME = "Smith";
+	public static final String PAYER_EDIT_PAYER_COMPANY = "Acme Inc";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_LINE_1 = "123 Fake St.";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_LINE_2 = "";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_LINE_3 = "";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_CITY = "Hytown";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_COUNTY = "Dunham";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_POSTCODE = "3";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_COUNTRY_CODE = "IE";
+	public static final String PAYER_EDIT_PAYER_ADDRESS_COUNTRY_NAME = "Ireland";
+	public static final String PAYER_EDIT_PAYER_HOME_NUMBER = "";
+	public static final String PAYER_EDIT_PAYER_WORK_NUMBER = "+35317433923";
+	public static final String PAYER_EDIT_PAYER_FAX_NUMBER = "+35317893248";
+	public static final String PAYER_EDIT_PAYER_MOBILE_NUMBER = "+353873748392";
+	public static final String PAYER_EDIT_PAYER_EMAIL = "jsmith@acme.com";
+	public static final String PAYER_EDIT_PAYER_COMMENT_1 = "comment 1";
+	public static final String PAYER_EDIT_PAYER_COMMENT_2 = "";
 
 
 
@@ -574,6 +604,51 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(PAYER_NEW_PAYER_COMMENT_1, fromXmlRequest.getPayer().getComments().get(0).getComment().trim());
 		Assert.assertEquals("1", fromXmlRequest.getPayer().getComments().get(0).getId().toString());
 		Assert.assertEquals(PAYER_NEW_PAYER_COMMENT_2, fromXmlRequest.getPayer().getComments().get(1).getComment().trim());
+		Assert.assertEquals("2", fromXmlRequest.getPayer().getComments().get(1).getId().toString());
+	}
+
+	/**
+	 * Check all fields match expected values.
+	 *
+	 * @param fromXmlRequest
+	 */
+	public static void checkUnmarshalledPayerEditPaymentRequest(PaymentRequest fromXmlRequest) {
+		Assert.assertNotNull(fromXmlRequest);
+
+		Assert.assertEquals(PaymentType.PAYER_EDIT.getType(), fromXmlRequest.getType());
+		Assert.assertEquals(PAYER_EDIT_ACCOUNT, fromXmlRequest.getAccount());
+		Assert.assertEquals(PAYER_EDIT_MERCHANT_ID, fromXmlRequest.getMerchantId());
+		Assert.assertEquals(PAYER_EDIT_TIMESTAMP, fromXmlRequest.getTimeStamp());
+		Assert.assertEquals(PAYER_EDIT_ORDER_ID, fromXmlRequest.getOrderId());
+		Assert.assertEquals(PAYER_EDIT_REQUEST_HASH, fromXmlRequest.getHash());
+
+		Assert.assertEquals(PAYER_EDIT_PAYER_REF, fromXmlRequest.getPayer().getRef());
+		Assert.assertEquals(PAYER_EDIT_PAYER_TYPE, fromXmlRequest.getPayer().getType());
+		Assert.assertEquals(PAYER_EDIT_PAYER_TITLE, fromXmlRequest.getPayer().getTitle());
+		Assert.assertEquals(PAYER_EDIT_PAYER_FIRSTNAME, fromXmlRequest.getPayer().getFirstName());
+		Assert.assertEquals(PAYER_EDIT_PAYER_SURNAME, fromXmlRequest.getPayer().getSurname());
+		Assert.assertEquals(PAYER_EDIT_PAYER_COMPANY, fromXmlRequest.getPayer().getCompany());
+		Assert.assertEquals(PAYER_EDIT_PAYER_EMAIL, fromXmlRequest.getPayer().getEmail());
+
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_LINE_1, fromXmlRequest.getPayer().getAddress().getLine1());
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_LINE_2, fromXmlRequest.getPayer().getAddress().getLine2());
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_LINE_3, fromXmlRequest.getPayer().getAddress().getLine3());
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_CITY, fromXmlRequest.getPayer().getAddress().getCity());
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_COUNTY, fromXmlRequest.getPayer().getAddress().getCounty());
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_POSTCODE, fromXmlRequest.getPayer().getAddress().getPostcode());
+
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_COUNTRY_CODE, fromXmlRequest.getPayer().getAddress().getCountry().getCode());
+		Assert.assertEquals(PAYER_EDIT_PAYER_ADDRESS_COUNTRY_NAME, fromXmlRequest.getPayer().getAddress().getCountry().getName());
+
+		Assert.assertEquals(PAYER_EDIT_PAYER_HOME_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getHomePhoneNumber());
+		Assert.assertEquals(PAYER_EDIT_PAYER_WORK_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getWorkPhoneNumber());
+		Assert.assertEquals(PAYER_EDIT_PAYER_FAX_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getFaxPhoneNumber());
+		Assert.assertEquals(PAYER_EDIT_PAYER_MOBILE_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getMobilePhoneNumber());
+
+
+		Assert.assertEquals(PAYER_EDIT_PAYER_COMMENT_1, fromXmlRequest.getPayer().getComments().get(0).getComment().trim());
+		Assert.assertEquals("1", fromXmlRequest.getPayer().getComments().get(0).getId().toString());
+		Assert.assertEquals(PAYER_EDIT_PAYER_COMMENT_2, fromXmlRequest.getPayer().getComments().get(1).getComment().trim());
 		Assert.assertEquals("2", fromXmlRequest.getPayer().getComments().get(1).getId().toString());
 	}
 
