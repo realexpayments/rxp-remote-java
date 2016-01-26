@@ -265,4 +265,29 @@ public class PaymentRequestTest {
 
 		Assert.assertEquals(PAYER_EDIT_REQUEST_HASH, request.getHash());
 	}
+
+	/**
+	 * Tests the hash calculation for a payer-new transaction.
+	 */
+	@Test
+	public void cardNewHashGenerationTest() {
+
+		Card card = new Card()
+				.addReference(CARD_ADD_REF)
+				.addPayerReference(CARD_ADD_PAYER_REF)
+				.addCardHolderName(CARD_ADD_CARD_HOLDER_NAME)
+				.addNumber(CARD_ADD_NUMBER);
+
+
+
+		PaymentRequest request = new PaymentRequest().addType(PaymentType.CARD_NEW)
+				.addTimeStamp(CARD_ADD_TIMESTAMP)
+				.addMerchantId(CARD_ADD_MERCHANT_ID)
+				.addOrderId(CARD_ADD_ORDER_ID)
+				.addCard(card);
+
+		request.hash(SECRET);
+
+		Assert.assertEquals(CARD_ADD_REQUEST_HASH, request.getHash());
+	}
 }

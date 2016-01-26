@@ -324,5 +324,28 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+### Card-new
+
+```java
+
+Card card = new Card()
+    .addReference("visa01")
+    .addPayerReference("smithj01")
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA)
+	.addIssueNumber("1");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.CARD_NEW)  	
+ 	.addCard(card);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
 ## License
 See the LICENSE file.

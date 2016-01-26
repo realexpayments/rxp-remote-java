@@ -263,7 +263,7 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *
  * </pre></code></p>
  *
- * * <p>
+ * <p>
  * Example Payer-edit:
  * </p>
  * <p><code><pre>
@@ -300,6 +300,30 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * .addType(PaymentType.PAYER_EDIT)
  * .addPayer(payer);
  *
+ * </pre></code></p>
+ *
+ * <p>
+ * Example Payer-edit:
+ * </p>
+ * <p><code><pre>
+ *
+ * Card card = new Card()
+ * .addReference("visa01")
+ * .addPayerReference("smithj01")
+ * .addNumber("420000000000000000")
+ * .addExpiryDate("0119")
+ * .addCardHolderName("Joe Smith")
+ * .addType(CardType.VISA)
+ * .addIssueNumber("1");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ * .addAccount("yourAccount")
+ * .addMerchantId("yourMerchantId")
+ * .addType(PaymentType.CARD_NEW)
+ * .addCard(card);
+ *
+ * </pre></code></p>
+ *
  * @author markstanford
  */
 
@@ -323,7 +347,9 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		RECEIPT_IN("receipt-in"),
 		PAYMENT_OUT("payment-out"),
 		PAYER_NEW("payer-new"),
-		PAYER_EDIT("payer-edit");
+		PAYER_EDIT("payer-edit"),
+		CARD_NEW("card-new");
+
 
 		/**
 		 * The payment type String value 
@@ -509,7 +535,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	private PaymentData paymentData;
 
 	/**
-	 * Contains payer information to be used on Payer-new transactions
+	 * {@link Payer} information to be used on RealVault transactions
 	 */
 	@XmlElement(name = "payer")
 	private Payer payer;
@@ -954,8 +980,6 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		return payer;
 	}
 
-
-
 	/**
 	 * Helper method for adding a merchant ID.
 	 * 
@@ -1373,6 +1397,19 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 			cardNumber = null == this.card.getNumber() ? "" : this.card.getNumber();
 		}
 
+
+		String cardHolderName = "";
+
+		if (null != this.card) {
+			cardHolderName = null == this.card.getCardHolderName() ? "" : this.card.getCardHolderName();
+		}
+
+		String cardPayerRef = "";
+
+		if (null != this.card) {
+			cardPayerRef = null == this.card.getPayerReference() ? "" : this.card.getPayerReference();
+		}
+
 		//create String to hash
 		String toHash;
 		if (PaymentType.AUTH_MOBILE.getType().equals(this.type)) {
@@ -1423,6 +1460,25 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.append(".")
 					.append(payerNewRef)
 					.toString();
+		} else if (PaymentType.CARD_NEW.getType().equals(this.type)) {
+
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(orderId)
+					.append(".")
+					.append(amount)
+					.append(".")
+					.append(currency)
+					.append(".")
+					.append(cardPayerRef)
+					.append(".")
+					.append(cardHolderName)
+					.append(".")
+					.append(cardNumber)
+					.toString();
+
 		} else {
 			toHash = new StringBuilder().append(timeStamp)
 					.append(".")

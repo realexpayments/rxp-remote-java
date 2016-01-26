@@ -54,6 +54,7 @@ public class SampleXmlValidationUtils {
 	public static final String PAYMENT_OUT_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payment-out-payment-request-sample.xml";
 	public static final String PAYER_NEW_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payer-new-payment-request-sample.xml";
 	public static final String PAYER_EDIT_PAYMENT_REQUEST_XML_PATH = "/sample-xml/payer-edit-payment-request-sample.xml";
+	public static final String CARD_NEW_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-new-payment-request-sample.xml";
 
 	//Card
 	public static final String CARD_NUMBER = "420000000000000000";
@@ -320,6 +321,21 @@ public class SampleXmlValidationUtils {
 	public static final String PAYER_EDIT_PAYER_EMAIL = "jsmith@acme.com";
 	public static final String PAYER_EDIT_PAYER_COMMENT_1 = "comment 1";
 	public static final String PAYER_EDIT_PAYER_COMMENT_2 = "";
+
+	// card-new fields
+	public static final String CARD_ADD_TIMESTAMP = "20160125165725";
+	public static final String CARD_ADD_MERCHANT_ID = "thestore";
+	public static final String CARD_ADD_ACCOUNT = "internet";
+	public static final String CARD_ADD_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78A99";
+	public static final String CARD_ADD_REQUEST_HASH = "fb85da792353786fda1bf4ddeb665fedb728af20";
+
+	public static final String CARD_ADD_PAYER_REF = "smithj01";
+	public static final String CARD_ADD_REF = "visa01";
+	public static final String CARD_ADD_NUMBER = "4988433008499991";
+	public static final String CARD_ADD_EXP_DATE = "0104";
+	public static final String CARD_ADD_CARD_HOLDER_NAME = "John Smith";
+	public static final String CARD_ADD_TYPE = "visa";
+	public static final Integer CARD_ADD_ISSUE_NUMBER= 1;
 
 
 
@@ -651,6 +667,33 @@ public class SampleXmlValidationUtils {
 		Assert.assertEquals(PAYER_EDIT_PAYER_COMMENT_2, fromXmlRequest.getPayer().getComments().get(1).getComment().trim());
 		Assert.assertEquals("2", fromXmlRequest.getPayer().getComments().get(1).getId().toString());
 	}
+
+
+	/**
+	 * Check all fields match expected values.
+	 *
+	 * @param fromXmlRequest
+	 */
+	public static void checkUnmarshalledCardAddPaymentRequest(PaymentRequest fromXmlRequest) {
+		Assert.assertNotNull(fromXmlRequest);
+
+		Assert.assertEquals(PaymentType.CARD_NEW.getType(), fromXmlRequest.getType());
+		Assert.assertEquals(CARD_ADD_ACCOUNT, fromXmlRequest.getAccount());
+		Assert.assertEquals(CARD_ADD_MERCHANT_ID, fromXmlRequest.getMerchantId());
+		Assert.assertEquals(CARD_ADD_TIMESTAMP, fromXmlRequest.getTimeStamp());
+		Assert.assertEquals(CARD_ADD_ORDER_ID, fromXmlRequest.getOrderId());
+		Assert.assertEquals(CARD_ADD_REQUEST_HASH, fromXmlRequest.getHash());
+
+		Assert.assertEquals(CARD_ADD_PAYER_REF, fromXmlRequest.getCard().getPayerReference());
+		Assert.assertEquals(CARD_ADD_REF, fromXmlRequest.getCard().getReference());
+		Assert.assertEquals(CARD_ADD_NUMBER, fromXmlRequest.getCard().getNumber());
+		Assert.assertEquals(CARD_ADD_EXP_DATE, fromXmlRequest.getCard().getExpiryDate());
+		Assert.assertEquals(CARD_ADD_CARD_HOLDER_NAME, fromXmlRequest.getCard().getCardHolderName());
+		Assert.assertEquals(CARD_ADD_TYPE, fromXmlRequest.getCard().getType());
+		Assert.assertEquals(CARD_ADD_ISSUE_NUMBER, fromXmlRequest.getCard().getIssueNumber());
+		Assert.assertEquals(String.valueOf(CARD_ADD_ISSUE_NUMBER), String.valueOf(fromXmlRequest.getCard().getIssueNumber()));
+	}
+
 
 	/**
 	 * Check all fields match expected values.
