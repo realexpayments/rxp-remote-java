@@ -56,6 +56,9 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYME
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYER_NEW_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYER_EDIT_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_NEW_PAYMENT_REQUEST_XML_PATH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_REPLACE_CARD_PAYMENT_REQUEST_XML_PATH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_UPDATE_ISSUE_NO_PAYMENT_REQUEST_XML_PATH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_UPDATE_CH_NAME_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESPONSE_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESULT_SUCCESS;
@@ -94,6 +97,9 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.check
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPayerNewPaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPayerEditPaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardAddPaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceCardPaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceIssueNoPaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceCHNamePaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureEnrolledResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureSigResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVerifyEnrolledRequest;
@@ -886,6 +892,51 @@ public class XmlUtilsTest {
 		//Convert from XML back to PaymentRequest
 		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
 		checkUnmarshalledCardAddPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileCardEditReplaceCardTest() {
+
+		File file = new File(this.getClass().getResource(CARD_EDIT_REPLACE_CARD_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledCardEditReplaceCardPaymentRequest(fromXmlRequest);
+	}
+
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileCardEditReplaceIssueNoTest() {
+
+		File file = new File(this.getClass().getResource(CARD_EDIT_UPDATE_ISSUE_NO_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledCardEditReplaceIssueNoPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileCardEditReplaceCHNameTest() {
+
+		File file = new File(this.getClass().getResource(CARD_EDIT_UPDATE_CH_NAME_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledCardEditReplaceCHNamePaymentRequest(fromXmlRequest);
 
 	}
 }

@@ -303,7 +303,7 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * </pre></code></p>
  *
  * <p>
- * Example Payer-edit:
+ * Example card add:
  * </p>
  * <p><code><pre>
  *
@@ -320,6 +320,28 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * .addAccount("yourAccount")
  * .addMerchantId("yourMerchantId")
  * .addType(PaymentType.CARD_NEW)
+ * .addCard(card);
+ *
+ * </pre></code></p>
+ *
+ * <p>
+ * Example card update:
+ * </p>
+ * <p><code><pre>
+ *
+ * Card card = new Card()
+ * .addReference("visa01")
+ * .addPayerReference("smithj01")
+ * .addNumber("420000000000000000")
+ * .addExpiryDate("0119")
+ * .addCardHolderName("Joe Smith")
+ * .addType(CardType.VISA)
+ * .addIssueNumber("1");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ * .addAccount("yourAccount")
+ * .addMerchantId("yourMerchantId")
+ * .addType(PaymentType.CARD_UPDATE)
  * .addCard(card);
  *
  * </pre></code></p>
@@ -348,7 +370,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		PAYMENT_OUT("payment-out"),
 		PAYER_NEW("payer-new"),
 		PAYER_EDIT("payer-edit"),
-		CARD_NEW("card-new");
+		CARD_NEW("card-new"),
+		CARD_UPDATE("card-update-card");
 
 
 		/**
@@ -1410,6 +1433,20 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 			cardPayerRef = null == this.card.getPayerReference() ? "" : this.card.getPayerReference();
 		}
 
+		String cardRef = "";
+
+		if (null != this.card) {
+			cardRef = null == this.card.getReference() ? "" : this.card.getReference();
+		}
+
+		String cardExpiryDate = "";
+
+		if (null != this.card) {
+			cardExpiryDate = null == this.card.getExpiryDate() ? "" : this.card.getExpiryDate();
+		}
+
+
+
 		//create String to hash
 		String toHash;
 		if (PaymentType.AUTH_MOBILE.getType().equals(this.type)) {
@@ -1475,6 +1512,20 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.append(cardPayerRef)
 					.append(".")
 					.append(cardHolderName)
+					.append(".")
+					.append(cardNumber)
+					.toString();
+
+		} else if (PaymentType.CARD_UPDATE.getType().equals(this.type)) {
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(cardPayerRef)
+					.append(".")
+					.append(cardRef)
+					.append(".")
+					.append(cardExpiryDate)
 					.append(".")
 					.append(cardNumber)
 					.toString();
