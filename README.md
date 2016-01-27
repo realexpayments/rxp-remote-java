@@ -370,5 +370,24 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+
+### Card-delete
+
+```java
+
+Card card = new Card()
+    .addReference("visa01")
+    .addPayerReference("smithj01");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.CARD_CANCEL)  	
+ 	.addCard(card);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
 ## License
 See the LICENSE file.

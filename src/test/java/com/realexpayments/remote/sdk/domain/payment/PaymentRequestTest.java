@@ -313,5 +313,26 @@ public class PaymentRequestTest {
 
         Assert.assertEquals(CARD_UPDATE_REQUEST_HASH, request.getHash());
     }
+
+    /**
+     * Tests the hash calculation for a card-update transaction.
+     */
+    @Test
+    public void cardDeleteHashGenerationTest() {
+
+        Card card = new Card()
+                .addReference(CARD_DELETE_REF)
+                .addPayerReference(CARD_DELETE_PAYER_REF);
+
+
+        PaymentRequest request = new PaymentRequest().addType(PaymentType.CARD_CANCEL)
+                .addTimeStamp(CARD_DELETE_TIMESTAMP)
+                .addMerchantId(CARD_DELETE_MERCHANT_ID)
+                .addCard(card);
+
+        request.hash(SECRET);
+
+        Assert.assertEquals(CARD_DELETE_REQUEST_HASH, request.getHash());
+    }
 }
 

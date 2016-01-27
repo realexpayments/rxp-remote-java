@@ -57,6 +57,7 @@ public class SampleXmlValidationUtils {
     public static final String CARD_EDIT_REPLACE_CARD_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-edit-replace-card-payment-request-sample.xml";
     public static final String CARD_EDIT_UPDATE_ISSUE_NO_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-edit-update-issue-no-payment-request-sample.xml";
     public static final String CARD_EDIT_UPDATE_CH_NAME_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-edit-update-ch-name-payment-request-sample.xml";
+    public static final String CARD_DELETE_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-delete-payment-request-sample.xml";
 
     //Card
     public static final String CARD_NUMBER = "420000000000000000";
@@ -357,6 +358,14 @@ public class SampleXmlValidationUtils {
     public static final Integer CARD_UPDATE_ISSUE_NUMBER = 1;
     public static final Integer CARD_UPDATE_NEW_ISSUE_NUMBER = 2;
 
+    // card-delete fields
+    public static final String CARD_DELETE_TIMESTAMP = "20160127175725";
+    public static final String CARD_DELETE_MERCHANT_ID = "thestore";
+    public static final String CARD_DELETE_ACCOUNT = "internet";
+    public static final String CARD_DELETE_REQUEST_HASH = "02ea36d7c32ad272aa275be2f4cae5dd4af18280";
+
+    public static final String CARD_DELETE_PAYER_REF = "smithj01";
+    public static final String CARD_DELETE_REF = "visa01";
 
     /**
      * Check all fields match expected values.
@@ -774,6 +783,24 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(CARD_UPDATE_EXP_DATE, fromXmlRequest.getCard().getExpiryDate());
         Assert.assertEquals(CARD_UPDATE_CARD_HOLDER_NAME, fromXmlRequest.getCard().getCardHolderName());
         Assert.assertEquals(CARD_UPDATE_TYPE, fromXmlRequest.getCard().getType());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledCardDeletePaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+
+        Assert.assertEquals(PaymentType.CARD_CANCEL.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(CARD_DELETE_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(CARD_DELETE_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(CARD_DELETE_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(CARD_DELETE_REQUEST_HASH, fromXmlRequest.getHash());
+
+        Assert.assertEquals(CARD_DELETE_PAYER_REF, fromXmlRequest.getCard().getPayerReference());
+        Assert.assertEquals(CARD_DELETE_REF, fromXmlRequest.getCard().getReference());
     }
 
 

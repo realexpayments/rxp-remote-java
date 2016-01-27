@@ -346,6 +346,23 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *
  * </pre></code></p>
  *
+ * <p>
+ * Example card delete:
+ * </p>
+ * <p><code><pre>
+ *
+ * Card card = new Card()
+ * .addReference("visa01")
+ * .addPayerReference("smithj01");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ * .addAccount("yourAccount")
+ * .addMerchantId("yourMerchantId")
+ * .addType(PaymentType.CARD_CANCEL)
+ * .addCard(card);
+ *
+ * </pre></code></p>
+ *
  * @author markstanford
  */
 
@@ -371,7 +388,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		PAYER_NEW("payer-new"),
 		PAYER_EDIT("payer-edit"),
 		CARD_NEW("card-new"),
-		CARD_UPDATE("card-update-card");
+		CARD_UPDATE("card-update-card"),
+		CARD_CANCEL("card-cancel-card");
 
 
 		/**
@@ -1528,6 +1546,16 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.append(cardExpiryDate)
 					.append(".")
 					.append(cardNumber)
+					.toString();
+
+		} else if (PaymentType.CARD_CANCEL.getType().equals(this.type)) {
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(cardPayerRef)
+					.append(".")
+					.append(cardRef)
 					.toString();
 
 		} else {

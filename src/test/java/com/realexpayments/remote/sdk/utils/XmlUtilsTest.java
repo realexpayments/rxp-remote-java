@@ -59,6 +59,7 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_REPLACE_CARD_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_UPDATE_ISSUE_NO_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_UPDATE_CH_NAME_PAYMENT_REQUEST_XML_PATH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_DELETE_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESPONSE_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESULT_SUCCESS;
@@ -100,6 +101,7 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.check
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceCardPaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceIssueNoPaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceCHNamePaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardDeletePaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureEnrolledResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureSigResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVerifyEnrolledRequest;
@@ -937,6 +939,21 @@ public class XmlUtilsTest {
 		//Convert from XML back to PaymentRequest
 		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
 		checkUnmarshalledCardEditReplaceCHNamePaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileCardDeleteTest() {
+
+		File file = new File(this.getClass().getResource(CARD_DELETE_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledCardDeletePaymentRequest(fromXmlRequest);
 
 	}
 }
