@@ -576,7 +576,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	private PaymentData paymentData;
 
 	/**
-	 * {@link Payer} information to be used on RealVault transactions
+	 * {@link Payer} information to be used on Card Storage transactions
 	 */
 	@XmlElement(name = "payer")
 	private Payer payer;

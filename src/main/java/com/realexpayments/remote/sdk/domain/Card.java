@@ -69,7 +69,7 @@ public class Card {
 	}
 
 	/**
-	 * The reference for this card (RealVault)
+	 * The reference for this card (Card Storage)
 	 *
 	 * This must be unique within the Payer record if you are adding multiple
 	 * cards, but it does not need to be unique in relation to other Payers.
@@ -79,7 +79,7 @@ public class Card {
 
 
 	/**
-	 * The payer ref for this customer  (RealVault)
+	 * The payer ref for this customer  (Card Storage)
 	 */
 	@XmlElement(name = "payerref")
 	private String payerReference;

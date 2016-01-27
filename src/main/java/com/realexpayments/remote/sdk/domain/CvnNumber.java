@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * <p>
  * Domain object representing PaymentData CVN number information to be passed to
- * Realex Realvault for Receipt-in transactions.
+ * Realex Card Storage for Receipt-in transactions.
  * Contains the CVN number for the stored card
  * </p>
  * <p/>
