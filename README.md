@@ -9,36 +9,200 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.realexpayments.remote.sdk</groupId>
   <artifactId>rxp-remote-java</artifactId>
-  <version>1.0.1</version>
+  <version>1.1</version>
 </dependency>
 ```
 
 ### Gradle users
 Add this dependency to your project's build file:
 ```
-compile "com.realexpayments.remote.sdk:rxp-remote-java:1.0.1"
+compile "com.realexpayments.remote.sdk:rxp-remote-java:1.1"
 ```
-##Usage
-```
+## Usage
+
+Please see https://developer.realexpayments.com for more comprehensive integration guides.
+
+### Authorisation
+
+```java
 Card card = new Card()
-		.addExpiryDate("0119")
-		.addNumber("4242424242424242")
-		.addType(CardType.VISA)
-		.addCardHolderName("Joe Smith")
-		.addCvn("123")
-		.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
+	.addExpiryDate("0119")
+	.addNumber("4242424242424242")
+	.addType(CardType.VISA)
+	.addCardHolderName("Joe Smith")
+	.addCvn("123")
+	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
 
 PaymentRequest request = new PaymentRequest()
-		.addAccount("yourAccount")
-		.addMerchantId("yourMerchantId")
-		.addType(PaymentType.AUTH)
-		.addAmount(100)
-		.addCurrency("EUR")
-		.addCard(card)
-		.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE));
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.AUTH)
+	.addAmount(100)
+	.addCurrency("EUR")
+	.addCard(card)
+	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE));
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
-##License
+
+### Authorisation (With Address Verification)
+
+```java
+Card card = new Card()
+	.addExpiryDate("0119")
+	.addNumber("420000000000000000")
+	.addType(CardType.VISA)
+	.addCardHolderName("Joe Smith")
+	.addCvn("123")
+	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
+ 
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.AUTH)
+	.addAmount(100)
+	.addCurrency("EUR")
+	.addCard(card)
+	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
+	.addAddressVerificationServiceDetails("382 The Road", "WB1 A42");
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Authorisation (Mobile)
+
+```java
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.AUTH_MOBILE)
+	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
+	.addMobile("apple-pay")
+	.addToken("{auth mobile payment token}");
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+
+### Settle
+
+```java
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.SETTLE)
+	.addOrderId("Order ID from original transaction")
+	.addAmount(100)
+	.addCurrency("EUR")
+	.addPaymentsReference("pasref from original transaction")
+	.addAuthCode("Auth code from original transaction");
+
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Void
+
+```java
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.VOID)
+	.addOrderId("Order ID from original transaction")
+	.addPaymentsReference("pasref from original transaction")
+	.addAuthCode("Auth code from original transaction");
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Rebate
+
+```java
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.REBATE)
+	.addOrderId("Order ID from original transaction")
+	.addAmount(100)
+	.addCurrency("EUR")
+	.addPaymentsReference("pasref from original transaction")
+	.addAuthCode("Auth code from original transaction")
+	.addRefundHash("Hash of rebate password shared with Realex");
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### OTB
+
+```java
+Card card = new Card()
+	.addExpiryDate("0119")
+	.addNumber("420000000000000000")
+	.addType(CardType.VISA)
+	.addCardHolderName("Joe Smith")
+	.addCvn("123")
+	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
+ 
+ PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.OTB)
+	.addCard(card);
+	
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);	
+```
+
+### Credit
+
+```java
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.CREDIT)
+	.addAmount(100)
+	.addCurrency("EUR")
+	.addPaymentsReference("Pasref from original transaction")
+	.addAuthCode("Auth code from original transaction")
+	.addRefundHash("Hash of credit password shared with Realex");
+ 
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Hold
+
+```java
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.HOLD)
+	.addOrderId("Order ID from original transaction")
+	.addPaymentsReference("Pasref from original transaction");
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Release
+
+```java
+PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.RELEASE)
+	.addOrderId("Order ID from original transaction")
+	.addPaymentsReference("Pasref from original transaction");
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+## License
 See the LICENSE file.
