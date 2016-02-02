@@ -35,15 +35,15 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * <p><code><pre>
  * Card card = new Card()
  *	.addExpiryDate("0119")
- * 	.addNumber("420000000000000000")
- * 	.addType(CardType.VISA)
- * 	.addCardHolderName("Joe Smith")
- * 	.addCvn("123")
- * 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
+ *	.addNumber("420000000000000000")
+ *	.addType(CardType.VISA)
+ *	.addCardHolderName("Joe Smith")
+ *	.addCvn("123")
+ *	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
  * 
  * PaymentRequest request = new PaymentRequest()
- * 	.addAccount("yourAccount")
- * 	.addMerchantId("yourMerchantId")
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
  *	.addType(PaymentType.AUTH)
  *	.addAmount(100)
  *	.addCurrency("EUR")
@@ -57,15 +57,15 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  * <p><code><pre>
  * Card card = new Card()
  *	.addExpiryDate("0119")
- * 	.addNumber("420000000000000000")
- * 	.addType(CardType.VISA)
- * 	.addCardHolderName("Joe Smith")
- * 	.addCvn("123")
- * 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
+ *	.addNumber("420000000000000000")
+ *	.addType(CardType.VISA)
+ *	.addCardHolderName("Joe Smith")
+ *	.addCvn("123")
+ *	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
  * 
  * PaymentRequest request = new PaymentRequest()
- * 	.addAccount("yourAccount")
- * 	.addMerchantId("yourMerchantId")
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
  *	.addType(PaymentType.AUTH)
  *	.addAmount(100)
  *	.addCurrency("EUR")
@@ -73,6 +73,121 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
  *	.addAddressVerificationServiceDetails("382 The Road", "WB1 A42");
  * </pre></code></p>
+ * 
+ * <p>
+ * Example AUTH MOBILE
+ * <p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.AUTH_MOBILE)
+ *	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
+ *	.addMobile("apple-pay")
+ *	.addToken("{auth mobile payment token}");
+ * </pre></code></p>
+ * 
+ * <p>
+ * Example SETTLE:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.SETTLE)
+ *	.addOrderId("Order ID from original transaction")
+ *	.addAmount(100)
+ *	.addCurrency("EUR")
+ *	.addPaymentsReference("pasref from original transaction")
+ *	.addAuthCode("Auth code from original transaction");
+ * </pre></code></p>
+ * 
+ * <p>
+ * Example VOID:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.VOID)
+ *	.addOrderId("Order ID from original transaction")
+ *	.addPaymentsReference("pasref from original transaction")
+ *	.addAuthCode("Auth code from original transaction");
+ * </pre></code></p>
+ * 
+ * <p>
+ * Example REBATE:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.REBATE)
+ *	.addOrderId("Order ID from original transaction")
+ *	.addAmount(100)
+ *	.addCurrency("EUR")
+ *	.addPaymentsReference("pasref from original transaction")
+ *	.addAuthCode("Auth code from original transaction")
+ *	.addRefundHash("Hash of rebate password shared with Realex");
+ * </pre></code></p> 
+ * 
+ * <p>
+ * Example OTB:
+ * </p>
+ * <p><code><pre>
+ * Card card = new Card()
+ *	.addExpiryDate("0119")
+ *	.addNumber("420000000000000000")
+ *	.addType(CardType.VISA)
+ *	.addCardHolderName("Joe Smith")
+ *	.addCvn("123")
+ *	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
+ * 
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.OTB)
+ *	.addCard(card);
+ * </pre></code></p>
+ * 
+ * <p>
+ * Example CREDIT:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.CREDIT)
+ *	.addAmount(100)
+ *	.addCurrency("EUR")
+ *	.addPaymentsReference("Pasref from original transaction")
+ *	.addAuthCode("Auth code from original transaction")
+ *	.addRefundHash("Hash of credit password shared with Realex");
+ * </pre></code></p> 
+ * 
+ * <p>
+ * Example HOLD:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.HOLD)
+ *	.addOrderId("Order ID from original transaction")
+ *	.addPaymentsReference("Pasref from original transaction");
+ * </pre></code></p> 
+ * 
+ * <p>
+ * Example RELEASE:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ *	.addAccount("yourAccount")
+ *	.addMerchantId("yourMerchantId")
+ *	.addType(PaymentType.RELEASE)
+ *	.addOrderId("Order ID from original transaction")
+ *	.addPaymentsReference("Pasref from original transaction");
+ * </pre></code></p> 
  * 
  * @author markstanford
  */
@@ -84,7 +199,15 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	 * Enumeration for the Payment type.
 	 */
 	public enum PaymentType {
-		AUTH("auth");
+		AUTH("auth"),
+		AUTH_MOBILE("auth-mobile"),
+		SETTLE("settle"),
+		VOID("void"),
+		REBATE("rebate"),
+		OTB("otb"),
+		CREDIT("credit"),
+		HOLD("hold"),
+		RELEASE("release");
 
 		/**
 		 * The payment type String value 
@@ -237,6 +360,18 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	 */
 	@XmlElement(name = "mpi")
 	private Mpi mpi;
+
+	/**
+	 * The mobile auth payment type e.g. apple-pay.
+	 */
+	@XmlElement(name = "mobile")
+	private String mobile;
+
+	/**
+	 * The mobile auth payment token to be sent in place of payment data. 
+	 */
+	@XmlElement(name = "token")
+	private String token;
 
 	/**
 	 * Constructor for PaymentRequest.
@@ -570,6 +705,42 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	}
 
 	/**
+	 * Getter for mobile.
+	 * 
+	 * @return String
+	 */
+	public String getMobile() {
+		return mobile;
+	}
+
+	/**
+	 * Setter for mobile.
+	 * 
+	 * @param mobile
+	 */
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	/**
+	 * Getter for token.
+	 * 
+	 * @return String
+	 */
+	public String getToken() {
+		return token;
+	}
+
+	/**
+	 * Setter for token.
+	 * 
+	 * @param token
+	 */
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	/**
 	 * Helper method for adding a merchant ID.
 	 * 
 	 * @param merchantId
@@ -804,6 +975,28 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 	}
 
 	/**
+	 * Helper method for adding mobile.
+	 * 
+	 * @param mobile
+	 * @return PaymentRequest
+	 */
+	public PaymentRequest addMobile(String mobile) {
+		this.mobile = mobile;
+		return this;
+	}
+
+	/**
+	 * Helper method for adding a token.
+	 * 
+	 * @param token
+	 * @return PaymentRequest
+	 */
+	public PaymentRequest addToken(String token) {
+		this.token = token;
+		return this;
+	}
+
+	/**
 	 * <p>
 	 * This helper method adds Address Verification Service (AVS) fields to the request.
 	 * </p>
@@ -905,6 +1098,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		String orderId = null == this.orderId ? "" : this.orderId;
 		String amount = "";
 		String currency = "";
+		String token = null == this.token ? "" : this.token;
 
 		if (null != this.amount) {
 			amount = null == this.amount.getAmount() ? "" : this.amount.getAmount().toString();
@@ -918,18 +1112,41 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		}
 
 		//create String to hash
-		String toHash = new StringBuilder().append(timeStamp)
-				.append(".")
-				.append(merchantId)
-				.append(".")
-				.append(orderId)
-				.append(".")
-				.append(amount)
-				.append(".")
-				.append(currency)
-				.append(".")
-				.append(cardNumber)
-				.toString();
+		String toHash;
+		if (PaymentType.AUTH_MOBILE.getType().equals(this.type)) {
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(orderId)
+					.append("...")
+					.append(token)
+					.toString();
+
+		} else if (PaymentType.OTB.getType().equals(this.type)) {
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(orderId)
+					.append(".")
+					.append(cardNumber)
+					.toString();
+
+		} else {
+			toHash = new StringBuilder().append(timeStamp)
+					.append(".")
+					.append(merchantId)
+					.append(".")
+					.append(orderId)
+					.append(".")
+					.append(amount)
+					.append(".")
+					.append(currency)
+					.append(".")
+					.append(cardNumber)
+					.toString();
+		}
 
 		this.hash = GenerationUtils.generateHash(toHash, secret);
 
