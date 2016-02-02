@@ -27,27 +27,34 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COMME
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COMMENT2;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COUNTRY;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COUNTRY_CODE;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CURRENCY;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CUSTOMER_IP;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CUSTOMER_NUMBER;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CVN_RESULT;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.FRAUD_FILTER;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.HOLD_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MERCHANT_ID;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MESSAGE;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MOBILE_AUTH_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ORDER_ID;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.OTB_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PASREF;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_RESPONSE_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_RESPONSE_XML_PATH_UNKNOWN_ELEMENT;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PRODUCT_ID;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECURRING_FLAG;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECURRING_SEQUENCE;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECURRING_TYPE;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REFUND_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REGION;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESPONSE_HASH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESULT_SUCCESS;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_PAYMENT_REQUEST_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_CAVV;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_ECI;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_PARES;
@@ -59,6 +66,7 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_SIG_RESPONSE_XML_PATH;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_XID;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP_RESPONSE;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIME_TAKEN;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK1_ID;
@@ -66,12 +74,21 @@ import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_R
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK2_ID;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK2_VALUE;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VARIABLE_REFERENCE;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_PAYMENT_REQUEST_XML_PATH;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCreditPaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledHoldPaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledMobileAuthPaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledOtbPaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPaymentResponse;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledRebatePaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledReleasePaymentRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledSettlePaymentRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureEnrolledResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureSigResponse;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVerifyEnrolledRequest;
 import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVerifySigRequest;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVoidPaymentRequest;
 
 import java.io.File;
 import java.io.StringReader;
@@ -366,7 +383,7 @@ public class XmlUtilsTest {
 		response.setPaymentsReference(PASREF);
 		response.setResult(RESULT_SUCCESS);
 		response.setHash(RESPONSE_HASH);
-		response.setTimeStamp(TIMESTAMP);
+		response.setTimeStamp(TIMESTAMP_RESPONSE);
 		response.setTimeTaken(TIME_TAKEN);
 
 		TssResult tssResult = new TssResult();
@@ -665,5 +682,125 @@ public class XmlUtilsTest {
 	public void threeDSecureFromXmlErrorTest() {
 		//Try to unmarshal invalid XML
 		XmlUtils.fromXml(new StreamSource(new StringReader("<xml>test</xml>")), MessageType.THREE_D_SECURE);
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for mobile-auth payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileMobileAuthTest() {
+
+		File file = new File(this.getClass().getResource(MOBILE_AUTH_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledMobileAuthPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for settle payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileSettleTest() {
+
+		File file = new File(this.getClass().getResource(SETTLE_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledSettlePaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for void payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileVoidTest() {
+
+		File file = new File(this.getClass().getResource(VOID_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledVoidPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for rebate payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileRebateTest() {
+
+		File file = new File(this.getClass().getResource(REBATE_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledRebatePaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for OTB payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileOtbTest() {
+
+		File file = new File(this.getClass().getResource(OTB_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledOtbPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for credit payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileCreditTest() {
+
+		File file = new File(this.getClass().getResource(CREDIT_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledCreditPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for hold payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileHoldTest() {
+
+		File file = new File(this.getClass().getResource(HOLD_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledHoldPaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for release payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileReleaseTest() {
+
+		File file = new File(this.getClass().getResource(RELEASE_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledReleasePaymentRequest(fromXmlRequest);
+
 	}
 }
