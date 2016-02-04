@@ -1,24 +1,17 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-
 import com.realexpayments.remote.sdk.domain.*;
 import com.realexpayments.remote.sdk.domain.payment.Address.AddressType;
 import com.realexpayments.remote.sdk.utils.GenerationUtils;
 import com.realexpayments.remote.sdk.utils.XmlUtils;
 import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -363,6 +356,21 @@ import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
  *
  * </pre></code></p>
  *
+ *
+ * <p>
+ * Example verify enrolled:
+ * </p>
+ * <p><code><pre>
+ * PaymentRequest request = new PaymentRequest()
+ * .addAccount("yourAccount")
+ * .addMerchantId("yourMerchantId")
+ * .addType(PaymentType.VERIFY_ENROLLED)
+ * .addAmount(100)
+ * .addPayerRef("payer ref from customer")
+ * .addPaymentMethod("payment method ref from customer")
+ * .addPaymentData(paymentData);
+ *
+ * </pre></code></p>
  * @author markstanford
  */
 
@@ -390,6 +398,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 		CARD_NEW("card-new"),
 		CARD_UPDATE("card-update-card"),
 		CARD_CANCEL("card-cancel-card");
+
 
 
 		/**
@@ -1488,7 +1497,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
 					.toString();
 
 		} else if (PaymentType.RECEIPT_IN.getType().equals(this.type) ||
-				   PaymentType.PAYMENT_OUT.getType().equals(this.type))  {
+				   PaymentType.PAYMENT_OUT.getType().equals(this.type) ){
 			toHash = new StringBuilder().append(timeStamp)
 					.append(".")
 					.append(merchantId)

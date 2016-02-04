@@ -389,5 +389,29 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+### Verify Card Enrolled
+
+```java
+
+PaymentData paymentData = new PaymentData()
+  	.addCvnNumber("123");
+
+
+ThreeDSecureRequest request = new ThreeDSecureRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
+  .addAmount(100)
+  .addCurrency("EUR")
+  .addPayerRef("payer ref from customer")
+  .addPaymentMethod("payment method ref from customer")
+  .addPaymentData(paymentData)
+  .addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE));
+ 	
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
 ## License
 See the LICENSE file.

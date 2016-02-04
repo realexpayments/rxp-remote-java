@@ -58,6 +58,7 @@ public class SampleXmlValidationUtils {
     public static final String CARD_EDIT_UPDATE_ISSUE_NO_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-edit-update-issue-no-payment-request-sample.xml";
     public static final String CARD_EDIT_UPDATE_CH_NAME_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-edit-update-ch-name-payment-request-sample.xml";
     public static final String CARD_DELETE_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-delete-payment-request-sample.xml";
+    public static final String CARD_VERIFY_ENROLLED_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-verify-enrolled-payment-request-sample.xml";
 
     //Card
     public static final String CARD_NUMBER = "420000000000000000";
@@ -366,6 +367,19 @@ public class SampleXmlValidationUtils {
 
     public static final String CARD_DELETE_PAYER_REF = "smithj01";
     public static final String CARD_DELETE_REF = "visa01";
+
+    // card-verify fields
+    public static final String CARD_VERIFY_TIMESTAMP = "20160202175725";
+    public static final String CARD_VERIFY_MERCHANT_ID = "thestore";
+    public static final String CARD_VERIFY_ACCOUNT = "internet";
+    public static final String CARD_VERIFY_REQUEST_HASH = "85cae325d558aad444341b69c1350c929738ce60";
+
+    public static final String CARD_VERIFY_PAYER_REF = "smithj01";
+    public static final String CARD_VERIFY_REF = "visa01";
+    public static final String CARD_VERIFY_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78A18";
+    public static final String CARD_VERIFY_AMOUNT = "3000";
+    public static final String CARD_VERIFY_CURRENCY = "EUR";
+    public static final String CARD_PAYMENT_DATA_CVN = "123";
 
     /**
      * Check all fields match expected values.
@@ -994,6 +1008,29 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(THREE_D_SECURE_PARES, fromXmlRequest.getPares());
         Assert.assertEquals(THREE_D_SECURE_VERIFY_SIG_REQUEST_HASH, fromXmlRequest.getHash());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledVerifyCardEnrolledPaymentRequest(ThreeDSecureRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+
+        Assert.assertEquals(ThreeDSecureType.VERIFY_CARD_ENROLLED.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(CARD_VERIFY_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(CARD_VERIFY_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(CARD_VERIFY_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(CARD_VERIFY_REQUEST_HASH, fromXmlRequest.getHash());
+
+        Assert.assertEquals(CARD_VERIFY_PAYER_REF, fromXmlRequest.getPayerRef());
+        Assert.assertEquals(CARD_VERIFY_REF, fromXmlRequest.getPaymentMethod());
+        Assert.assertEquals(CARD_VERIFY_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(CARD_VERIFY_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
+        Assert.assertEquals(CARD_VERIFY_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+        Assert.assertEquals(CARD_PAYMENT_DATA_CVN, fromXmlRequest.getPaymentData().getCvnNumber().getNumber());
+
     }
 
 }

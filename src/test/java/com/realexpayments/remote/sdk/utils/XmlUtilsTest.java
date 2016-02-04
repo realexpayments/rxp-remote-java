@@ -1,143 +1,26 @@
 package com.realexpayments.remote.sdk.utils;
 
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ACCOUNT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ACQUIRER_RESPONSE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ADDRESS_CODE_BUSINESS;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ADDRESS_CODE_SHIPPING;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ADDRESS_COUNTRY_BUSINESS;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ADDRESS_COUNTRY_SHIPPING;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ADDRESS_TYPE_BUSINESS;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ADDRESS_TYPE_SHIPPING;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AMOUNT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_CODE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTH_TIME_TAKEN;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AUTO_SETTLE_FLAG;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AVS_ADDRESS;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AVS_POSTCODE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.BANK;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.BATCH_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_CVN_NUMBER;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_CVN_PRESENCE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EXPIRY_DATE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_HOLDER_NAME;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_ISSUE_NUMBER;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_NUMBER;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CHANNEL;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COMMENT1;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COMMENT2;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COUNTRY;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.COUNTRY_CODE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CREDIT_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CURRENCY;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CUSTOMER_IP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CUSTOMER_NUMBER;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CVN_RESULT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.FRAUD_FILTER;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.HOLD_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MESSAGE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MOBILE_AUTH_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.OTB_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PASREF;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_RESPONSE_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_RESPONSE_XML_PATH_UNKNOWN_ELEMENT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PRODUCT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REBATE_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECURRING_FLAG;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECURRING_SEQUENCE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECURRING_TYPE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REFUND_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REGION;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RELEASE_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RECEIPT_IN_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYMENT_OUT_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYER_NEW_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.PAYER_EDIT_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_NEW_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_REPLACE_CARD_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_UPDATE_ISSUE_NO_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_EDIT_UPDATE_CH_NAME_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_DELETE_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESPONSE_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.RESULT_SUCCESS;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SETTLE_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_CAVV;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_ECI;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_PARES;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_ENROLLED_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_ENROLLED_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_ENROLLED_RESPONSE_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_SIG_REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_SIG_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_VERIFY_SIG_RESPONSE_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.THREE_D_SECURE_XID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP_RESPONSE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIME_TAKEN;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK1_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK1_VALUE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK2_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TSS_RESULT_CHECK2_VALUE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VARIABLE_REFERENCE;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.VOID_PAYMENT_REQUEST_XML_PATH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCreditPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledHoldPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledMobileAuthPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledOtbPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPaymentResponse;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledRebatePaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledReleasePaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledSettlePaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledReceiptInPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPaymentOutPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPayerNewPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledPayerEditPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardAddPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceCardPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceIssueNoPaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardEditReplaceCHNamePaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledCardDeletePaymentRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureEnrolledResponse;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledThreeDSecureSigResponse;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVerifyEnrolledRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVerifySigRequest;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.checkUnmarshalledVoidPaymentRequest;
-
-import java.io.File;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.transform.stream.StreamSource;
-
-import org.junit.Test;
-
 import com.realexpayments.remote.sdk.RealexException;
 import com.realexpayments.remote.sdk.domain.Amount;
 import com.realexpayments.remote.sdk.domain.Card;
 import com.realexpayments.remote.sdk.domain.Card.CardType;
 import com.realexpayments.remote.sdk.domain.Cvn;
-import com.realexpayments.remote.sdk.domain.payment.Address;
-import com.realexpayments.remote.sdk.domain.payment.AutoSettle;
-import com.realexpayments.remote.sdk.domain.payment.CardIssuer;
-import com.realexpayments.remote.sdk.domain.payment.Comment;
-import com.realexpayments.remote.sdk.domain.payment.Mpi;
-import com.realexpayments.remote.sdk.domain.payment.PaymentRequest;
+import com.realexpayments.remote.sdk.domain.PaymentData;
+import com.realexpayments.remote.sdk.domain.payment.*;
 import com.realexpayments.remote.sdk.domain.payment.PaymentRequest.PaymentType;
-import com.realexpayments.remote.sdk.domain.payment.PaymentResponse;
-import com.realexpayments.remote.sdk.domain.payment.Recurring;
-import com.realexpayments.remote.sdk.domain.payment.TssInfo;
-import com.realexpayments.remote.sdk.domain.payment.TssResult;
-import com.realexpayments.remote.sdk.domain.payment.TssResultCheck;
 import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureRequest;
 import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureRequest.ThreeDSecureType;
 import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureResponse;
 import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
+import org.junit.Test;
+
+import javax.xml.transform.stream.StreamSource;
+import java.io.File;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.*;
 
 /**
  * Unit test class for XmlUtils.
@@ -636,6 +519,43 @@ public class XmlUtilsTest {
 	}
 
 	/**
+	 * Tests conversion of {@link ThreeDSecureRequest} card enrolled to and from XML using setters.
+	 */
+	@Test
+	public void threeDSecureCardEnrolledRequestXmlWithSettersTest() {
+
+		ThreeDSecureRequest request = new ThreeDSecureRequest();
+		request.setAccount(CARD_VERIFY_ACCOUNT);
+		request.setMerchantId(CARD_VERIFY_MERCHANT_ID);
+
+
+		PaymentData paymentData = new PaymentData()
+				.addCvnNumber(CARD_PAYMENT_DATA_CVN);
+		request.setPaymentData(paymentData);
+
+		Amount amount = new Amount();
+		amount.setAmount(Long.parseLong(CARD_VERIFY_AMOUNT));
+		amount.setCurrency(CARD_VERIFY_CURRENCY);
+		request.setAmount(amount);
+
+
+		request.setTimeStamp(CARD_VERIFY_TIMESTAMP);
+		request.setOrderId(CARD_VERIFY_ORDER_ID);
+		request.setPaymentMethod(CARD_VERIFY_REF);
+		request.setPayerRef(CARD_VERIFY_PAYER_REF);
+		request.setHash(CARD_VERIFY_REQUEST_HASH);
+		request.setType(ThreeDSecureType.VERIFY_CARD_ENROLLED.getType());
+
+		//convert to XML
+		String xml = request.toXml();
+
+		//Convert from XML back to PaymentRequest
+		ThreeDSecureRequest fromXmlRequest = new ThreeDSecureRequest().fromXml(xml);
+		checkUnmarshalledVerifyCardEnrolledPaymentRequest(fromXmlRequest);
+	}
+
+
+	/**
 	 * Tests conversion of {@link ThreeDSecureResponse} from XML file for verify enrolled
 	 */
 	@Test
@@ -692,6 +612,23 @@ public class XmlUtilsTest {
 		checkUnmarshalledVerifySigRequest(fromXmlRequest);
 
 	}
+
+
+	/**
+	 * Tests conversion of {@link ThreeDSecureRequest} from XML file for verify sig.
+	 */
+	@Test
+	public void threeDSecureRequestCardEnrolledFromFileTest() {
+
+		File file = new File(this.getClass().getResource(CARD_VERIFY_ENROLLED_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		ThreeDSecureRequest fromXmlRequest = new ThreeDSecureRequest().fromXml(source);
+		checkUnmarshalledVerifyCardEnrolledPaymentRequest(fromXmlRequest);
+
+	}
+
 
 	/**
 	 * Test expected {@link RealexException} when unmarshalling invalid xml.
