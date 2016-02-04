@@ -413,5 +413,31 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+### DCC Rate Lookup
+
+```java
+
+Card card = new Card()    
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA);
+	
+DccInfo dccInfo = new DccInfo()
+    .addDccProcessor("fexco");
+
+PaymentRequest request = new PaymentRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(ThreeDSecureType.DCC_RATE_LOOKUP)
+  .addAmount(100)
+  .addCurrency("EUR")
+  .addCard(card)
+  .addDccInfo(dccInfo);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
 ## License
 See the LICENSE file.

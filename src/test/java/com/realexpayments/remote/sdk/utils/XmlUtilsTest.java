@@ -1,11 +1,8 @@
 package com.realexpayments.remote.sdk.utils;
 
 import com.realexpayments.remote.sdk.RealexException;
-import com.realexpayments.remote.sdk.domain.Amount;
-import com.realexpayments.remote.sdk.domain.Card;
+import com.realexpayments.remote.sdk.domain.*;
 import com.realexpayments.remote.sdk.domain.Card.CardType;
-import com.realexpayments.remote.sdk.domain.Cvn;
-import com.realexpayments.remote.sdk.domain.PaymentData;
 import com.realexpayments.remote.sdk.domain.payment.*;
 import com.realexpayments.remote.sdk.domain.payment.PaymentRequest.PaymentType;
 import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureRequest;
@@ -256,6 +253,53 @@ public class XmlUtilsTest {
 		checkUnmarshalledPaymentRequest(fromXmlRequest);
 
 	}
+
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} to and from XML using setters for DCCInfo.
+	 */
+	@Test
+	public void paymentRequestXmlDCCInfoSettersTest() {
+
+		PaymentRequest request = new PaymentRequest();
+		request.setAccount(DCC_RATE_ACCOUNT);
+		request.setMerchantId(DCC_RATE_MERCHANT_ID);
+		request.setType(PaymentType.DCC_RATE_LOOKUP.getType());
+
+		Card card = new Card();
+		card.setExpiryDate(DCC_RATE_CARD_EXPIRY_DATE);
+		card.setNumber(DCC_RATE_CARD_NUMBER);
+		card.setType(DCC_RATE_CARD_TYPE);
+		card.setCardHolderName(DCC_RATE_CARD_HOLDER_NAME);
+		request.setCard(card);
+
+		DccInfo dccInfo = new DccInfo();
+		dccInfo.setDccProcessor(DCC_RATE_CCP);
+		request.setDccInfo(dccInfo);
+
+		Amount amount = new Amount();
+		amount.setAmount(Long.parseLong(DCC_RATE_AMOUNT));
+		amount.setCurrency(DCC_RATE_CURRENCY);
+		request.setAmount(amount);
+
+		AutoSettle autoSettle = new AutoSettle();
+		autoSettle.setFlag(AUTO_SETTLE_FLAG.getFlag());
+
+		request.setAutoSettle(autoSettle);
+		request.setTimeStamp(DCC_RATE_TIMESTAMP);
+
+		request.setOrderId(DCC_RATE_ORDER_ID);
+		request.setHash(DCC_RATE_REQUEST_HASH);
+
+		//convert to XML
+		String xml = request.toXml();
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(xml);
+		checkUnmarshalledDccRateLookUpPaymentRequest(fromXmlRequest);
+
+	}
+
 
 	/**
 	 * Tests conversion of {@link PaymentResponse} to and from XML.
@@ -891,6 +935,21 @@ public class XmlUtilsTest {
 		//Convert from XML back to PaymentRequest
 		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
 		checkUnmarshalledCardDeletePaymentRequest(fromXmlRequest);
+
+	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileDccInfoTest() {
+
+		File file = new File(this.getClass().getResource(DCC_RATE_LOOKUP_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledDccRateLookUpPaymentRequest(fromXmlRequest);
 
 	}
 }

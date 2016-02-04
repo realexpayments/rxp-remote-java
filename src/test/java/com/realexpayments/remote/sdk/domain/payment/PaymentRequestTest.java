@@ -1,5 +1,6 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
+import com.realexpayments.remote.sdk.domain.DccInfo;
 import com.realexpayments.remote.sdk.domain.Payer;
 import org.junit.Assert;
 import org.junit.Test;
@@ -333,6 +334,39 @@ public class PaymentRequestTest {
         request.hash(SECRET);
 
         Assert.assertEquals(CARD_DELETE_REQUEST_HASH, request.getHash());
+    }
+
+    /**
+     * Tests the hash calculation for a card-update transaction.
+     */
+    @Test
+    public void dccInfoHashGenerationTest() {
+
+        Card card = new Card()
+                .addNumber(DCC_RATE_CARD_NUMBER)
+                .addExpiryDate(DCC_RATE_CARD_EXPIRY_DATE)
+                .addCardHolderName(DCC_RATE_CARD_HOLDER_NAME)
+                .addType(DCC_RATE_CARD_TYPE);
+
+        // add dccinfo. Note that the type is not set as it is already defaulted to 1
+        DccInfo dccInfo =new DccInfo()
+                .addDccProcessor(DCC_RATE_CCP);
+
+
+        PaymentRequest request = new PaymentRequest()
+                .addType(PaymentType.DCC_RATE_LOOKUP)
+                .addTimeStamp(DCC_RATE_TIMESTAMP)
+                .addMerchantId(DCC_RATE_MERCHANT_ID)
+                .addAmount(Long.parseLong(DCC_RATE_AMOUNT))
+                .addCurrency(DCC_RATE_CURRENCY)
+                .addOrderId(DCC_RATE_ORDER_ID)
+                .addCard(card)
+                .addDccInfo(dccInfo);
+
+
+        request.hash(SECRET);
+
+        Assert.assertEquals(DCC_RATE_REQUEST_HASH, request.getHash());
     }
 }
 

@@ -59,6 +59,7 @@ public class SampleXmlValidationUtils {
     public static final String CARD_EDIT_UPDATE_CH_NAME_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-edit-update-ch-name-payment-request-sample.xml";
     public static final String CARD_DELETE_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-delete-payment-request-sample.xml";
     public static final String CARD_VERIFY_ENROLLED_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-verify-enrolled-payment-request-sample.xml";
+    public static final String DCC_RATE_LOOKUP_PAYMENT_REQUEST_XML_PATH = "/sample-xml/dcc-rate-lookup-payment-request-sample.xml";
 
     //Card
     public static final String CARD_NUMBER = "420000000000000000";
@@ -380,6 +381,24 @@ public class SampleXmlValidationUtils {
     public static final String CARD_VERIFY_AMOUNT = "3000";
     public static final String CARD_VERIFY_CURRENCY = "EUR";
     public static final String CARD_PAYMENT_DATA_CVN = "123";
+
+    // dcc rate lookup
+    public static final String DCC_RATE_TIMESTAMP = "20160205175725";
+    public static final String DCC_RATE_MERCHANT_ID = "thestore";
+    public static final String DCC_RATE_ACCOUNT = "internet";
+    public static final String DCC_RATE_REQUEST_HASH = "dbe26dd81f6b39c0ad682bae1b882c9bdb696819";
+
+    public static final String DCC_RATE_CARD_NUMBER = "420000000000000000";
+    public static final String DCC_RATE_CARD_TYPE = "VISA";
+    public static final String DCC_RATE_CARD_EXPIRY_DATE = "0417";
+    public static final String DCC_RATE_CARD_HOLDER_NAME = "Joe Smith";
+    public static final String DCC_RATE_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78A80";
+    public static final String DCC_RATE_AMOUNT = "3000";
+    public static final String DCC_RATE_CURRENCY = "EUR";
+    public static final String DCC_RATE_CCP = "fexco";
+    public static final String DCC_RATE_TYPE = "1";
+
+
 
     /**
      * Check all fields match expected values.
@@ -821,6 +840,33 @@ public class SampleXmlValidationUtils {
     /**
      * Check all fields match expected values.
      *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledDccRateLookUpPaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+
+        Assert.assertEquals(PaymentType.DCC_RATE_LOOKUP.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(DCC_RATE_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(DCC_RATE_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(DCC_RATE_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(DCC_RATE_REQUEST_HASH, fromXmlRequest.getHash());
+
+        Assert.assertEquals(DCC_RATE_CARD_NUMBER, fromXmlRequest.getCard().getNumber());
+        Assert.assertEquals(DCC_RATE_CARD_TYPE, fromXmlRequest.getCard().getType());
+        Assert.assertEquals(DCC_RATE_CARD_EXPIRY_DATE, fromXmlRequest.getCard().getExpiryDate());
+        Assert.assertEquals(DCC_RATE_CARD_HOLDER_NAME, fromXmlRequest.getCard().getCardHolderName());
+        Assert.assertEquals(DCC_RATE_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(DCC_RATE_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
+        Assert.assertEquals(DCC_RATE_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+        Assert.assertEquals(DCC_RATE_CCP, fromXmlRequest.getDccInfo().getDccProcessor());
+        Assert.assertEquals(DCC_RATE_TYPE, fromXmlRequest.getDccInfo().getType());
+
+    }
+
+
+    /**
+     * Check all fields match expected values.
+     *
      * @param fromXmlResponse
      */
     public static void checkUnmarshalledPaymentResponse(PaymentResponse fromXmlResponse) {
@@ -1032,7 +1078,6 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(CARD_PAYMENT_DATA_CVN, fromXmlRequest.getPaymentData().getCvnNumber().getNumber());
 
     }
-
 }
 
 
