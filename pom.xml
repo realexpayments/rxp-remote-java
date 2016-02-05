@@ -2,34 +2,34 @@
   	<modelVersion>4.0.0</modelVersion>
   	<groupId>com.realexpayments.remote.sdk</groupId>
   	<artifactId>rxp-remote-java</artifactId>
-  	<version>1.0.1</version>
+  	<version>1.1</version>
   	<name>Realex Payments Remote Java SDK</name>
   	<description>The official Realex Payments Remote Java SDK</description> 
   	<url>http://www.realexpayments.com</url>
   
   	<licenses>
 		<license>
-    		<name>MIT License</name>
-    		<url>https://github.com/realexpayments/rxp-remote-java/blob/master/LICENSE.txt</url>
-  		</license>
+			<name>MIT License</name>
+			<url>https://github.com/realexpayments/rxp-remote-java/blob/master/LICENSE.txt</url>
+		</license>
 	</licenses>
-  	<developers>
-    	<developer>
-      		<name>Realex Developer</name>
-      		<organization>Realex Payments</organization>
-      		<organizationUrl>http://www.realexpayments.com</organizationUrl>
-    	</developer>
-  	</developers>
-  	<scm>
-    	<connection>scm:git:git@github.com:realexpayments/rxp-remote-java.git</connection>
-    	<developerConnection>scm:git:git@github.com:realexpayments/rxp-remote-java.git</developerConnection>
-    	<url>https://github.com/realexpayments/rxp-remote-java.git</url>
-  	</scm>
-  
-  	<properties>
+	<developers>
+		<developer>
+			<name>Realex Developer</name>
+			<organization>Realex Payments</organization>
+			<organizationUrl>http://www.realexpayments.com</organizationUrl>
+		</developer>
+	</developers>
+	<scm>
+		<connection>scm:git:git@github.com:realexpayments/rxp-remote-java.git</connection>
+		<developerConnection>scm:git:git@github.com:realexpayments/rxp-remote-java.git</developerConnection>
+		<url>https://github.com/realexpayments/rxp-remote-java.git</url>
+	</scm>
+
+	<properties>
 		<maven.compiler.source>1.6</maven.compiler.source>
-    	<maven.compiler.target>1.6</maven.compiler.target>
-    	<jaxb.version>2.1</jaxb.version>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<jaxb.version>2.1</jaxb.version>
 		<junit.version>4.12</junit.version>
 		<slf4j.version>1.7.12</slf4j.version>
 		<logback-classic.version>1.1.3</logback-classic.version>
@@ -38,7 +38,7 @@
 		<mockito.version>1.10.19</mockito.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	
+
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -51,15 +51,15 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<dependencies>
-  		<dependency>
+		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
 			<version>${jaxb.version}</version>
 			<scope>provided</scope>
 		</dependency>
-  		<dependency>
+		<dependency>
 			<groupId>javax.xml</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>${jaxb.version}</version>
@@ -86,7 +86,7 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		
+
 		<!-- test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -95,9 +95,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.mockito</groupId>
-		    <artifactId>mockito-core</artifactId>
-		    <version>${mockito.version}</version>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -119,16 +119,16 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-	
+
 	<build>
 		<pluginManagement>
-    		<plugins>
-      			<plugin>
-        			<artifactId>maven-deploy-plugin</artifactId>
-        			<version>2.8.1</version>
-      			</plugin>
-      		</plugins>
-  		</pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.1</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -158,7 +158,21 @@
 						</goals>
 					</execution>
 				</executions>
-		   	</plugin>
+			</plugin>
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>1.2.11</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>
