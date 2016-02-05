@@ -347,7 +347,7 @@ import java.util.List;
  * Card card = new Card()
  * .addReference("visa01")
  * .addPayerReference("smithj01");
- * <p/>
+ *
  * PaymentRequest request = new PaymentRequest()
  * .addAccount("yourAccount")
  * .addMerchantId("yourMerchantId")
@@ -367,10 +367,10 @@ import java.util.List;
  * .addExpiryDate("0119")
  * .addCardHolderName("Joe Smith")
  * .addType(CardType.VISA);
- * <p/>
+ *
  * DccInfo dccInfo = new DccInfo()
  * .addDccProcessor("fexco");
- * <p/>
+ *
  * PaymentRequest request = new PaymentRequest()
  * .addAccount("yourAccount")
  * .addMerchantId("yourMerchantId")
@@ -380,6 +380,53 @@ import java.util.List;
  * .addCard(card)
  * .addDccInfo(dccInfo);
  * <p/>
+ * </pre></code></p>
+ *
+ * <p>
+ * Example dcc auth:
+ * </p>
+ * <p><code><pre>
+ * <p/>
+ *
+ * DccInfo dccInfo = new DccInfo()
+ * .addDccProcessor("fexco")
+ * .addRate(0.6868)
+ * .addAmount(13049)
+ * .addCurrency("GBP");
+ *
+ * Card card = new Card()
+ * .addNumber("420000000000000000")
+ * .addExpiryDate("0119")
+ * .addCardHolderName("Joe Smith")
+ * .addType(CardType.VISA);
+ *
+ * PaymentRequest request = new PaymentRequest()
+ * .addAccount("yourAccount")
+ * .addMerchantId("yourMerchantId")
+ * .addType(PaymentType.DCC_RATE_LOOKUP)
+ * .addAmount(100)
+ * .addCurrency("EUR")
+ * .addCard(card)
+ * .addDccInfo(dccInfo);
+ * <p/>
+ *
+ * <p>
+ * Example Receipt-in OTB:
+ * </p>
+ * <p><code><pre>
+ * PaymentData paymentData = new PaymentData()
+ * 	.addCvnNumber("123");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ * 	.addAccount("yourAccount")
+ * 	.addMerchantId("yourMerchantId")
+ * 	.addType(PaymentType.RECEIPT_IN_OTB)
+ * 	.addOrderId("Order ID from original transaction")
+ * 	.addAmount(100)
+ * 	.addCurrency("EUR")
+ * 	.addPayerRef("payer ref from customer")
+ * 	.addPaymentMethod("payment method ref from customer")
+ * 	.addPaymentData(paymentData);
  * </pre></code></p>
  *
  * @author markstanford
@@ -410,7 +457,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         CARD_UPDATE("card-update-card"),
         CARD_CANCEL("card-cancel-card"),
         DCC_RATE_LOOKUP("dccrate"),
-        DCC_AUTH("auth");
+        DCC_AUTH("auth"),
+        RECEIPT_IN_OTB("receipt-in-otb");
 
 
         /**
@@ -1611,6 +1659,16 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
                     .append(cardPayerRef)
                     .append(".")
                     .append(cardRef)
+                    .toString();
+
+        } else if (PaymentType.RECEIPT_IN_OTB.getType().equals(this.type)) {
+            toHash = new StringBuilder().append(timeStamp)
+                    .append(".")
+                    .append(merchantId)
+                    .append(".")
+                    .append(orderId)
+                    .append(".")
+                    .append(payerRef)
                     .toString();
 
         } else {

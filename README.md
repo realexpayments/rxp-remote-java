@@ -469,5 +469,20 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+### RECEIPT-IN OTB
+
+```java
+ 
+ PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.RECEIPT_IN_OTB)
+	.addPayerRef("payer ref from customer")
+    .addPaymentMethod("payment method ref from customer");
+	
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);	
+```
+
 ## License
 See the LICENSE file.

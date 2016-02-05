@@ -62,6 +62,7 @@ public class SampleXmlValidationUtils {
     public static final String CARD_VERIFY_ENROLLED_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-verify-enrolled-payment-request-sample.xml";
     public static final String DCC_RATE_LOOKUP_PAYMENT_REQUEST_XML_PATH = "/sample-xml/dcc-rate-lookup-payment-request-sample.xml";
     public static final String DCC_RATE_AUTH_PAYMENT_REQUEST_XML_PATH = "/sample-xml/dcc-rate-auth-payment-request-sample.xml";
+    public static final String RECEIPT_IN_OTB_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-otb-payment-request-sample.xml";
 
     //Card
     public static final String CARD_NUMBER = "420000000000000000";
@@ -435,6 +436,18 @@ public class SampleXmlValidationUtils {
     public static final String DCC_AUTH_RATE = "0.6868";
     public static final String DCC_AUTH_CH_AMOUNT = "13049";
     public static final String DCC_AUTH_CH_CURRENCY = "GBP";
+
+    // receipt-in otb fields
+    public static final String RECEIPT_IN_OTB_TIMESTAMP = "20160119171625";
+    public static final String RECEIPT_IN_OTB_MERCHANT_ID = "thestore";
+    public static final String RECEIPT_IN_OTB_ACCOUNT = "internet";
+    public static final String RECEIPT_IN_OTB_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78d95";
+    public static final String RECEIPT_IN_OTB_AMOUNT = "3000";
+    public static final String RECEIPT_IN_OTB_CURRENCY = "EUR";
+    public static final String RECEIPT_IN_OTB_PAYER = "bloggsj01";
+    public static final String RECEIPT_IN_OTB_PAYMENT_METHOD = "visa01";
+    public static final String RECEIPT_IN_OTB_CVN = "123";
+    public static final String RECEIPT_IN_OTB_REQUEST_HASH = "ceeeb16edfeda0dc919db1be1b0e9db7b01b24cf";
 
     /**
      * Check all fields match expected values.
@@ -928,6 +941,26 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(DCC_AUTH_RATE, fromXmlRequest.getDccInfo().getRate().toString());
         Assert.assertEquals(DCC_AUTH_CH_AMOUNT, fromXmlRequest.getDccInfo().getAmount().getAmount().toString());
         Assert.assertEquals(DCC_AUTH_CH_CURRENCY, fromXmlRequest.getDccInfo().getAmount().getCurrency());
+    }
+
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledReceiptInOTBPaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(PaymentType.RECEIPT_IN_OTB.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(RECEIPT_IN_OTB_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(RECEIPT_IN_OTB_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(RECEIPT_IN_OTB_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(RECEIPT_IN_OTB_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(RECEIPT_IN_OTB_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(RECEIPT_IN_OTB_PAYER, fromXmlRequest.getPayerRef());
+        Assert.assertEquals(RECEIPT_IN_OTB_PAYMENT_METHOD, fromXmlRequest.getPaymentMethod());
+        Assert.assertEquals(RECEIPT_IN_OTB_CVN, fromXmlRequest.getPaymentData().getCvnNumber().getNumber());
+        Assert.assertEquals(RECEIPT_IN_OTB_CURRENCY, fromXmlRequest.getAmount().getCurrency());
     }
 
 

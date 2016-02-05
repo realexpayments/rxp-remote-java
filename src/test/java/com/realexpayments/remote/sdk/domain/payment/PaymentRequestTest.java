@@ -401,5 +401,25 @@ public class PaymentRequestTest {
 
         Assert.assertEquals(DCC_AUTH_REQUEST_HASH, request.getHash());
     }
+
+
+    /**
+     * Tests the hash calculation for a receipt-in otb payment.
+     */
+    @Test
+    public void receiptInOTBHashGenerationTest() {
+        PaymentRequest request = new PaymentRequest()
+                .addType(PaymentType.RECEIPT_IN_OTB)
+                .addTimeStamp(RECEIPT_IN_OTB_TIMESTAMP)
+                .addMerchantId(RECEIPT_IN_OTB_MERCHANT_ID)
+                .addOrderId(RECEIPT_IN_OTB_ORDER_ID)
+                .addAmount(Long.parseLong(RECEIPT_IN_OTB_AMOUNT))
+                .addCurrency(RECEIPT_IN_OTB_CURRENCY)
+                .addPayerRef(RECEIPT_IN_OTB_PAYER);
+
+        request.hash(SECRET);
+
+        Assert.assertEquals(RECEIPT_IN_OTB_REQUEST_HASH, request.getHash());
+    }
 }
 

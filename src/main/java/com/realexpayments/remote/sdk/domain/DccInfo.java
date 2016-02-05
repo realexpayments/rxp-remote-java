@@ -22,14 +22,13 @@ import javax.xml.bind.annotation.XmlElement;
  * Example dcc rate lookup + auth:
  * </p>
  * <p><code><pre>
- * Amount amount = new Amount()
- * .addAmount(13049)
- * .addCurrency("GBP");
- * <p/>
+ *
  * DccInfo dccInfo = new DccInfo()
  * .addDccProcessor("fexco")
  * .addRate(0.6868)
- * .addAmount(amount);
+ * .addAmount(13049)
+ * .addCurrency("GBP");
+ *
  * <p/>
  * </pre></code></p>
  *

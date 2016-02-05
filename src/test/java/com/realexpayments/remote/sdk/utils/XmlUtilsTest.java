@@ -1065,5 +1065,20 @@ public class XmlUtilsTest {
 		checkUnmarshalledDccAuthLookUpPaymentRequest(fromXmlRequest);
 	}
 
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for receipt-in payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileReceiptInOTBTest() {
+
+		File file = new File(this.getClass().getResource(RECEIPT_IN_OTB_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledReceiptInOTBPaymentRequest(fromXmlRequest);
+
+	}
+
 
 }

@@ -1,12 +1,12 @@
 package com.realexpayments.remote.sdk.utils;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Calendar;
 
-import org.junit.Assert;
-import org.junit.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CardValidationUtilsTest {
 
@@ -138,7 +138,7 @@ public class CardValidationUtilsTest {
 		cal.add(Calendar.MONTH, -1); // Move to last month (if January will be last year but will have to live with that
 		int month = ((cal.get(Calendar.MONTH)) + 1);
 		int year = (cal.get(Calendar.YEAR));
-		if (month == 12)
+		if (month == 1)
 		{
 			year++;
 		}
