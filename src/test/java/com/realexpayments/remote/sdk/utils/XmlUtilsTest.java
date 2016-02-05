@@ -359,6 +359,40 @@ public class XmlUtilsTest {
 	}
 
 	/**
+	 * Tests conversion of {@link PaymentResponse} to and from XML.
+	 */
+	@Test
+	public void paymentResponseDccInfoXmlTest() {
+		PaymentResponse response = new PaymentResponse();
+
+		response.setAccount(DCC_RATE_ACCOUNT_RESPONSE);
+		response.setResult(DCC_RATE_RESULT_RESPONSE);
+
+		response.setCvnResult(DCC_RATE_CVN_RESULT_RESPONSE);
+		response.setMerchantId(DCC_RATE_MERCHANT_ID_RESPONSE);
+		response.setOrderId(DCC_RATE_ORDER_ID_RESPONSE);
+		response.setPaymentsReference(DCC_RATE_PASREF_RESPONSE);
+		response.setHash(DCC_RATE_REQUEST_HASH_RESPONSE);
+		response.setTimeStamp(DCC_RATE_TIMESTAMP_RESPONSE);
+
+		DccInfoResult dccInfoResult = new DccInfoResult();
+		dccInfoResult.setCardHolderAmount(Long.parseLong(DCC_RATE_CH_AMOUNT_RESPONSE));
+		dccInfoResult.setCardHolderCurrency(DCC_RATE_CH_CURRENCY_RESPONSE);
+		dccInfoResult.setCardHolderRate(Double.parseDouble(DCC_RATE_CH_RATE_RESPONSE));
+		dccInfoResult.setMerchantAmount(Long.parseLong(DCC_RATE_MERCHANT_AMOUNT_RESPONSE));
+		dccInfoResult.setMerchantCurrency(DCC_RATE_MERCHANT_CURRENCY_RESPONSE);
+
+		response.setDccInfoResult(dccInfoResult);
+
+		//marshal to XML
+		String xml = response.toXml();
+
+		//unmarshal back to response
+		PaymentResponse fromXmlResponse = new PaymentResponse().fromXml(xml);
+		checkUnmarshalledDCCPaymentResponse(fromXmlResponse);
+	}
+
+	/**
 	 * Tests conversion of {@link PaymentResponse} from XML file 
 	 */
 	@Test
@@ -371,6 +405,21 @@ public class XmlUtilsTest {
 		PaymentResponse fromXmlResponse = new PaymentResponse().fromXml(source);
 		checkUnmarshalledPaymentResponse(fromXmlResponse);
 	}
+
+	/**
+	 * Tests conversion of {@link PaymentResponse} from XML file
+	 */
+	@Test
+	public void paymentResponseXmlDccInfoFromFileTest() {
+
+		File file = new File(this.getClass().getResource(PAYMENT_RESPONSE_DCC_INFO_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//unmarshal back to re
+		PaymentResponse fromXmlResponse = new PaymentResponse().fromXml(source);
+		checkUnmarshalledDCCPaymentResponse(fromXmlResponse);
+	}
+
 
 	/**
 	 * Tests conversion of {@link PaymentRequest} from XML file.

@@ -32,6 +32,7 @@ public class SampleXmlValidationUtils {
     public static final String PAYMENT_RESPONSE_BASIC_ERROR_XML_PATH = "/sample-xml/payment-response-basic-error-sample.xml";
     public static final String PAYMENT_RESPONSE_FULL_ERROR_XML_PATH = "/sample-xml/payment-response-full-error-sample.xml";
     public static final String PAYMENT_RESPONSE_XML_PATH_UNKNOWN_ELEMENT = "/sample-xml/payment-response-sample-unknown-element.xml";
+    public static final String PAYMENT_RESPONSE_DCC_INFO_XML_PATH = "/sample-xml/payment-response-dcc-info.xml";
 
     //3DSecure sample XML
     public static final String THREE_D_SECURE_VERIFY_ENROLLED_REQUEST_XML_PATH = "/sample-xml/3ds-verify-enrolled-request-sample.xml";
@@ -398,7 +399,20 @@ public class SampleXmlValidationUtils {
     public static final String DCC_RATE_CCP = "fexco";
     public static final String DCC_RATE_TYPE = "1";
 
-
+    // dcc info lookup response
+    public static final String DCC_RATE_TIMESTAMP_RESPONSE = "20120302152632";
+    public static final String DCC_RATE_MERCHANT_ID_RESPONSE = "yourmerchantid";
+    public static final String DCC_RATE_ACCOUNT_RESPONSE = "internet";
+    public static final String DCC_RATE_ORDER_ID_RESPONSE = "201232-205";
+    public static final String DCC_RATE_RESULT_RESPONSE = "00";
+    public static final String DCC_RATE_CVN_RESULT_RESPONSE = "U";
+    public static final String DCC_RATE_PASREF_RESPONSE = "10782411922720";
+    public static final String DCC_RATE_CH_CURRENCY_RESPONSE = "GBP";
+    public static final String DCC_RATE_CH_AMOUNT_RESPONSE = "13049";
+    public static final String DCC_RATE_CH_RATE_RESPONSE = "0.6868";
+    public static final String DCC_RATE_MERCHANT_CURRENCY_RESPONSE = "EUR";
+    public static final String DCC_RATE_MERCHANT_AMOUNT_RESPONSE = "19000";
+    public static final String DCC_RATE_REQUEST_HASH_RESPONSE = "9cbaaf034254315ceefa8c680ff8a773c83db140";
 
     /**
      * Check all fields match expected values.
@@ -895,6 +909,30 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(TSS_RESULT_CHECK2_VALUE, fromXmlResponse.getTssResult().getChecks().get(1).getValue());
         Assert.assertEquals(AVS_ADDRESS, fromXmlResponse.getAvsAddressResponse());
         Assert.assertEquals(AVS_POSTCODE, fromXmlResponse.getAvsPostcodeResponse());
+        Assert.assertTrue(fromXmlResponse.isSuccess());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlResponse
+     */
+    public static void checkUnmarshalledDCCPaymentResponse(PaymentResponse fromXmlResponse) {
+
+        Assert.assertEquals(DCC_RATE_TIMESTAMP_RESPONSE, fromXmlResponse.getTimeStamp());
+        Assert.assertEquals(DCC_RATE_MERCHANT_ID_RESPONSE, fromXmlResponse.getMerchantId());
+        Assert.assertEquals(DCC_RATE_ACCOUNT_RESPONSE, fromXmlResponse.getAccount());
+        Assert.assertEquals(DCC_RATE_ORDER_ID_RESPONSE.toString(), fromXmlResponse.getOrderId());
+        Assert.assertEquals(DCC_RATE_RESULT_RESPONSE.toString(), fromXmlResponse.getResult());
+        Assert.assertEquals(DCC_RATE_CVN_RESULT_RESPONSE, fromXmlResponse.getCvnResult());
+        Assert.assertEquals(DCC_RATE_PASREF_RESPONSE, fromXmlResponse.getPaymentsReference());
+        Assert.assertEquals(DCC_RATE_CH_CURRENCY_RESPONSE, fromXmlResponse.getDccInfoResult().getCardHolderCurrency());
+        Assert.assertEquals(DCC_RATE_CH_AMOUNT_RESPONSE, fromXmlResponse.getDccInfoResult().getCardHolderAmount().toString());
+        Assert.assertEquals(DCC_RATE_CH_RATE_RESPONSE, fromXmlResponse.getDccInfoResult().getCardHolderRate().toString());
+        Assert.assertEquals(DCC_RATE_MERCHANT_CURRENCY_RESPONSE, fromXmlResponse.getDccInfoResult().getMerchantCurrency());
+        Assert.assertEquals(DCC_RATE_MERCHANT_AMOUNT_RESPONSE, fromXmlResponse.getDccInfoResult().getMerchantAmount().toString());
+        Assert.assertEquals(DCC_RATE_REQUEST_HASH_RESPONSE, fromXmlResponse.getHash());
+
         Assert.assertTrue(fromXmlResponse.isSuccess());
     }
 
