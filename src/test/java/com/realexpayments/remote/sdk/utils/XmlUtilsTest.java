@@ -300,6 +300,56 @@ public class XmlUtilsTest {
 
 	}
 
+	/**
+	 * Tests conversion of {@link PaymentRequest} to and from XML using setters for DCCInfo.
+	 */
+	@Test
+	public void paymentRequestXmlDCCAuthSettersTest() {
+
+		PaymentRequest request = new PaymentRequest();
+		request.setAccount(DCC_AUTH_ACCOUNT);
+		request.setMerchantId(DCC_AUTH_MERCHANT_ID);
+		request.setType(PaymentType.DCC_AUTH.getType());
+
+		Card card = new Card();
+		card.setExpiryDate(DCC_AUTH_CARD_EXPIRY_DATE);
+		card.setNumber(DCC_AUTH_CARD_NUMBER);
+		card.setType(DCC_AUTH_CARD_TYPE);
+		card.setCardHolderName(DCC_AUTH_CARD_HOLDER_NAME);
+		request.setCard(card);
+
+		Amount dccAmount = new Amount();
+		dccAmount.setAmount(Long.parseLong( DCC_AUTH_CH_AMOUNT));
+		dccAmount.setCurrency(DCC_AUTH_CH_CURRENCY);
+
+		DccInfo dccInfo = new DccInfo();
+		dccInfo.setDccProcessor(DCC_AUTH_CCP);
+		dccInfo.setRate(Double.parseDouble(DCC_AUTH_RATE));
+		dccInfo.setAmount(dccAmount);
+		request.setDccInfo(dccInfo);
+
+		Amount amount = new Amount();
+		amount.setAmount(Long.parseLong(DCC_AUTH_AMOUNT));
+		amount.setCurrency(DCC_AUTH_CURRENCY);
+		request.setAmount(amount);
+
+		AutoSettle autoSettle = new AutoSettle();
+		autoSettle.setFlag(AUTO_SETTLE_FLAG.getFlag());
+
+		request.setAutoSettle(autoSettle);
+		request.setTimeStamp(DCC_AUTH_TIMESTAMP);
+
+		request.setOrderId(DCC_AUTH_ORDER_ID);
+		request.setHash(DCC_AUTH_REQUEST_HASH);
+
+		//convert to XML
+		String xml = request.toXml();
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(xml);
+		checkUnmarshalledDccAuthLookUpPaymentRequest(fromXmlRequest);
+
+	}
 
 	/**
 	 * Tests conversion of {@link PaymentResponse} to and from XML.
@@ -988,10 +1038,10 @@ public class XmlUtilsTest {
 	}
 
 	/**
-	 * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+	 * Tests conversion of {@link PaymentRequest} from XML file for dcc rate lookup payment types.
 	 */
 	@Test
-	public void paymentRequestXmlFromFileDccInfoTest() {
+	public void paymentRequestXmlFromFileDccLookupTest() {
 
 		File file = new File(this.getClass().getResource(DCC_RATE_LOOKUP_PAYMENT_REQUEST_XML_PATH).getPath());
 		StreamSource source = new StreamSource(file);
@@ -999,6 +1049,21 @@ public class XmlUtilsTest {
 		//Convert from XML back to PaymentRequest
 		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
 		checkUnmarshalledDccRateLookUpPaymentRequest(fromXmlRequest);
-
 	}
+
+	/**
+	 * Tests conversion of {@link PaymentRequest} from XML file for dcc auth payment types.
+	 */
+	@Test
+	public void paymentRequestXmlFromFileDccAuthTest() {
+
+		File file = new File(this.getClass().getResource(DCC_RATE_AUTH_PAYMENT_REQUEST_XML_PATH).getPath());
+		StreamSource source = new StreamSource(file);
+
+		//Convert from XML back to PaymentRequest
+		PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+		checkUnmarshalledDccAuthLookUpPaymentRequest(fromXmlRequest);
+	}
+
+
 }

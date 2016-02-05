@@ -61,6 +61,7 @@ public class SampleXmlValidationUtils {
     public static final String CARD_DELETE_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-delete-payment-request-sample.xml";
     public static final String CARD_VERIFY_ENROLLED_PAYMENT_REQUEST_XML_PATH = "/sample-xml/card-verify-enrolled-payment-request-sample.xml";
     public static final String DCC_RATE_LOOKUP_PAYMENT_REQUEST_XML_PATH = "/sample-xml/dcc-rate-lookup-payment-request-sample.xml";
+    public static final String DCC_RATE_AUTH_PAYMENT_REQUEST_XML_PATH = "/sample-xml/dcc-rate-auth-payment-request-sample.xml";
 
     //Card
     public static final String CARD_NUMBER = "420000000000000000";
@@ -413,6 +414,27 @@ public class SampleXmlValidationUtils {
     public static final String DCC_RATE_MERCHANT_CURRENCY_RESPONSE = "EUR";
     public static final String DCC_RATE_MERCHANT_AMOUNT_RESPONSE = "19000";
     public static final String DCC_RATE_REQUEST_HASH_RESPONSE = "9cbaaf034254315ceefa8c680ff8a773c83db140";
+
+    // DCC AUTH
+
+    public static final String DCC_AUTH_TIMESTAMP = "20120302172708";
+    public static final String DCC_AUTH_MERCHANT_ID = "yourmerchantid";
+    public static final String DCC_AUTH_ACCOUNT = "";
+    public static final String DCC_AUTH_REQUEST_HASH = "116d9e19144cd6cec05a809c6d945582c7f10133";
+
+    public static final String DCC_AUTH_CARD_NUMBER = "4111111111111111";
+    public static final String DCC_AUTH_CARD_TYPE = "VISA";
+    public static final String DCC_AUTH_CARD_EXPIRY_DATE = "0415";
+    public static final String DCC_AUTH_CARD_HOLDER_NAME = "Peter Johnson";
+    public static final String DCC_AUTH_ORDER_ID = "201232-205";
+    public static final String DCC_AUTH_AMOUNT = "19000";
+    public static final String DCC_AUTH_CURRENCY = "EUR";
+    public static final String DCC_AUTH_CCP = "fexco";
+    public static final String DCC_AUTH_TYPE = "1";
+    public static final String DCC_AUTH_RATE_TYPE = "S";
+    public static final String DCC_AUTH_RATE = "0.6868";
+    public static final String DCC_AUTH_CH_AMOUNT = "13049";
+    public static final String DCC_AUTH_CH_CURRENCY = "GBP";
 
     /**
      * Check all fields match expected values.
@@ -876,6 +898,38 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(DCC_RATE_TYPE, fromXmlRequest.getDccInfo().getType());
 
     }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledDccAuthLookUpPaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+
+        Assert.assertEquals(PaymentType.DCC_AUTH.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(DCC_AUTH_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(DCC_AUTH_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(DCC_AUTH_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(DCC_AUTH_REQUEST_HASH, fromXmlRequest.getHash());
+
+        Assert.assertEquals(DCC_AUTH_CARD_NUMBER, fromXmlRequest.getCard().getNumber());
+        Assert.assertEquals(DCC_AUTH_CARD_TYPE, fromXmlRequest.getCard().getType());
+        Assert.assertEquals(DCC_AUTH_CARD_EXPIRY_DATE, fromXmlRequest.getCard().getExpiryDate());
+        Assert.assertEquals(DCC_AUTH_CARD_HOLDER_NAME, fromXmlRequest.getCard().getCardHolderName());
+        Assert.assertEquals(DCC_AUTH_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(DCC_AUTH_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
+        Assert.assertEquals(DCC_AUTH_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+        Assert.assertEquals(DCC_AUTH_CCP, fromXmlRequest.getDccInfo().getDccProcessor());
+        Assert.assertEquals(DCC_AUTH_TYPE, fromXmlRequest.getDccInfo().getType());
+
+
+        Assert.assertEquals(DCC_AUTH_RATE_TYPE, fromXmlRequest.getDccInfo().getRateType());
+        Assert.assertEquals(DCC_AUTH_RATE, fromXmlRequest.getDccInfo().getRate().toString());
+        Assert.assertEquals(DCC_AUTH_CH_AMOUNT, fromXmlRequest.getDccInfo().getAmount().getAmount().toString());
+        Assert.assertEquals(DCC_AUTH_CH_CURRENCY, fromXmlRequest.getDccInfo().getAmount().getCurrency());
+    }
+
 
 
     /**

@@ -429,8 +429,38 @@ DccInfo dccInfo = new DccInfo()
 PaymentRequest request = new PaymentRequest()
   .addAccount("yourAccount")
   .addMerchantId("yourMerchantId")
-  .addType(ThreeDSecureType.DCC_RATE_LOOKUP)
+  .addType(PaymentType.DCC_RATE_LOOKUP)
   .addAmount(100)
+  .addCurrency("EUR")
+  .addCard(card)
+  .addDccInfo(dccInfo);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+
+### DCC + Auth
+
+```java
+
+Card card = new Card()    
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA);
+	
+DccInfo dccInfo = new DccInfo()
+    .addDccProcessor("fexco")
+    .addRate(0.6868)
+    .addAmount(13049)
+    .addCurrency("GBP");
+
+PaymentRequest request = new PaymentRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(PaymentType.DCC_AUTH)
+  .addAmount(19000)
   .addCurrency("EUR")
   .addCard(card)
   .addDccInfo(dccInfo);

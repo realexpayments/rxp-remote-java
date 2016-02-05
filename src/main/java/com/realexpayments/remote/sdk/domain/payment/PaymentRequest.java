@@ -356,6 +356,7 @@ import java.util.List;
  * <p/>
  * </pre></code></p>
  * <p/>
+ *
  * <p>
  * Example dcc rate lookup:
  * </p>
@@ -373,7 +374,7 @@ import java.util.List;
  * PaymentRequest request = new PaymentRequest()
  * .addAccount("yourAccount")
  * .addMerchantId("yourMerchantId")
- * .addType(ThreeDSecureType.DCC_RATE_LOOKUP)
+ * .addType(PaymentType.DCC_RATE_LOOKUP)
  * .addAmount(100)
  * .addCurrency("EUR")
  * .addCard(card)
@@ -408,7 +409,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         CARD_NEW("card-new"),
         CARD_UPDATE("card-update-card"),
         CARD_CANCEL("card-cancel-card"),
-        DCC_RATE_LOOKUP("dccrate");
+        DCC_RATE_LOOKUP("dccrate"),
+        DCC_AUTH("auth");
 
 
         /**
@@ -1597,21 +1599,6 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
                     .append(cardRef)
                     .append(".")
                     .append(cardExpiryDate)
-                    .append(".")
-                    .append(cardNumber)
-                    .toString();
-
-
-        } else if (PaymentType.DCC_RATE_LOOKUP.getType().equals(this.type)) {
-            toHash = new StringBuilder().append(timeStamp)
-                    .append(".")
-                    .append(merchantId)
-                    .append(".")
-                    .append(orderId)
-                    .append(".")
-                    .append(amount)
-                    .append(".")
-                    .append(currency)
                     .append(".")
                     .append(cardNumber)
                     .toString();

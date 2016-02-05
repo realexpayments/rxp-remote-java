@@ -368,5 +368,38 @@ public class PaymentRequestTest {
 
         Assert.assertEquals(DCC_RATE_REQUEST_HASH, request.getHash());
     }
+
+    /**
+     * Tests the hash calculation for a card-update transaction.
+     */
+    @Test
+    public void dccAuthHashGenerationTest() {
+
+        Card card = new Card()
+                .addNumber(DCC_AUTH_CARD_NUMBER)
+                .addExpiryDate(DCC_AUTH_CARD_EXPIRY_DATE)
+                .addCardHolderName(DCC_AUTH_CARD_HOLDER_NAME)
+                .addType(DCC_AUTH_CARD_TYPE);
+
+        // add dccinfo. Note that the type is not set as it is already defaulted to 1
+        DccInfo dccInfo =new DccInfo()
+                .addDccProcessor(DCC_AUTH_CCP);
+
+
+        PaymentRequest request = new PaymentRequest()
+                .addType(PaymentType.DCC_AUTH)
+                .addTimeStamp(DCC_AUTH_TIMESTAMP)
+                .addMerchantId(DCC_AUTH_MERCHANT_ID)
+                .addAmount(Long.parseLong(DCC_AUTH_AMOUNT))
+                .addCurrency(DCC_AUTH_CURRENCY)
+                .addOrderId(DCC_AUTH_ORDER_ID)
+                .addCard(card)
+                .addDccInfo(dccInfo);
+
+
+        request.hash(SECRET);
+
+        Assert.assertEquals(DCC_AUTH_REQUEST_HASH, request.getHash());
+    }
 }
 
