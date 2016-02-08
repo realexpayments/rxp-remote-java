@@ -69,6 +69,22 @@ public class Card {
 	}
 
 	/**
+	 * The reference for this card (Card Storage)
+	 *
+	 * This must be unique within the Payer record if you are adding multiple
+	 * cards, but it does not need to be unique in relation to other Payers.
+	 */
+	@XmlElement(name = "ref")
+	private String reference;
+
+
+	/**
+	 * The payer ref for this customer  (Card Storage)
+	 */
+	@XmlElement(name = "payerref")
+	private String payerReference;
+
+	/**
 	 * The card number used for the transaction.
 	 */
 	@XmlElement(name = "number")
@@ -109,6 +125,43 @@ public class Card {
 	 */
 	public Card() {
 	}
+
+	/**
+	 * Getter for the card reference.
+	 *
+	 * @return String
+	 */
+	public String getReference() {
+		return reference;
+	}
+
+	/**
+	 * Setter for the card reference.
+	 *
+	 * @param reference
+	 */
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	/**
+	 * Getter for the payer reference
+	 *
+	 * @return String
+	 */
+	public String getPayerReference() {
+		return payerReference;
+	}
+
+	/**
+	 * Setter for the payer reference
+	 *
+	 * @param payerReference
+	 */
+	public void setPayerReference(String payerReference) {
+		this.payerReference = payerReference;
+	}
+
 
 	/**
 	 * Getter for the card number.
@@ -216,6 +269,29 @@ public class Card {
 	 */
 	public void setCvn(Cvn cvn) {
 		this.cvn = cvn;
+	}
+
+	/**
+	 * Helper method to add the card reference.
+	 *
+	 * @param reference
+	 * @return Card
+	 */
+	public Card addReference(String reference) {
+		this.reference = reference;
+		return this;
+	}
+
+
+	/**
+	 * Helper method to add a payer reference.
+	 *
+	 * @param payerReference
+	 * @return Card
+	 */
+	public Card addPayerReference(String payerReference) {
+		this.payerReference = payerReference;
+		return this;
 	}
 
 	/**
