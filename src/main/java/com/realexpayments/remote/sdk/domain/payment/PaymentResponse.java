@@ -1,20 +1,16 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
-import java.io.StringReader;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-
+import com.realexpayments.remote.sdk.domain.DccInfoResult;
 import com.realexpayments.remote.sdk.domain.Response;
 import com.realexpayments.remote.sdk.utils.GenerationUtils;
 import com.realexpayments.remote.sdk.utils.ResponseUtils;
 import com.realexpayments.remote.sdk.utils.XmlUtils;
 import com.realexpayments.remote.sdk.utils.XmlUtils.MessageType;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import java.io.StringReader;
 
 /**
  * <p>
@@ -165,6 +161,12 @@ public class PaymentResponse implements Response<PaymentResponse> {
 	 */
 	@XmlElement(name = "avsaddressresponse")
 	private String avsAddressResponse;
+
+	/**
+	 * The results of dcc rate lookup
+	 */
+	@XmlElement(name = "dccinfo")
+	private DccInfoResult dccInfoResult;
 
 	/**
 	 * PaymentResponse constructor.
@@ -499,6 +501,26 @@ public class PaymentResponse implements Response<PaymentResponse> {
 	public void setTssResult(TssResult tssResult) {
 		this.tssResult = tssResult;
 	}
+
+
+	/**
+	 * Getter for {@link DccInfoResult}
+	 *
+	 * @return DccInfoResult
+	 */
+	public DccInfoResult getDccInfoResult() {
+		return dccInfoResult;
+	}
+
+	/**
+	 * Setter for {@link DccInfoResult}
+	 *
+	 * @param dccInfoResult
+	 */
+	public void setDccInfoResult(DccInfoResult dccInfoResult) {
+		this.dccInfoResult = dccInfoResult;
+	}
+
 
 	/**
 	 * {@inheritDoc}

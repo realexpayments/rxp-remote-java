@@ -1,19 +1,11 @@
 package com.realexpayments.remote.sdk.domain.threeDSecure;
 
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.AMOUNT;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CARD_NUMBER;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.CURRENCY;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.MERCHANT_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.ORDER_ID;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.REQUEST_HASH;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.SECRET;
-import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.TIMESTAMP;
-
+import com.realexpayments.remote.sdk.domain.Card;
+import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureRequest.ThreeDSecureType;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.realexpayments.remote.sdk.domain.Card;
-import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureRequest.ThreeDSecureType;
+import static com.realexpayments.remote.sdk.utils.SampleXmlValidationUtils.*;
 
 /**
  * Unit test class for {@link ThreeDSecureRequest} utility methods.
@@ -45,5 +37,24 @@ public class ThreeDSecureRequestTest {
 		request.hash(SECRET);
 
 		Assert.assertEquals(REQUEST_HASH, request.getHash());
+	}
+
+	/**
+	 * Tests the hash calculation for a card-update transaction.
+	 */
+	@Test
+	public void verifyCardEnrolledHashGenerationTest() {
+
+		ThreeDSecureRequest request = new ThreeDSecureRequest().addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
+				.addTimeStamp(CARD_VERIFY_TIMESTAMP)
+				.addMerchantId(CARD_VERIFY_MERCHANT_ID)
+				.addOrderId(CARD_VERIFY_ORDER_ID)
+				.addAmount(Long.parseLong(CARD_VERIFY_AMOUNT))
+				.addCurrency(CARD_VERIFY_CURRENCY)
+				.addPayerReference(CARD_VERIFY_PAYER_REF);
+
+		request.hash(SECRET);
+
+		Assert.assertEquals(CARD_VERIFY_REQUEST_HASH, request.getHash());
 	}
 }
