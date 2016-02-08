@@ -51,7 +51,7 @@ public class ThreeDSecureRequestTest {
 				.addOrderId(CARD_VERIFY_ORDER_ID)
 				.addAmount(Long.parseLong(CARD_VERIFY_AMOUNT))
 				.addCurrency(CARD_VERIFY_CURRENCY)
-				.addPayerRef(CARD_VERIFY_PAYER_REF);
+				.addPayerReference(CARD_VERIFY_PAYER_REF);
 
 		request.hash(SECRET);
 

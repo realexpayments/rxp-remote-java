@@ -213,7 +213,7 @@ public class PaymentRequestTest {
     @Test
     public void receiptInHashGenerationTest() {
         PaymentRequest request = new PaymentRequest().addType(PaymentType.RECEIPT_IN).addTimeStamp(RECEIPT_IN_TIMESTAMP).addMerchantId(RECEIPT_IN_MERCHANT_ID)
-                .addOrderId(RECEIPT_IN_ORDER_ID).addAmount(Long.parseLong(RECEIPT_IN_AMOUNT)).addCurrency(RECEIPT_IN_CURRENCY).addPayerRef(RECEIPT_IN_PAYER);
+                .addOrderId(RECEIPT_IN_ORDER_ID).addAmount(Long.parseLong(RECEIPT_IN_AMOUNT)).addCurrency(RECEIPT_IN_CURRENCY).addPayerReference(RECEIPT_IN_PAYER);
         request.hash(SECRET);
 
         Assert.assertEquals(RECEIPT_IN_REQUEST_HASH, request.getHash());
@@ -225,7 +225,7 @@ public class PaymentRequestTest {
     @Test
     public void paymentOutHashGenerationTest() {
         PaymentRequest request = new PaymentRequest().addType(PaymentType.PAYMENT_OUT).addTimeStamp(PAYMENT_OUT_TIMESTAMP).addMerchantId(PAYMENT_OUT_MERCHANT_ID)
-                .addOrderId(PAYMENT_OUT_ORDER_ID).addAmount(Long.parseLong(PAYMENT_OUT_AMOUNT)).addCurrency(PAYMENT_OUT_CURRENCY).addPayerRef(PAYMENT_OUT_PAYER)
+                .addOrderId(PAYMENT_OUT_ORDER_ID).addAmount(Long.parseLong(PAYMENT_OUT_AMOUNT)).addCurrency(PAYMENT_OUT_CURRENCY).addPayerReference(PAYMENT_OUT_PAYER)
                 .addRefundHash(PAYMENT_OUT_REFUND_HASH);
         request.hash(SECRET);
 
@@ -415,7 +415,7 @@ public class PaymentRequestTest {
                 .addOrderId(RECEIPT_IN_OTB_ORDER_ID)
                 .addAmount(Long.parseLong(RECEIPT_IN_OTB_AMOUNT))
                 .addCurrency(RECEIPT_IN_OTB_CURRENCY)
-                .addPayerRef(RECEIPT_IN_OTB_PAYER);
+                .addPayerReference(RECEIPT_IN_OTB_PAYER);
 
         request.hash(SECRET);
 

@@ -56,6 +56,30 @@ public class DccInfoResult{
     private Long merchantAmount;
 
     /**
+     * Percentage of the margin rate
+     */
+    @XmlElement(name = "marginratepercentage")
+    private String marginRatePercentage;
+
+    /**
+     * Name of the source that provides the exchange rate
+     */
+    @XmlElement(name = "exchangeratesourcename")
+    private String exchangeRateSourceName;
+
+    /**
+     * Commission Percentage
+     */
+    @XmlElement(name = "commissionpercentage")
+    private String commissionPercentage;
+
+    /**
+     * Timestamp for the exchange rate
+     */
+    @XmlElement(name = "exchangeratesourcetimestamp")
+    private String exchangeRateSourceTimestamp;
+
+    /**
      * Getter for the card holder currency
      *
      * @return String
@@ -144,6 +168,81 @@ public class DccInfoResult{
     public void setMerchantAmount(Long amount) {
         this.merchantAmount = amount;
     }
+
+
+
+    /**
+     * Getter for margin rate percentage
+     *
+     * @return String
+     */
+    public String getMarginRatePercentage() {
+        return marginRatePercentage;
+    }
+
+    /**
+     * Setter for margin rate percentage.
+     *
+     * @param marginRatePercentage
+     */
+    public void setMarginRatePercentage(String marginRatePercentage) {
+        this.marginRatePercentage = marginRatePercentage;
+    }
+
+    /**
+     * Getter for exchange rate source name
+     *
+     * @return String
+     */
+    public String getExchangeRateSourceName() {
+        return exchangeRateSourceName;
+    }
+
+    /**
+     * Setter for exchange rate source name
+     *
+     * @param exchangeRateSourceName
+     */
+    public void setExchangeRateSourceName(String exchangeRateSourceName) {
+        this.exchangeRateSourceName = exchangeRateSourceName;
+    }
+
+    /**
+     * Getter for commission percentage
+     *
+     * @return String
+     */
+    public String getCommissionPercentage() {
+        return commissionPercentage;
+    }
+
+    /**
+     * Setter for commission percentage
+     *
+     * @param commissionPercentage
+     */
+    public void setCommissionPercentage(String commissionPercentage) {
+        this.commissionPercentage = commissionPercentage;
+    }
+
+    /**
+     * Getter for exchange rate source timestamp
+     *
+     * @return String
+     */
+    public String getExchangeRateSourceTimestamp() {
+        return exchangeRateSourceTimestamp;
+    }
+
+    /**
+     * Setter for exchange rate source timestamp
+     *
+     * @param exchangeRateSourceTimestamp
+     */
+    public void setExchangeRateSourceTimestamp(String exchangeRateSourceTimestamp) {
+        this.exchangeRateSourceTimestamp = exchangeRateSourceTimestamp;
+    }
+
 }
 
 

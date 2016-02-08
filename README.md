@@ -216,7 +216,7 @@ PaymentRequest request = new PaymentRequest()
  	.addType(PaymentType.RECEIPT_IN)
  	.addAmount(100)
  	.addCurrency("EUR")
- 	.addPayerRef("payer ref from customer")
+ 	.addPayerReference("payer ref from customer")
  	.addPaymentMethod("payment method ref from customer")
  	.addPaymentData(paymentData);
 
@@ -234,7 +234,7 @@ PaymentRequest request = new PaymentRequest()
  	.addType(PaymentType.PAYMENT_OUT) 	
  	.addAmount(100)
  	.addCurrency("EUR")
- 	.addPayerRef("payer ref from customer")
+ 	.addPayerReference("payer ref from customer")
  	.addPaymentMethod("payment method ref from customer")
  	.addRefundHash("Hash of rebate password shared with Realex");
 
@@ -252,7 +252,7 @@ PayerAddress address = new PayerAddress()
     .addLine3("67-69 High St")
     .addCity("Hytown")
     .addCounty("Dunham")
-    .addPostCode("3")
+    .addPostcode("3")
     .addCountryCode("IE")
     .addCountryName("Ireland");
     
@@ -264,7 +264,7 @@ Payer payer = new Payer()
     .addFirstName("John")
     .addSurname("Smith")
     .addCompany("Acme")
-    .addAddress(address)
+    .addPayerAddress(address)
     .addHomePhoneNumber("+35317285355")
     .addWorkPhoneNumber("+35317433923")
     .addFaxPhoneNumber("+35317893248")
@@ -293,7 +293,7 @@ PayerAddress address = new PayerAddress()
     .addLine3("67-69 High St")
     .addCity("Hytown")
     .addCounty("Dunham")
-    .addPostCode("3")
+    .addPostcode("3")
     .addCountryCode("IE")
     .addCountryName("Ireland");
     
@@ -305,7 +305,7 @@ Payer payer = new Payer()
     .addFirstName("John")
     .addSurname("Smith")
     .addCompany("Acme")
-    .addAddress(address)
+    .addPayerAddress(address)
     .addHomePhoneNumber("+35317285355")
     .addWorkPhoneNumber("+35317433923")
     .addFaxPhoneNumber("+35317893248")
@@ -403,14 +403,14 @@ ThreeDSecureRequest request = new ThreeDSecureRequest()
   .addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
   .addAmount(100)
   .addCurrency("EUR")
-  .addPayerRef("payer ref from customer")
+  .addPayerReference("payer ref from customer")
   .addPaymentMethod("payment method ref from customer")
   .addPaymentData(paymentData)
   .addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE));
  	
 
 RealexClient client = new RealexClient("shared secret");
-PaymentResponse response = client.send(request);
+ThreeDSecureResponse response = client.send(request);
 ```
 
 ### DCC Rate Lookup
@@ -477,7 +477,7 @@ PaymentResponse response = client.send(request);
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
 	.addType(PaymentType.RECEIPT_IN_OTB)
-	.addPayerRef("payer ref from customer")
+	.addPayerReference("payer ref from customer")
     .addPaymentMethod("payment method ref from customer");
 	
 RealexClient client = new RealexClient("shared secret");

@@ -194,7 +194,7 @@ import java.util.List;
  * 	.addOrderId("Order ID from original transaction")
  * 	.addAmount(100)
  * 	.addCurrency("EUR")
- * 	.addPayerRef("payer ref from customer")
+ * 	.addPayerReference("payer ref from customer")
  * 	.addPaymentMethod("payment method ref from customer")
  * 	.addPaymentData(paymentData);
  * </pre></code></p>
@@ -209,7 +209,7 @@ import java.util.List;
  *  .addType(PaymentType.PAYMENT_OUT)
  *  .addAmount(100)
  *  .addCurrency("EUR")
- *  .addPayerRef("payer ref from customer")
+ *  .addPayerReference("payer ref from customer")
  *  .addPaymentMethod("payment method ref from customer")
  *  .addRefundHash("Hash of rebate password shared with Realex");
  * <p/>
@@ -424,7 +424,7 @@ import java.util.List;
  * 	.addOrderId("Order ID from original transaction")
  * 	.addAmount(100)
  * 	.addCurrency("EUR")
- * 	.addPayerRef("payer ref from customer")
+ * 	.addPayerReference("payer ref from customer")
  * 	.addPaymentMethod("payment method ref from customer")
  * 	.addPaymentData(paymentData);
  * </pre></code></p>
@@ -1376,7 +1376,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      * @param payerRef
      * @return PaymentRequest
      */
-    public PaymentRequest addPayerRef(String payerRef) {
+    public PaymentRequest addPayerReference(String payerRef) {
         this.payerRef = payerRef;
         return this;
     }

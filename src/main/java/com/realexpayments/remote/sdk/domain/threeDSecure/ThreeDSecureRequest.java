@@ -57,7 +57,7 @@ import java.util.List;
  * .addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
  * .addAmount(100)
  * .addCurrency("EUR")
- * .addPayerRef("payer ref from customer")
+ * .addPayerReference("payer ref from customer")
  * .addPaymentMethod("payment method ref from customer")
  * .addPaymentData(paymentData);
  *
@@ -599,7 +599,7 @@ public class ThreeDSecureRequest implements Request<ThreeDSecureRequest, ThreeDS
      * @param payerRef
      * @return ThreeDSecureRequest
      */
-    public ThreeDSecureRequest addPayerRef(String payerRef) {
+    public ThreeDSecureRequest addPayerReference(String payerRef) {
         this.payerRef = payerRef;
         return this;
     }

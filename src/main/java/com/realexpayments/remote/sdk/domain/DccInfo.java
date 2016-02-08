@@ -223,7 +223,7 @@ public class DccInfo {
      * @param amount
      * @return DccInfo
      */
-    public DccInfo addAmount(Long amount) {
+    public DccInfo addAmount(long amount) {
         if (null == this.amount) {
             this.amount = new Amount().addAmount(amount);
         } else {
