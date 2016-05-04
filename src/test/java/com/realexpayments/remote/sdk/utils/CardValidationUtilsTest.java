@@ -146,7 +146,7 @@ public class CardValidationUtilsTest {
 		String mm = (month < 10 ? ("0".concat(Integer.toString(month))) : Integer.toString(month));
 		String yy = Integer.toString(year).substring(2);
 		String expiryDate = mm + yy;
-		boolean expectedResult = true;
+		boolean expectedResult = false;
 
 		boolean result = CardValidationUtils.performExpiryDateCheck(expiryDate);
 		Assert.assertEquals(message + " : " + expiryDate, expectedResult, result);

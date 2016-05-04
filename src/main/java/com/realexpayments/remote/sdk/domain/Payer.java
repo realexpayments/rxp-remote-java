@@ -1,6 +1,5 @@
 package com.realexpayments.remote.sdk.domain;
 
-import com.realexpayments.remote.sdk.domain.payment.Address;
 import com.realexpayments.remote.sdk.domain.payment.Comment;
 
 import javax.xml.bind.annotation.*;
@@ -440,7 +439,7 @@ public class Payer {
      * @return Payer
      */
     public Payer addEmail(String email) {
-        this.type = email;
+        this.email = email;
         return this;
     }
 
