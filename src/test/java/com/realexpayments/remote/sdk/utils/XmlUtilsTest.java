@@ -950,6 +950,125 @@ public class XmlUtilsTest {
      * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
      */
     @Test
+    public void paymentRequestPayerNewSetterTest() {
+
+        Country country = new Country();
+        country.setCode(PAYER_NEW_PAYER_ADDRESS_COUNTRY_CODE);
+        country.setName(PAYER_NEW_PAYER_ADDRESS_COUNTRY_NAME);
+
+        PayerAddress payerAddress = new PayerAddress();
+        payerAddress.setLine1(PAYER_NEW_PAYER_ADDRESS_LINE_1);
+        payerAddress.setLine2(PAYER_NEW_PAYER_ADDRESS_LINE_2);
+        payerAddress.setLine3(PAYER_NEW_PAYER_ADDRESS_LINE_3);
+        payerAddress.setCity(PAYER_NEW_PAYER_ADDRESS_CITY);
+        payerAddress.setCountry(country);
+        payerAddress.setCounty(PAYER_NEW_PAYER_ADDRESS_COUNTY);
+        payerAddress.setPostcode(PAYER_NEW_PAYER_ADDRESS_POSTCODE);
+
+        PhoneNumbers phoneNumbers = new PhoneNumbers();
+        phoneNumbers.setHomePhoneNumber(PAYER_NEW_PAYER_HOME_NUMBER);
+        phoneNumbers.setWorkPhoneNumber(PAYER_NEW_PAYER_WORK_NUMBER);
+        phoneNumbers.setFaxPhoneNumber(PAYER_NEW_PAYER_FAX_NUMBER);
+        phoneNumbers.setMobilePhoneNumber(PAYER_NEW_PAYER_MOBILE_NUMBER);
+
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        Comment comment1 = new Comment();
+        comment1.setId(1);
+        comment1.setComment(PAYER_NEW_PAYER_COMMENT_1);
+
+        Comment comment2 = new Comment();
+        comment2.setId(2);
+        comment2.setComment(PAYER_NEW_PAYER_COMMENT_2);
+
+        comments.add(comment1);
+        comments.add(comment2);
+
+        Payer payer = new Payer();
+        payer.setAddress(payerAddress);
+        payer.setRef(PAYER_NEW_PAYER_REF);
+        payer.setType(PAYER_NEW_PAYER_TYPE);
+        payer.setTitle(PAYER_NEW_PAYER_TITLE);
+        payer.setFirstName(PAYER_NEW_PAYER_FIRSTNAME);
+        payer.setSurname(PAYER_NEW_PAYER_SURNAME);
+        payer.setCompany(PAYER_NEW_PAYER_COMPANY);
+        payer.setPhoneNumbers(phoneNumbers);
+
+        payer.setEmail(PAYER_NEW_PAYER_EMAIL);
+        payer.setComments(comments);
+
+        PaymentRequest request = new PaymentRequest();
+        request.setPayer(payer);
+        request.setTimeStamp(PAYER_NEW_TIMESTAMP);
+        request.setMerchantId(PAYER_NEW_MERCHANT_ID);
+        request.setAccount(PAYER_NEW_ACCOUNT);
+        request.setOrderId(PAYER_NEW_ORDER_ID);
+        request.setHash(PAYER_NEW_REQUEST_HASH);
+        request.setType(PaymentType.PAYER_NEW.getType());
+
+
+        //convert to XML
+        String xml = request.toXml();
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(xml);
+        checkUnmarshalledPayerNewPaymentRequest(fromXmlRequest);
+    }
+
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+     */
+    @Test
+    public void paymentRequestPayerNewFluentSetterTest() {
+
+
+        PayerAddress payerAddress = new PayerAddress()
+                .addLine1(PAYER_NEW_PAYER_ADDRESS_LINE_1)
+                .addLine2(PAYER_NEW_PAYER_ADDRESS_LINE_2)
+                .addLine3(PAYER_NEW_PAYER_ADDRESS_LINE_3)
+                .addCity(PAYER_NEW_PAYER_ADDRESS_CITY)
+                .addCountryCode(PAYER_NEW_PAYER_ADDRESS_COUNTRY_CODE)
+                .addCountryName(PAYER_NEW_PAYER_ADDRESS_COUNTRY_NAME)
+                .addCounty(PAYER_NEW_PAYER_ADDRESS_COUNTY)
+                .addPostcode(PAYER_NEW_PAYER_ADDRESS_POSTCODE);
+
+        Payer payer = new Payer()
+                .addPayerAddress(payerAddress)
+                .addRef(PAYER_NEW_PAYER_REF)
+                .addType(PAYER_NEW_PAYER_TYPE)
+                .addTitle(PAYER_NEW_PAYER_TITLE)
+                .addFirstName(PAYER_NEW_PAYER_FIRSTNAME)
+                .addSurname(PAYER_NEW_PAYER_SURNAME)
+                .addCompany(PAYER_NEW_PAYER_COMPANY)
+                .addHomePhoneNumber(PAYER_NEW_PAYER_HOME_NUMBER)
+                .addWorkPhoneNumber(PAYER_NEW_PAYER_WORK_NUMBER)
+                .addFaxPhoneNumber(PAYER_NEW_PAYER_FAX_NUMBER)
+                .addMobilePhoneNumber(PAYER_NEW_PAYER_MOBILE_NUMBER)
+                .addEmail(PAYER_NEW_PAYER_EMAIL)
+                .addComment(PAYER_NEW_PAYER_COMMENT_1)
+                .addComment(PAYER_NEW_PAYER_COMMENT_2);
+
+        PaymentRequest request = new PaymentRequest()
+                .addPayer(payer)
+                .addTimeStamp(PAYER_NEW_TIMESTAMP)
+                .addMerchantId(PAYER_NEW_MERCHANT_ID)
+                .addAccount(PAYER_NEW_ACCOUNT)
+                .addOrderId(PAYER_NEW_ORDER_ID)
+                .addHash(PAYER_NEW_REQUEST_HASH)
+                .addType(PaymentType.PAYER_NEW);
+
+        //convert to XML
+        String xml = request.toXml();
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(xml);
+        checkUnmarshalledPayerNewPaymentRequest(fromXmlRequest);
+    }
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+     */
+    @Test
     public void paymentRequestXmlFromFilePayerEditTest() {
 
         File file = new File(this.getClass().getResource(PAYER_EDIT_PAYMENT_REQUEST_XML_PATH).getPath());
