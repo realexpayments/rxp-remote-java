@@ -75,7 +75,7 @@ public class ThreeDSecureRequest implements Request<ThreeDSecureRequest, ThreeDS
     public enum ThreeDSecureType {
         VERIFY_ENROLLED("3ds-verifyenrolled"),
         VERIFY_SIG("3ds-verifysig"),
-        VERIFY_CARD_ENROLLED("realvault-3ds-verifyenrolled");
+        VERIFY_STORED_CARD_ENROLLED("realvault-3ds-verifyenrolled");
 
         /**
          * The ThreeDSecure type String value
@@ -723,7 +723,7 @@ public class ThreeDSecureRequest implements Request<ThreeDSecureRequest, ThreeDS
 
         //create String to hash
         String toHash;
-        if (ThreeDSecureType.VERIFY_CARD_ENROLLED.getType().equals(this.type)) {
+        if (ThreeDSecureType.VERIFY_STORED_CARD_ENROLLED.getType().equals(this.type)) {
             toHash = new StringBuilder().append(timeStamp)
                     .append(".")
                     .append(merchantId)
