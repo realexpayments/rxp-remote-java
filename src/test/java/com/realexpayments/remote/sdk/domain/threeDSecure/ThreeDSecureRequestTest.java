@@ -45,7 +45,7 @@ public class ThreeDSecureRequestTest {
 	@Test
 	public void verifyCardEnrolledHashGenerationTest() {
 
-		ThreeDSecureRequest request = new ThreeDSecureRequest().addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
+		ThreeDSecureRequest request = new ThreeDSecureRequest().addType(ThreeDSecureType.VERIFY_STORED_CARD_ENROLLED)
 				.addTimeStamp(CARD_VERIFY_TIMESTAMP)
 				.addMerchantId(CARD_VERIFY_MERCHANT_ID)
 				.addOrderId(CARD_VERIFY_ORDER_ID)

@@ -686,7 +686,7 @@ public class XmlUtilsTest {
         request.setPaymentMethod(CARD_VERIFY_REF);
         request.setPayerRef(CARD_VERIFY_PAYER_REF);
         request.setHash(CARD_VERIFY_REQUEST_HASH);
-        request.setType(ThreeDSecureType.VERIFY_CARD_ENROLLED.getType());
+        request.setType(ThreeDSecureType.VERIFY_STORED_CARD_ENROLLED.getType());
 
         //convert to XML
         String xml = request.toXml();
