@@ -1189,7 +1189,7 @@ public class SampleXmlValidationUtils {
     public static void checkUnmarshalledVerifyCardEnrolledPaymentRequest(ThreeDSecureRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
 
-        Assert.assertEquals(ThreeDSecureType.VERIFY_CARD_ENROLLED.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(ThreeDSecureType.VERIFY_STORED_CARD_ENROLLED.getType(), fromXmlRequest.getType());
         Assert.assertEquals(CARD_VERIFY_ACCOUNT, fromXmlRequest.getAccount());
         Assert.assertEquals(CARD_VERIFY_MERCHANT_ID, fromXmlRequest.getMerchantId());
         Assert.assertEquals(CARD_VERIFY_TIMESTAMP, fromXmlRequest.getTimeStamp());
