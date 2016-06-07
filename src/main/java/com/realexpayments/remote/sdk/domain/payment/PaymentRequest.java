@@ -637,6 +637,17 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
     @XmlElement(name = "paymentmethod")
     private String paymentMethod;
 
+    /**
+     * @var string This is a code used to identify the reason
+     *            for a transaction action. It is an optional
+     *            field but if populated it must contain a
+     *            value that is allowed for that transaction
+     *            type.
+     *          If no value is supplied, the default reason
+     *            code NOTGIVEN will be applied to the holdrequest
+     */
+    @XmlElement(name = "reasoncode")
+    private ReasonCode reasonCode;
 
     /**
      * Contains payment information to be used on Receipt-in transactions
@@ -1425,6 +1436,16 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         return this;
     }
 
+    public ReasonCode getReasonCode() { return reasonCode; }
+
+    public void setReasonCode(ReasonCode reasonCode) {
+        this.reasonCode = reasonCode;
+    }
+
+    public PaymentRequest addReasonCode(ReasonCode reasonCode) {
+        this.reasonCode = reasonCode;
+        return this;
+    }
     /**
      * <p>
      * This helper method adds Address Verification Service (AVS) fields to the request.

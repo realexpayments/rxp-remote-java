@@ -1198,5 +1198,142 @@ public class XmlUtilsTest {
 
     }
 
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for hold payment types and reason code.
+     */
+    @Test
+    public void paymentRequestWithReasonCodeXmlFromFileHoldTest() {
+
+        File file = new File(this.getClass().getResource(HOLD_PAYMENT_REQUEST_REASONCODE_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+        checkUnmarshalledHoldPaymentWithReasonCodeRequest(fromXmlRequest);
+
+    }
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for payer-new payment types.
+     */
+    @Test
+    public void paymentRequestPayerNewFluentSetterWithReasonCodeTest() {
+
+
+        PayerAddress payerAddress = new PayerAddress()
+                .addLine1(PAYER_NEW_PAYER_ADDRESS_LINE_1)
+                .addLine2(PAYER_NEW_PAYER_ADDRESS_LINE_2)
+                .addLine3(PAYER_NEW_PAYER_ADDRESS_LINE_3)
+                .addCity(PAYER_NEW_PAYER_ADDRESS_CITY)
+                .addCountryCode(PAYER_NEW_PAYER_ADDRESS_COUNTRY_CODE)
+                .addCountryName(PAYER_NEW_PAYER_ADDRESS_COUNTRY_NAME)
+                .addCounty(PAYER_NEW_PAYER_ADDRESS_COUNTY)
+                .addPostcode(PAYER_NEW_PAYER_ADDRESS_POSTCODE);
+
+        Payer payer = new Payer()
+                .addPayerAddress(payerAddress)
+                .addRef(PAYER_NEW_PAYER_REF)
+                .addType(PAYER_NEW_PAYER_TYPE)
+                .addTitle(PAYER_NEW_PAYER_TITLE)
+                .addFirstName(PAYER_NEW_PAYER_FIRSTNAME)
+                .addSurname(PAYER_NEW_PAYER_SURNAME)
+                .addCompany(PAYER_NEW_PAYER_COMPANY)
+                .addHomePhoneNumber(PAYER_NEW_PAYER_HOME_NUMBER)
+                .addWorkPhoneNumber(PAYER_NEW_PAYER_WORK_NUMBER)
+                .addFaxPhoneNumber(PAYER_NEW_PAYER_FAX_NUMBER)
+                .addMobilePhoneNumber(PAYER_NEW_PAYER_MOBILE_NUMBER)
+                .addEmail(PAYER_NEW_PAYER_EMAIL)
+                .addComment(PAYER_NEW_PAYER_COMMENT_1)
+                .addComment(PAYER_NEW_PAYER_COMMENT_2);
+
+        PaymentRequest request = new PaymentRequest()
+                .addPayer(payer)
+                .addTimeStamp(PAYER_NEW_TIMESTAMP)
+                .addMerchantId(PAYER_NEW_MERCHANT_ID)
+                .addAccount(PAYER_NEW_ACCOUNT)
+                .addOrderId(PAYER_NEW_ORDER_ID)
+                .addHash(PAYER_NEW_REQUEST_HASH)
+                .addType(PaymentType.PAYER_NEW)
+                .addReasonCode(ReasonCode.FALSE_POSITIVE);
+
+        //convert to XML
+        String xml = request.toXml();
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(xml);
+        checkUnmarshalledPayerNewPaymentWithReasonCodeRequest(fromXmlRequest);
+    }
+
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for settle payment types.
+     */
+    @Test
+    public void paymentRequestXmlFromFileSettleWithReasonCodeTest() {
+
+        File file = new File(this.getClass().getResource(RELEASE_PAYMENT_REQUEST_REASONCODE_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+        checkUnmarshalledReleasePaymentWithReasonCodeRequest(fromXmlRequest);
+
+    }
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for settle payment types.
+     */
+    @Test
+    public void testPaymentRequestCodeXmlFromCode() {
+        PaymentRequest request = new PaymentRequest()
+                .addAccount(HOLD_ACCOUNT)
+                .addMerchantId(HOLD_MERCHANT_ID)
+                .addType(PaymentType.HOLD)
+                .addTimeStamp(HOLD_TIMESTAMP)
+                .addOrderId(HOLD_ORDER_ID)
+                .addHash(HOLD_REQUEST_HASH)
+                .addReasonCode(HOLD_REASON_CODE);
+
+        //convert to XML
+        String xml = request.toXml();
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(xml);
+        checkUnmarshalledPaymentWithReasonCodeRequest(fromXmlRequest);
+    }
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for settle payment types.
+     */
+    @Test
+    public void testAllReasonsPaymentRequestCodeXmlFromCode() {
+        PaymentRequest request = new PaymentRequest()
+                .addAccount(HOLD_ACCOUNT)
+                .addMerchantId(HOLD_MERCHANT_ID)
+                .addType(PaymentType.HOLD)
+                .addTimeStamp(HOLD_TIMESTAMP)
+                .addOrderId(HOLD_ORDER_ID)
+                .addHash(HOLD_REQUEST_HASH);
+
+        ArrayList<ReasonCode> reasons = new ArrayList<ReasonCode>();
+        reasons.add(ReasonCode.FALSE_POSITIVE);
+        reasons.add(ReasonCode.FRAUD);
+        reasons.add(ReasonCode.INSTOCK);
+        reasons.add(ReasonCode.NOTGIVEN);
+        reasons.add(ReasonCode.OTHER);
+        reasons.add(ReasonCode.OUTOFSTOCK);
+
+        for (ReasonCode reason:reasons) {
+
+            request.setReasonCode(reason);
+            //convert to XML
+            String xml = request.toXml();
+
+            //Convert from XML back to PaymentRequest
+            PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(xml);
+            checkUnmarshalledPaymentWithReasonCodeRequest(fromXmlRequest,reason);
+        }
+    }
+
 
 }

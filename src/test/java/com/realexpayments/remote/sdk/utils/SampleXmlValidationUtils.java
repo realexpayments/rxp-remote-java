@@ -1,5 +1,6 @@
 package com.realexpayments.remote.sdk.utils;
 
+import com.realexpayments.remote.sdk.domain.payment.ReasonCode;
 import org.junit.Assert;
 
 import com.realexpayments.remote.sdk.RealexServerException;
@@ -63,6 +64,9 @@ public class SampleXmlValidationUtils {
     public static final String DCC_RATE_LOOKUP_PAYMENT_REQUEST_XML_PATH = "/sample-xml/dcc-rate-lookup-payment-request-sample.xml";
     public static final String DCC_RATE_AUTH_PAYMENT_REQUEST_XML_PATH = "/sample-xml/dcc-rate-auth-payment-request-sample.xml";
     public static final String RECEIPT_IN_OTB_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-otb-payment-request-sample.xml";
+    public static final String HOLD_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/hold-payment-request-with-reasoncode-sample.xml";
+    public static final String RELEASE_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/release-payment-request-with-reasoncode-sample.xml";
+
 
     //Card
     public static final String CARD_NUMBER = "420000000000000000";
@@ -188,6 +192,7 @@ public class SampleXmlValidationUtils {
     public static final String SETTLE_ORDER_ID = "e3cf94c6-f674-4f99-b4db-7541254a8767";
     public static final String SETTLE_REQUEST_HASH = "b2e110f78803ccb377e8f3f12730e41d0cb0ed66";
 
+
     //void fields
     public static final String VOID_TIMESTAMP = "20151204142728";
     public static final String VOID_MERCHANT_ID = "thestore";
@@ -236,6 +241,7 @@ public class SampleXmlValidationUtils {
     public static final String HOLD_PASREF = "ABC123456";
     public static final String HOLD_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78d95";
     public static final String HOLD_REQUEST_HASH = "eec6d1f5dcc51a6a2d2b59af5d2cdb965806d96c";
+    public static final ReasonCode HOLD_REASON_CODE = ReasonCode.FRAUD;
 
     //release fields
     public static final String RELEASE_TIMESTAMP = "20151204161419";
@@ -244,6 +250,8 @@ public class SampleXmlValidationUtils {
     public static final String RELEASE_PASREF = "ABC123456";
     public static final String RELEASE_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78d95";
     public static final String RELEASE_REQUEST_HASH = "eec6d1f5dcc51a6a2d2b59af5d2cdb965806d96c";
+    public static final ReasonCode RELEASE_REASON_CODE =  ReasonCode.OUTOFSTOCK;
+
 
     // receipt-in fields
     public static final String RECEIPT_IN_TIMESTAMP = "20160119171625";
@@ -299,6 +307,8 @@ public class SampleXmlValidationUtils {
     public static final String PAYER_NEW_PAYER_EMAIL = "jsmith@acme.com";
     public static final String PAYER_NEW_PAYER_COMMENT_1 = "comment 1";
     public static final String PAYER_NEW_PAYER_COMMENT_2 = "";
+    public static final ReasonCode PAYER_REASON_CODE = ReasonCode.FALSE_POSITIVE;
+
 
 
     // payer-edit fields
@@ -504,6 +514,36 @@ public class SampleXmlValidationUtils {
      *
      * @param fromXmlRequest
      */
+    public static void checkUnmarshalledPaymentWithReasonCodeRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(HOLD_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(HOLD_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(HOLD_REASON_CODE.getType(), fromXmlRequest.getReasonCode().getType());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledPaymentWithReasonCodeRequest(PaymentRequest fromXmlRequest,ReasonCode reason) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(HOLD_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(HOLD_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(reason.getType(), fromXmlRequest.getReasonCode().getType());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
     public static void checkUnmarshalledMobileAuthPaymentRequest(PaymentRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
         Assert.assertEquals(PaymentType.AUTH_MOBILE.getType(), fromXmlRequest.getType());
@@ -637,6 +677,23 @@ public class SampleXmlValidationUtils {
      *
      * @param fromXmlRequest
      */
+    public static void checkUnmarshalledHoldPaymentWithReasonCodeRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(PaymentType.HOLD.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(HOLD_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(HOLD_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
+        Assert.assertEquals(HOLD_REASON_CODE, fromXmlRequest.getReasonCode());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
     public static void checkUnmarshalledReleasePaymentRequest(PaymentRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
         Assert.assertEquals(PaymentType.RELEASE.getType(), fromXmlRequest.getType());
@@ -646,6 +703,23 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(RELEASE_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(RELEASE_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(RELEASE_PASREF, fromXmlRequest.getPaymentsReference());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledReleasePaymentWithReasonCodeRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(PaymentType.RELEASE.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(RELEASE_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(RELEASE_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(RELEASE_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(RELEASE_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(RELEASE_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(RELEASE_PASREF, fromXmlRequest.getPaymentsReference());
+        Assert.assertEquals(RELEASE_REASON_CODE.getType(), fromXmlRequest.getReasonCode().getType());
     }
 
     /**
@@ -723,6 +797,53 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(PAYER_NEW_PAYER_WORK_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getWorkPhoneNumber());
         Assert.assertEquals(PAYER_NEW_PAYER_FAX_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getFaxPhoneNumber());
         Assert.assertEquals(PAYER_NEW_PAYER_MOBILE_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getMobilePhoneNumber());
+
+
+        Assert.assertEquals(PAYER_NEW_PAYER_COMMENT_1, fromXmlRequest.getPayer().getComments().get(0).getComment().trim());
+        Assert.assertEquals("1", fromXmlRequest.getPayer().getComments().get(0).getId().toString());
+        Assert.assertEquals(PAYER_NEW_PAYER_COMMENT_2, fromXmlRequest.getPayer().getComments().get(1).getComment().trim());
+        Assert.assertEquals("2", fromXmlRequest.getPayer().getComments().get(1).getId().toString());
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledPayerNewPaymentWithReasonCodeRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+
+        Assert.assertEquals(PaymentType.PAYER_NEW.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(PAYER_NEW_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(PAYER_NEW_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(PAYER_NEW_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(PAYER_NEW_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(PAYER_NEW_REQUEST_HASH, fromXmlRequest.getHash());
+
+        Assert.assertEquals(PAYER_NEW_PAYER_REF, fromXmlRequest.getPayer().getRef());
+        Assert.assertEquals(PAYER_NEW_PAYER_TYPE, fromXmlRequest.getPayer().getType());
+        Assert.assertEquals(PAYER_NEW_PAYER_TITLE, fromXmlRequest.getPayer().getTitle());
+        Assert.assertEquals(PAYER_NEW_PAYER_FIRSTNAME, fromXmlRequest.getPayer().getFirstName());
+        Assert.assertEquals(PAYER_NEW_PAYER_SURNAME, fromXmlRequest.getPayer().getSurname());
+        Assert.assertEquals(PAYER_NEW_PAYER_COMPANY, fromXmlRequest.getPayer().getCompany());
+        Assert.assertEquals(PAYER_NEW_PAYER_EMAIL, fromXmlRequest.getPayer().getEmail());
+
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_LINE_1, fromXmlRequest.getPayer().getAddress().getLine1());
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_LINE_2, fromXmlRequest.getPayer().getAddress().getLine2());
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_LINE_3, fromXmlRequest.getPayer().getAddress().getLine3());
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_CITY, fromXmlRequest.getPayer().getAddress().getCity());
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_COUNTY, fromXmlRequest.getPayer().getAddress().getCounty());
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_POSTCODE, fromXmlRequest.getPayer().getAddress().getPostcode());
+
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_COUNTRY_CODE, fromXmlRequest.getPayer().getAddress().getCountry().getCode());
+        Assert.assertEquals(PAYER_NEW_PAYER_ADDRESS_COUNTRY_NAME, fromXmlRequest.getPayer().getAddress().getCountry().getName());
+
+        Assert.assertEquals(PAYER_NEW_PAYER_HOME_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getHomePhoneNumber());
+        Assert.assertEquals(PAYER_NEW_PAYER_WORK_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getWorkPhoneNumber());
+        Assert.assertEquals(PAYER_NEW_PAYER_FAX_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getFaxPhoneNumber());
+        Assert.assertEquals(PAYER_NEW_PAYER_MOBILE_NUMBER, fromXmlRequest.getPayer().getPhoneNumbers().getMobilePhoneNumber());
+
+        Assert.assertEquals(PAYER_REASON_CODE, fromXmlRequest.getReasonCode());
 
 
         Assert.assertEquals(PAYER_NEW_PAYER_COMMENT_1, fromXmlRequest.getPayer().getComments().get(0).getComment().trim());
