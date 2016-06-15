@@ -11,7 +11,9 @@ public enum ReasonCode {
         OTHER("OTHER"),
         FALSE_POSITIVE("FALSEPOSITIVE"),
         INSTOCK("INSTOCK"),
-        NOTGIVEN("NOTGIVEN");
+        NOTGIVEN("NOTGIVEN"),
+        HOLD("HOLD"),
+        RELEASE("RELEASE");
         // @formatter:on
 
         /**

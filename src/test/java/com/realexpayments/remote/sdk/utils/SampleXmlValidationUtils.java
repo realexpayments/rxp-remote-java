@@ -66,7 +66,10 @@ public class SampleXmlValidationUtils {
     public static final String RECEIPT_IN_OTB_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-otb-payment-request-sample.xml";
     public static final String HOLD_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/hold-payment-request-with-reasoncode-sample.xml";
     public static final String RELEASE_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/release-payment-request-with-reasoncode-sample.xml";
-    public static final String  DCC_REAL_VAULT_REQUEST_XML_PATH = "/sample-xml/realvault-dccrate-request.xml";
+    public static final String DCC_REAL_VAULT_REQUEST_XML_PATH = "/sample-xml/realvault-dccrate-request.xml";
+    public static final String  HOLD_PAYMENT_REASON_REQUEST_XML_PATH = "/sample-xml/hold-payment-reason-hold-request.xml";
+    public static final String  RELEASE_PAYMENT_REASON_REQUEST_XML_PATH = "/sample-xml/hold-payment-reason-release-request.xml";
+
 
 
 
@@ -689,6 +692,39 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
+    }
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledHoldReasonHoldPaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(PaymentType.HOLD.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(HOLD_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(HOLD_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
+        Assert.assertEquals(ReasonCode.HOLD.getType(), fromXmlRequest.getReasonCode().getType());
+    }
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledHoldReasonRequestPaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(PaymentType.HOLD.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(HOLD_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(HOLD_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
+        Assert.assertEquals(ReasonCode.RELEASE, fromXmlRequest.getReasonCode());
+
     }
 
     /**

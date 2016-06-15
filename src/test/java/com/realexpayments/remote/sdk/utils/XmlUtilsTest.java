@@ -1349,5 +1349,33 @@ public class XmlUtilsTest {
         checkUnmarshalledDccRealVaultPaymentRequest(fromXmlRequest);
     }
 
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for dcc real vault payment types.
+     */
+    @Test
+    public void testPaymentRequestXmlFromFileHoldReasonCodeHold() {
+
+        File file = new File(this.getClass().getResource(HOLD_PAYMENT_REASON_REQUEST_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+        checkUnmarshalledHoldReasonHoldPaymentRequest(fromXmlRequest);
+    }
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for dcc real vault payment types.
+     */
+    @Test
+    public void testPaymentRequestXmlFromFileHoldReasonCodeRelease() {
+
+        File file = new File(this.getClass().getResource(RELEASE_PAYMENT_REASON_REQUEST_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+        checkUnmarshalledHoldReasonRequestPaymentRequest(fromXmlRequest);
+    }
+
 
 }
