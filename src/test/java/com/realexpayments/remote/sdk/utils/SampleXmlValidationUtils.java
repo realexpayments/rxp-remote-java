@@ -66,6 +66,8 @@ public class SampleXmlValidationUtils {
     public static final String RECEIPT_IN_OTB_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-otb-payment-request-sample.xml";
     public static final String HOLD_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/hold-payment-request-with-reasoncode-sample.xml";
     public static final String RELEASE_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/release-payment-request-with-reasoncode-sample.xml";
+    public static final String  DCC_REAL_VAULT_REQUEST_XML_PATH = "/sample-xml/realvault-dccrate-request.xml";
+
 
 
     //Card
@@ -394,6 +396,23 @@ public class SampleXmlValidationUtils {
     public static final String CARD_VERIFY_AMOUNT = "3000";
     public static final String CARD_VERIFY_CURRENCY = "EUR";
     public static final String CARD_PAYMENT_DATA_CVN = "123";
+
+
+    //dcc realvaulr
+     public static final String REALVAULT_DCCRATE = PaymentType.REALVAULT_DCCRATE.getType();
+     public static final String DCC_REAL_VAULT_TIMESTAMP = "20140520151742";
+     public static final String DCC_REAL_VAULT_MERCHANT_ID = "yourmerchantid";
+     public static final String DCC_REAL_VAULT_ACCOUNT = "internet";
+     public static final String DCC_REAL_VAULT_ORDER_ID = "transaction01";
+     public static final String DCC_REAL_VAULT_CURRENCY = "EUR";
+     public static final String DCC_REAL_VAULT_AMOUNT = "9999";
+     public static final String DCC_REAL_VAULT_PAYREF = "smith01";
+     public static final String DCC_REAL_VAULT_PAYMENT_METHOD = "visa01";
+     public static final String DCC_REAL_VAULT_DCC_CCP = "fexco";
+     public static final String DCC_REAL_VAULT_DCC_TYPE = "1";
+     public static final String DCC_REAL_VAULT_REQUEST_HASH = "500a6c67d7ec3e196b60efdfb4cdc5ab8366416a";
+     public static final String DCC_REAL_VAULT_COMMENT_1 = "";
+     public static final String DCC_REAL_VAULT_COMMENT_2 = "";
 
     // dcc rate lookup
     public static final String DCC_RATE_TIMESTAMP = "20160205175725";
@@ -1322,6 +1341,31 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(CARD_VERIFY_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
         Assert.assertEquals(CARD_VERIFY_CURRENCY, fromXmlRequest.getAmount().getCurrency());
         Assert.assertEquals(CARD_PAYMENT_DATA_CVN, fromXmlRequest.getPaymentData().getCvnNumber().getNumber());
+
+    }
+
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledDccRealVaultPaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+
+        Assert.assertEquals(REALVAULT_DCCRATE, fromXmlRequest.getType());
+        Assert.assertEquals(DCC_REAL_VAULT_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(DCC_REAL_VAULT_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(DCC_REAL_VAULT_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(DCC_REAL_VAULT_PAYREF, fromXmlRequest.getPayerRef());
+        Assert.assertEquals(DCC_REAL_VAULT_PAYMENT_METHOD, fromXmlRequest.getPaymentMethod());
+        Assert.assertEquals(DCC_REAL_VAULT_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(DCC_REAL_VAULT_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
+        Assert.assertEquals(DCC_REAL_VAULT_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+        Assert.assertEquals(DCC_REAL_VAULT_DCC_CCP, fromXmlRequest.getDccInfo().getDccProcessor());
+        Assert.assertEquals(DCC_REAL_VAULT_DCC_TYPE, fromXmlRequest.getDccInfo().getType());
+        Assert.assertEquals(DCC_REAL_VAULT_COMMENT_1, fromXmlRequest.getComments().get(0).getComment());
+        Assert.assertEquals(DCC_REAL_VAULT_COMMENT_2, fromXmlRequest.getComments().get(1).getComment());
+        Assert.assertEquals(DCC_REAL_VAULT_REQUEST_HASH, fromXmlRequest.getHash());
 
     }
 }

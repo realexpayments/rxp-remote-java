@@ -1335,5 +1335,19 @@ public class XmlUtilsTest {
         }
     }
 
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for dcc real vault payment types.
+     */
+    @Test
+    public void testPaymentRequestXmlFromFileDccRealVault() {
+
+        File file = new File(this.getClass().getResource(DCC_REAL_VAULT_REQUEST_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+        checkUnmarshalledDccRealVaultPaymentRequest(fromXmlRequest);
+    }
+
 
 }

@@ -458,7 +458,9 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         CARD_CANCEL("card-cancel-card"),
         DCC_RATE_LOOKUP("dccrate"),
         DCC_AUTH("auth"),
-        RECEIPT_IN_OTB("receipt-in-otb");
+        RECEIPT_IN_OTB("receipt-in-otb"),
+        REALVAULT_DCCRATE("realvault-dccrate");
+
 
 
         /**
@@ -1688,6 +1690,20 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
                     .append(merchantId)
                     .append(".")
                     .append(orderId)
+                    .append(".")
+                    .append(payerRef)
+                    .toString();
+
+        } else if (PaymentType.REALVAULT_DCCRATE.getType().equals(this.type)) {
+            toHash = new StringBuilder().append(timeStamp)
+                    .append(".")
+                    .append(merchantId)
+                    .append(".")
+                    .append(orderId)
+                    .append(".")
+                    .append(amount)
+                    .append(".")
+                    .append(currency)
                     .append(".")
                     .append(payerRef)
                     .toString();
