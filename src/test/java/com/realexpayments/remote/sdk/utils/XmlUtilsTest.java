@@ -57,6 +57,10 @@ public class XmlUtilsTest {
                         .addCode(ADDRESS_CODE_SHIPPING)
                         .addCountry(ADDRESS_COUNTRY_SHIPPING));
 
+        FraudFilter ff = new FraudFilter();
+        ff.setMode(FRAUD_FILTER);
+
+
         PaymentRequest request = new PaymentRequest()
                 .addAccount(ACCOUNT)
                 .addMerchantId(MERCHANT_ID)
@@ -74,7 +78,7 @@ public class XmlUtilsTest {
                 .addPaymentsReference(PASREF)
                 .addAuthCode(AUTH_CODE)
                 .addRefundHash(REFUND_HASH)
-                .addFraudFilter(FRAUD_FILTER)
+                .addFraudFilter(ff)
                 .addRecurring(new Recurring()
                         .addFlag(RECURRING_FLAG)
                         .addSequence(RECURRING_SEQUENCE)
@@ -121,6 +125,9 @@ public class XmlUtilsTest {
                         .addCode(ADDRESS_CODE_SHIPPING)
                         .addCountry(ADDRESS_COUNTRY_SHIPPING));
 
+        FraudFilter ff = new FraudFilter();
+        ff.setMode(FRAUD_FILTER);
+
         PaymentRequest request = new PaymentRequest()
                 .addAccount(ACCOUNT)
                 .addMerchantId(MERCHANT_ID)
@@ -138,7 +145,7 @@ public class XmlUtilsTest {
                 .addPaymentsReference(PASREF)
                 .addAuthCode(AUTH_CODE)
                 .addRefundHash(REFUND_HASH)
-                .addFraudFilter(FRAUD_FILTER)
+                .addFraudFilter(ff)
                 .addRecurring(new Recurring()
                         .addFlag(RECURRING_FLAG.getRecurringFlag())
                         .addSequence(RECURRING_SEQUENCE.getSequence())
@@ -205,10 +212,14 @@ public class XmlUtilsTest {
         comments.add(comment);
         request.setComments(comments);
 
+        FraudFilter ff = new FraudFilter();
+        ff.setMode(FRAUD_FILTER);
+        request.setFraudFilter(ff);
+
+
         request.setPaymentsReference(PASREF);
         request.setAuthCode(AUTH_CODE);
         request.setRefundHash(REFUND_HASH);
-        request.setFraudFilter(FRAUD_FILTER);
 
         Recurring recurring = new Recurring();
         recurring.setFlag(RECURRING_FLAG.getRecurringFlag());
@@ -1375,6 +1386,19 @@ public class XmlUtilsTest {
         //Convert from XML back to PaymentRequest
         PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
         checkUnmarshalledHoldReasonRequestPaymentRequest(fromXmlRequest);
+    }
+
+    /**
+     * Tests conversion of {@link PaymentResponse} from XML file
+     */
+    @Test
+    public void testPaymentResponseWithFraudFilterXmlFromFile() {
+        File file = new File(this.getClass().getResource(PAYMENT_RESPONSE_WITH_FRAUD_FILTER_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentResponse fromXmlRequest = new PaymentResponse().fromXml(source);
+        checkUnmarshalledPaymentResponseWithFraudFilter( fromXmlRequest );
     }
 
 

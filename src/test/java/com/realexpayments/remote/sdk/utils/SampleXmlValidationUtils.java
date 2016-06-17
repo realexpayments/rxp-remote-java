@@ -1,6 +1,6 @@
 package com.realexpayments.remote.sdk.utils;
 
-import com.realexpayments.remote.sdk.domain.payment.ReasonCode;
+import com.realexpayments.remote.sdk.domain.payment.*;
 import org.junit.Assert;
 
 import com.realexpayments.remote.sdk.RealexServerException;
@@ -8,15 +8,15 @@ import com.realexpayments.remote.sdk.domain.Card.CardType;
 import com.realexpayments.remote.sdk.domain.Cvn.PresenceIndicator;
 import com.realexpayments.remote.sdk.domain.payment.Address.AddressType;
 import com.realexpayments.remote.sdk.domain.payment.AutoSettle.AutoSettleFlag;
-import com.realexpayments.remote.sdk.domain.payment.PaymentRequest;
 import com.realexpayments.remote.sdk.domain.payment.PaymentRequest.PaymentType;
-import com.realexpayments.remote.sdk.domain.payment.PaymentResponse;
 import com.realexpayments.remote.sdk.domain.payment.Recurring.RecurringFlag;
 import com.realexpayments.remote.sdk.domain.payment.Recurring.RecurringSequence;
 import com.realexpayments.remote.sdk.domain.payment.Recurring.RecurringType;
 import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureRequest;
 import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureRequest.ThreeDSecureType;
 import com.realexpayments.remote.sdk.domain.threeDSecure.ThreeDSecureResponse;
+
+import java.util.List;
 
 /**
  * Unit testing utility class to validate the sample XML files.
@@ -69,6 +69,8 @@ public class SampleXmlValidationUtils {
     public static final String DCC_REAL_VAULT_REQUEST_XML_PATH = "/sample-xml/realvault-dccrate-request.xml";
     public static final String  HOLD_PAYMENT_REASON_REQUEST_XML_PATH = "/sample-xml/hold-payment-reason-hold-request.xml";
     public static final String  RELEASE_PAYMENT_REASON_REQUEST_XML_PATH = "/sample-xml/hold-payment-reason-release-request.xml";
+    public static final String  PAYMENT_RESPONSE_WITH_FRAUD_FILTER_XML_PATH = "/sample-xml/payment-response-fraud.xml";
+
 
 
 
@@ -95,7 +97,7 @@ public class SampleXmlValidationUtils {
     public static final String COMMENT1 = "comment 1";
     public static final String COMMENT2 = "comment 2";
     public static final String REFUND_HASH = "hjfdg78h34tyvklasjr89t";
-    public static final String FRAUD_FILTER = "fraud filter";
+    public static final FraudFilter.FraudFilterMode FRAUD_FILTER =  FraudFilter.FraudFilterMode.PASSIVE;
     public static final String CUSTOMER_NUMBER = "cust num";
     public static final String PRODUCT_ID = "prod ID";
     public static final String VARIABLE_REFERENCE = "variable ref 1234";
@@ -481,6 +483,22 @@ public class SampleXmlValidationUtils {
     public static final String RECEIPT_IN_OTB_CVN = "123";
     public static final String RECEIPT_IN_OTB_REQUEST_HASH = "ceeeb16edfeda0dc919db1be1b0e9db7b01b24cf";
 
+    //fraud filter values
+    public static final String FRAUD_FILTER_MODE = FraudFilter.FraudFilterMode.ACTIVE.toString();
+    public static final String FRAUD_FILTER_RESULT = "BLOCK";
+    public static final String FRAUD_FILTER_RULE_1_ID = "e5964ac0-ace0-477a-98ef-f467772d6a76";
+    public static final String FRAUD_FILTER_RULE_1_NAME = "ScreenedCardNumber";
+    public static final String FRAUD_FILTER_RULE_1_VALUE = "PASS";
+    public static final String FRAUD_FILTER_RULE_2_ID = "234mk2k3-ace0-477a-98ef-qe782bqa5f4s";
+    public static final String FRAUD_FILTER_RULE_2_NAME = "GeoShipBillCo";
+    public static final String FRAUD_FILTER_RULE_2_VALUE = "HOLD";
+    public static final String FRAUD_FILTER_RULE_3_ID = "d6y38qk3-ace0-477a-98ef-23kjh234i5o2";
+    public static final String FRAUD_FILTER_RULE_3_NAME = "PtrnCardNumName";
+    public static final String FRAUD_FILTER_RULE_3_VALUE = "BLOCK";
+    public static final String FRAUD_FILTER_RULE_4_ID = "234mk2k3-ace0-477a-98ef-8h9jn34nj456";
+    public static final String FRAUD_FILTER_RULE_4_NAME = "VelCardNum24h";
+    public static final String FRAUD_FILTER_RULE_4_VALUE = "HOLD";
+
     /**
      * Check all fields match expected values.
      *
@@ -512,7 +530,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(PASREF, fromXmlRequest.getPaymentsReference());
         Assert.assertEquals(AUTH_CODE, fromXmlRequest.getAuthCode());
         Assert.assertEquals(REFUND_HASH, fromXmlRequest.getRefundHash());
-        Assert.assertEquals(FRAUD_FILTER, fromXmlRequest.getFraudFilter());
+        Assert.assertEquals(FRAUD_FILTER, fromXmlRequest.getFraudFilter().getMode());
         Assert.assertEquals(RECURRING_FLAG.getRecurringFlag(), fromXmlRequest.getRecurring().getFlag());
         Assert.assertEquals(RECURRING_TYPE.getType(), fromXmlRequest.getRecurring().getType());
         Assert.assertEquals(RECURRING_SEQUENCE.getSequence(), fromXmlRequest.getRecurring().getSequence());
@@ -1404,6 +1422,27 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(DCC_REAL_VAULT_REQUEST_HASH, fromXmlRequest.getHash());
 
     }
+    public static void checkUnmarshalledPaymentResponseWithFraudFilter(PaymentResponse fromXmlResponse) {
+        Assert.assertNotNull(fromXmlResponse);
+        
+        FraudFilter fraudFilter = fromXmlResponse.getFraudFilter();
+        List<FraudFilterRule> rules = fraudFilter.getRules();
+
+        Assert.assertEquals( FRAUD_FILTER_MODE, fraudFilter.getMode().toString());
+        Assert.assertEquals( FRAUD_FILTER_RESULT, fraudFilter.getResult().toString());
+        Assert.assertEquals( FRAUD_FILTER_RULE_1_ID, rules.get(0).getId());
+        Assert.assertEquals( FRAUD_FILTER_RULE_1_NAME, rules.get(0).getName());
+        Assert.assertEquals( FRAUD_FILTER_RULE_1_VALUE, rules.get(0).getValue());
+
+        Assert.assertEquals( FRAUD_FILTER_RULE_2_ID, rules.get(1).getId());
+        Assert.assertEquals( FRAUD_FILTER_RULE_2_NAME, rules.get(1).getName());
+        Assert.assertEquals( FRAUD_FILTER_RULE_2_VALUE, rules.get(1).getValue());
+
+        Assert.assertEquals( FRAUD_FILTER_RULE_3_ID, rules.get(2).getId());
+        Assert.assertEquals( FRAUD_FILTER_RULE_3_NAME, rules.get(2).getName());
+        Assert.assertEquals( FRAUD_FILTER_RULE_3_VALUE, rules.get(2).getValue());
+    }
+
 }
 
 

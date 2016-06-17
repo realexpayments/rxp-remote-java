@@ -593,7 +593,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      * Fraud filter flag
      */
     @XmlElement(name = "fraudfilter")
-    private String fraudFilter;
+    private FraudFilter fraudFilter;
 
     /**
      * If you are configured for recurring/continuous authority transactions, you must set the recurring values.
@@ -930,9 +930,9 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
     /**
      * Getter for fraud filter.
      *
-     * @return String
+     * @return FraudFilter
      */
-    public String getFraudFilter() {
+    public FraudFilter getFraudFilter() {
         return fraudFilter;
     }
 
@@ -941,7 +941,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      *
      * @param fraudFilter
      */
-    public void setFraudFilter(String fraudFilter) {
+    public void setFraudFilter(FraudFilter fraudFilter) {
         this.fraudFilter = fraudFilter;
     }
 
@@ -1323,10 +1323,11 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      * @param fraudFilter
      * @return PaymentRequest
      */
-    public PaymentRequest addFraudFilter(String fraudFilter) {
+    public PaymentRequest addFraudFilter(FraudFilter fraudFilter) {
         this.fraudFilter = fraudFilter;
         return this;
     }
+
 
     /**
      * Helper method for adding recurring info.
