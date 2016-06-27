@@ -421,5 +421,26 @@ public class PaymentRequestTest {
 
         Assert.assertEquals(RECEIPT_IN_OTB_REQUEST_HASH, request.getHash());
     }
+
+    /**
+     * Tests the hash calculation for a card-update transaction.
+     */
+    @Test
+    public void testRealVaultHashGeneration() {
+
+        PaymentRequest request = new PaymentRequest()
+                .addType(PaymentType.REALVAULT_DCCRATE)
+                .addTimeStamp(DCC_REAL_VAULT_TIMESTAMP)
+                .addMerchantId(DCC_REAL_VAULT_MERCHANT_ID)
+                .addAmount(Long.parseLong(DCC_REAL_VAULT_AMOUNT))
+                .addCurrency(DCC_REAL_VAULT_CURRENCY)
+                .addOrderId(DCC_REAL_VAULT_ORDER_ID)
+                .addPayerReference(DCC_REAL_VAULT_PAYREF);
+
+
+        request.hash(SECRET);
+
+        Assert.assertEquals(DCC_REAL_VAULT_REQUEST_HASH, request.getHash());
+    }
 }
 

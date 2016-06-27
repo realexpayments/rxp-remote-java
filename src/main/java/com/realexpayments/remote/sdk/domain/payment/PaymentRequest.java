@@ -458,7 +458,9 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         CARD_CANCEL("card-cancel-card"),
         DCC_RATE_LOOKUP("dccrate"),
         DCC_AUTH("auth"),
-        RECEIPT_IN_OTB("receipt-in-otb");
+        RECEIPT_IN_OTB("receipt-in-otb"),
+        REALVAULT_DCCRATE("realvault-dccrate");
+
 
 
         /**
@@ -591,7 +593,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      * Fraud filter flag
      */
     @XmlElement(name = "fraudfilter")
-    private String fraudFilter;
+    private FraudFilter fraudFilter;
 
     /**
      * If you are configured for recurring/continuous authority transactions, you must set the recurring values.
@@ -637,6 +639,17 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
     @XmlElement(name = "paymentmethod")
     private String paymentMethod;
 
+    /**
+     * @var string This is a code used to identify the reason
+     *            for a transaction action. It is an optional
+     *            field but if populated it must contain a
+     *            value that is allowed for that transaction
+     *            type.
+     *          If no value is supplied, the default reason
+     *            code NOTGIVEN will be applied to the holdrequest
+     */
+    @XmlElement(name = "reasoncode")
+    private ReasonCode reasonCode;
 
     /**
      * Contains payment information to be used on Receipt-in transactions
@@ -917,9 +930,9 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
     /**
      * Getter for fraud filter.
      *
-     * @return String
+     * @return FraudFilter
      */
-    public String getFraudFilter() {
+    public FraudFilter getFraudFilter() {
         return fraudFilter;
     }
 
@@ -928,7 +941,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      *
      * @param fraudFilter
      */
-    public void setFraudFilter(String fraudFilter) {
+    public void setFraudFilter(FraudFilter fraudFilter) {
         this.fraudFilter = fraudFilter;
     }
 
@@ -1310,10 +1323,11 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      * @param fraudFilter
      * @return PaymentRequest
      */
-    public PaymentRequest addFraudFilter(String fraudFilter) {
+    public PaymentRequest addFraudFilter(FraudFilter fraudFilter) {
         this.fraudFilter = fraudFilter;
         return this;
     }
+
 
     /**
      * Helper method for adding recurring info.
@@ -1425,6 +1439,16 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         return this;
     }
 
+    public ReasonCode getReasonCode() { return reasonCode; }
+
+    public void setReasonCode(ReasonCode reasonCode) {
+        this.reasonCode = reasonCode;
+    }
+
+    public PaymentRequest addReasonCode(ReasonCode reasonCode) {
+        this.reasonCode = reasonCode;
+        return this;
+    }
     /**
      * <p>
      * This helper method adds Address Verification Service (AVS) fields to the request.
@@ -1667,6 +1691,20 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
                     .append(merchantId)
                     .append(".")
                     .append(orderId)
+                    .append(".")
+                    .append(payerRef)
+                    .toString();
+
+        } else if (PaymentType.REALVAULT_DCCRATE.getType().equals(this.type)) {
+            toHash = new StringBuilder().append(timeStamp)
+                    .append(".")
+                    .append(merchantId)
+                    .append(".")
+                    .append(orderId)
+                    .append(".")
+                    .append(amount)
+                    .append(".")
+                    .append(currency)
                     .append(".")
                     .append(payerRef)
                     .toString();
