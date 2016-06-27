@@ -169,6 +169,12 @@ public class PaymentResponse implements Response<PaymentResponse> {
 	private DccInfoResult dccInfoResult;
 
 	/**
+	 * The fraudFilter field.
+	 */
+	@XmlElement(name = "fraudfilter")
+	private FraudFilter fraudFilter;
+
+	/**
 	 * PaymentResponse constructor.
 	 */
 	public PaymentResponse() {
@@ -519,6 +525,24 @@ public class PaymentResponse implements Response<PaymentResponse> {
 	 */
 	public void setDccInfoResult(DccInfoResult dccInfoResult) {
 		this.dccInfoResult = dccInfoResult;
+	}
+
+	/**
+	 * Getter for {@link DccInfoResult}
+	 *
+	 * @return FraudFilter
+	 */
+	public FraudFilter getFraudFilter() {
+		return fraudFilter;
+	}
+
+	/**
+	 * Setter for {@link FraudFilter}
+	 *
+	 * @param fraudFilter
+	 */
+	public void setFraudFilter(FraudFilter fraudFilter) {
+		this.fraudFilter = fraudFilter;
 	}
 
 
