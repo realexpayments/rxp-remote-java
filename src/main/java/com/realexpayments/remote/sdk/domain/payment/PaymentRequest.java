@@ -429,6 +429,77 @@ import java.util.List;
  * 	.addPaymentData(paymentData);
  * </pre></code></p>
  *
+ * <p>
+ * Example DCC Real Vault:
+ * </p>
+ * <p><code><pre>
+ * Card card = new Card()
+ *  .addNumber("420000000000000000")
+ *  .addExpiryDate("0119")
+ *  .addCardHolderName("Joe Smith")
+ *  .addType(CardType.VISA);
+ *
+ * DccInfo dccInfo = new DccInfo()
+ *  .addDccProcessor("fexco");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ *  .addAccount("yourAccount")
+ *  .addMerchantId("yourMerchantId")
+ *  .addType(PaymentType.REALVAULT_DCCRATE)
+ *  .addAmount(100)
+ *  .addCurrency("EUR")
+ *  .addCard(card)
+ *  .addDccInfo(dccInfo);
+ *
+ * RealexClient client = new RealexClient("shared secret");
+ * PaymentResponse response = client.send(request);
+ * </pre></code></p>
+ *
+ * <p>
+ * Example Fraud Filter Request:
+ * </p>
+ * <p><code><pre>
+ * Card card = new Card()
+ *  .addExpiryDate("0119")
+ *  .addNumber("4242424242424242")
+ *  .addType(CardType.VISA)
+ *  .addCardHolderName("Joe Smith")
+ *  .addCvn("123");
+ *
+ * PaymentRequest request = new PaymentRequest()
+ *  .addAccount("yourAccount")
+ *  .addMerchantId("yourMerchantId")
+ *  .addType(PaymentType.AUTH)
+ *  .addAmount(1000)
+ *  .addCurrency("EUR")
+ *  .addCard(card)
+ *  .addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
+ *  .addFraudFilter(new FraudFilter().addMode(FraudFilter.FraudFilterMode.ACTIVE));
+ *
+ * RealexClient client = new RealexClient("shared secret");
+ * PaymentResponse response = client.send(request);
+ * </pre></code></p>
+ *
+ * <p>
+ * Example Fraud Filter Request:
+ * </p>
+ * <p><code><pre>
+ * PaymentResponse response = client.send(request);
+ *
+ * FraudFilter.FraudFilterMode mode = response.getFraudFilter().getMode();
+ * FraudFilter.FraudFilterResult result = response.getFraudFilter().getResult();
+ *
+ * List<FraudFilterRule> rules = response.getFraudFilter().getRules();
+ *
+ * for (FraudFilterRule rule :rules ) {
+ *  System.out.print(rule.getId());
+ *  System.out.print(rule.getName());
+ *  System.out.print(rule.getValue());
+ * }
+ * //or
+ * rules.get(0).getId();
+ * </pre></code></p>
+ *
  * @author markstanford
  */
 
@@ -1128,6 +1199,22 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
     }
 
     /**
+     * Getter for reasonCode.
+     *
+     * @return reasonCode
+     */
+    public ReasonCode getReasonCode() { return reasonCode; }
+
+    /**
+     * Setter for reasonCode.
+     *
+     * @param reasonCode
+     */
+    public void setReasonCode(ReasonCode reasonCode) {
+        this.reasonCode = reasonCode;
+    }
+
+    /**
      * Helper method for adding a merchant ID.
      *
      * @param merchantId
@@ -1439,12 +1526,12 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         return this;
     }
 
-    public ReasonCode getReasonCode() { return reasonCode; }
-
-    public void setReasonCode(ReasonCode reasonCode) {
-        this.reasonCode = reasonCode;
-    }
-
+    /**
+     * Helper method for adding the reasonCode.
+     *
+     * @param reasonCode
+     * @return PaymentRequest
+     */
     public PaymentRequest addReasonCode(ReasonCode reasonCode) {
         this.reasonCode = reasonCode;
         return this;
