@@ -204,5 +204,355 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
+### Receipt-In
+
+```java
+PaymentData paymentData = new PaymentData()
+  	.addCvnNumber("123");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.RECEIPT_IN)
+ 	.addAmount(100)
+ 	.addCurrency("EUR")
+ 	.addPayerReference("payer ref from customer")
+ 	.addPaymentMethod("payment method ref from customer")
+ 	.addPaymentData(paymentData);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Payment-out
+
+```java
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.PAYMENT_OUT) 	
+ 	.addAmount(100)
+ 	.addCurrency("EUR")
+ 	.addPayerReference("payer ref from customer")
+ 	.addPaymentMethod("payment method ref from customer")
+ 	.addRefundHash("Hash of rebate password shared with Realex");
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Payer-new
+
+```java
+
+PayerAddress address = new PayerAddress()
+    .addLine1("Apt 167 Block 10")
+    .addLine2("The Hills")
+    .addLine3("67-69 High St")
+    .addCity("Hytown")
+    .addCounty("Dunham")
+    .addPostcode("3")
+    .addCountryCode("IE")
+    .addCountryName("Ireland");
+    
+
+Payer payer = new Payer()
+    .addType("Business")
+    .addRef("smithj01")
+    .addTitle("Mr")
+    .addFirstName("John")
+    .addSurname("Smith")
+    .addCompany("Acme")
+    .addPayerAddress(address)
+    .addHomePhoneNumber("+35317285355")
+    .addWorkPhoneNumber("+35317433923")
+    .addFaxPhoneNumber("+35317893248")
+    .addMobilePhoneNumber("+353873748392")
+    .addEmail("jsmith@acme.com")
+    .addComment("Comment1")
+    .addComment("Comment2");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.PAYER_NEW)  	
+ 	.addPayer(payer);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Payer-edit
+
+```java
+
+PayerAddress address = new PayerAddress()
+    .addLine1("Apt 167 Block 10")
+    .addLine2("The Hills")
+    .addLine3("67-69 High St")
+    .addCity("Hytown")
+    .addCounty("Dunham")
+    .addPostcode("3")
+    .addCountryCode("IE")
+    .addCountryName("Ireland");
+    
+
+Payer payer = new Payer()
+    .addType("Business")
+    .addRef("smithj01")
+    .addTitle("Mr")
+    .addFirstName("John")
+    .addSurname("Smith")
+    .addCompany("Acme")
+    .addPayerAddress(address)
+    .addHomePhoneNumber("+35317285355")
+    .addWorkPhoneNumber("+35317433923")
+    .addFaxPhoneNumber("+35317893248")
+    .addMobilePhoneNumber("+353873748392")
+    .addEmail("jsmith@acme.com")
+    .addComment("Comment1")
+    .addComment("Comment2");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.PAYER_EDIT)  	
+ 	.addPayer(payer);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Card-new
+
+```java
+
+Card card = new Card()
+    .addReference("visa01")
+    .addPayerReference("smithj01")
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA)
+	.addIssueNumber("1");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.CARD_NEW)  	
+ 	.addCard(card);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Card-edit
+
+```java
+
+Card card = new Card()
+    .addReference("visa01")
+    .addPayerReference("smithj01")
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA)
+	.addIssueNumber("1");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.CARD_UPDATE)  	
+ 	.addCard(card);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+
+### Card-delete
+
+```java
+
+Card card = new Card()
+    .addReference("visa01")
+    .addPayerReference("smithj01");
+
+PaymentRequest request = new PaymentRequest()
+ 	.addAccount("yourAccount")
+ 	.addMerchantId("yourMerchantId")
+ 	.addType(PaymentType.CARD_CANCEL)  	
+ 	.addCard(card);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Verify Card Enrolled
+
+```java
+
+PaymentData paymentData = new PaymentData()
+  	.addCvnNumber("123");
+
+
+ThreeDSecureRequest request = new ThreeDSecureRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
+  .addAmount(100)
+  .addCurrency("EUR")
+  .addPayerReference("payer ref from customer")
+  .addPaymentMethod("payment method ref from customer")
+  .addPaymentData(paymentData)
+  .addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE));
+ 	
+
+RealexClient client = new RealexClient("shared secret");
+ThreeDSecureResponse response = client.send(request);
+```
+
+### DCC Rate Lookup
+
+```java
+
+Card card = new Card()    
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA);
+	
+DccInfo dccInfo = new DccInfo()
+    .addDccProcessor("fexco");
+
+PaymentRequest request = new PaymentRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(PaymentType.DCC_RATE_LOOKUP)
+  .addAmount(100)
+  .addCurrency("EUR")
+  .addCard(card)
+  .addDccInfo(dccInfo);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+
+### DCC + Auth
+
+```java
+
+Card card = new Card()    
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA);
+	
+DccInfo dccInfo = new DccInfo()
+    .addDccProcessor("fexco")
+    .addRate(0.6868)
+    .addAmount(13049)
+    .addCurrency("GBP");
+
+PaymentRequest request = new PaymentRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(PaymentType.DCC_AUTH)
+  .addAmount(19000)
+  .addCurrency("EUR")
+  .addCard(card)
+  .addDccInfo(dccInfo);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Receipt-in OTB
+
+```java
+ 
+ PaymentRequest request = new PaymentRequest()
+	.addAccount("yourAccount")
+	.addMerchantId("yourMerchantId")
+	.addType(PaymentType.RECEIPT_IN_OTB)
+	.addPayerReference("payer ref from customer")
+    .addPaymentMethod("payment method ref from customer");
+	
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);	
+```
+
+### DCC Real Vault
+
+```java
+
+Card card = new Card()    
+    .addNumber("420000000000000000")    
+	.addExpiryDate("0119")	
+	.addCardHolderName("Joe Smith")
+	.addType(CardType.VISA);
+	
+DccInfo dccInfo = new DccInfo()
+    .addDccProcessor("fexco");
+
+PaymentRequest request = new PaymentRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(PaymentType.REALVAULT_DCCRATE)
+  .addAmount(100)
+  .addCurrency("EUR")
+  .addCard(card)
+  .addDccInfo(dccInfo);
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Fraud Filter Request
+
+```java
+
+Card card = new Card()
+  .addExpiryDate("0119")
+  .addNumber("4242424242424242")
+  .addType(CardType.VISA)
+  .addCardHolderName("Joe Smith")
+  .addCvn("123");
+
+PaymentRequest request = new PaymentRequest()
+  .addAccount("yourAccount")
+  .addMerchantId("yourMerchantId")
+  .addType(PaymentType.AUTH)
+  .addAmount(1000)
+  .addCurrency("EUR")
+  .addCard(card)
+  .addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
+  .addFraudFilter(new FraudFilter().addMode(FraudFilter.FraudFilterMode.ACTIVE));
+
+RealexClient client = new RealexClient("shared secret");
+PaymentResponse response = client.send(request);
+```
+
+### Fraud Filter Response
+
+```java
+// request is fraud filter
+PaymentResponse response = client.send(request);
+
+FraudFilter.FraudFilterMode mode = response.getFraudFilter().getMode();
+FraudFilter.FraudFilterResult result = response.getFraudFilter().getResult();
+
+List<FraudFilterRule> rules = response.getFraudFilter().getRules();
+
+for (FraudFilterRule rule :rules ) {
+    System.out.print(rule.getId());
+    System.out.print(rule.getName());
+    System.out.print(rule.getValue());
+}
+//or        
+rules.get(0).getId();
+```
 ## License
 See the LICENSE file.
