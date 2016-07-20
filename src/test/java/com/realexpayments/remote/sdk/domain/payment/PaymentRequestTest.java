@@ -175,12 +175,12 @@ public class PaymentRequestTest {
      */
     @Test
     public void creditHashGenerationTest() {
-        PaymentRequest request = new PaymentRequest().addType(PaymentType.CREDIT).addTimeStamp(CREDIT_TIMESTAMP).addMerchantId(CREDIT_MERCHANT_ID)
-                .addOrderId(CREDIT_ORDER_ID).addPaymentsReference(CREDIT_PASREF).addAuthCode(CREDIT_AUTH_CODE)
-                .addAmount(Long.parseLong(CREDIT_AMOUNT)).addCurrency(CREDIT_CURRENCY).addRefundHash(CREDIT_REFUND_HASH);
+        PaymentRequest request = new PaymentRequest().addType(PaymentType.REFUND).addTimeStamp(REFUND_TIMESTAMP).addMerchantId(REFUND_MERCHANT_ID)
+                .addOrderId(REFUND_ORDER_ID).addPaymentsReference(REFUND_PASREF).addAuthCode(REFUND_AUTH_CODE)
+                .addAmount(Long.parseLong(REFUND_AMOUNT)).addCurrency(REFUND_CURRENCY).addRefundHash(REFUND_REFUND_HASH);
         request.hash(SECRET);
 
-        Assert.assertEquals(CREDIT_REQUEST_HASH, request.getHash());
+        Assert.assertEquals(REFUND_REQUEST_HASH, request.getHash());
     }
 
     /**
@@ -387,7 +387,7 @@ public class PaymentRequestTest {
 
 
         PaymentRequest request = new PaymentRequest()
-                .addType(PaymentType.DCC_AUTH)
+                .addType(PaymentType.AUTH)
                 .addTimeStamp(DCC_AUTH_TIMESTAMP)
                 .addMerchantId(DCC_AUTH_MERCHANT_ID)
                 .addAmount(Long.parseLong(DCC_AUTH_AMOUNT))

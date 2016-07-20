@@ -229,17 +229,17 @@ public class SampleXmlValidationUtils {
     public static final String OTB_ORDER_ID = "3be87fe9-db95-470f-ab04-b82f965f5b17";
     public static final String OTB_REQUEST_HASH = "c05460fa3d195c1ee6ac97d3594e8cace4449cb2";
 
-    //credit fields
-    public static final String CREDIT_TIMESTAMP = "20151204145825";
-    public static final String CREDIT_MERCHANT_ID = "thestore";
-    public static final String CREDIT_ACCOUNT = "internet";
-    public static final String CREDIT_PASREF = "13276780809852";
-    public static final String CREDIT_AUTH_CODE = "AP12346";
-    public static final String CREDIT_AMOUNT = "3000";
-    public static final String CREDIT_CURRENCY = "EUR";
-    public static final String CREDIT_ORDER_ID = "6df026a7-15d6-4b92-86e1-9f7b2b1d97c5";
-    public static final String CREDIT_REFUND_HASH = "52ed08590ab0bb6c2e5e4c9584aca0f6e9635a3a";
-    public static final String CREDIT_REQUEST_HASH = "c1319b2999608fcfa3e71d583627affaeb25d961";
+    //REFUND fields
+    public static final String REFUND_TIMESTAMP = "20151204145825";
+    public static final String REFUND_MERCHANT_ID = "thestore";
+    public static final String REFUND_ACCOUNT = "internet";
+    public static final String REFUND_PASREF = "13276780809852";
+    public static final String REFUND_AUTH_CODE = "AP12346";
+    public static final String REFUND_AMOUNT = "3000";
+    public static final String REFUND_CURRENCY = "EUR";
+    public static final String REFUND_ORDER_ID = "6df026a7-15d6-4b92-86e1-9f7b2b1d97c5";
+    public static final String REFUND_REFUND_HASH = "52ed08590ab0bb6c2e5e4c9584aca0f6e9635a3a";
+    public static final String REFUND_REQUEST_HASH = "c1319b2999608fcfa3e71d583627affaeb25d961";
 
     //hold fields
     public static final String HOLD_TIMESTAMP = "20151204161419";
@@ -257,7 +257,7 @@ public class SampleXmlValidationUtils {
     public static final String RELEASE_PASREF = "ABC123456";
     public static final String RELEASE_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78d95";
     public static final String RELEASE_REQUEST_HASH = "eec6d1f5dcc51a6a2d2b59af5d2cdb965806d96c";
-    public static final ReasonCode RELEASE_REASON_CODE =  ReasonCode.OUTOFSTOCK;
+    public static final ReasonCode RELEASE_REASON_CODE =  ReasonCode.OUT_OF_STOCK;
 
 
     // receipt-in fields
@@ -314,7 +314,7 @@ public class SampleXmlValidationUtils {
     public static final String PAYER_NEW_PAYER_EMAIL = "jsmith@acme.com";
     public static final String PAYER_NEW_PAYER_COMMENT_1 = "comment 1";
     public static final String PAYER_NEW_PAYER_COMMENT_2 = "";
-    public static final ReasonCode PAYER_REASON_CODE = ReasonCode.FALSE_POSITIVE;
+    public static final String PAYER_REASON_CODE = ReasonCode.FALSE_POSITIVE.getType();
 
 
 
@@ -561,7 +561,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
-        Assert.assertEquals(HOLD_REASON_CODE.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(HOLD_REASON_CODE.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -576,7 +576,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
-        Assert.assertEquals(reason.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(reason.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -683,17 +683,17 @@ public class SampleXmlValidationUtils {
      */
     public static void checkUnmarshalledCreditPaymentRequest(PaymentRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
-        Assert.assertEquals(PaymentType.CREDIT.getType(), fromXmlRequest.getType());
-        Assert.assertEquals(CREDIT_ACCOUNT, fromXmlRequest.getAccount());
-        Assert.assertEquals(CREDIT_MERCHANT_ID, fromXmlRequest.getMerchantId());
-        Assert.assertEquals(CREDIT_TIMESTAMP, fromXmlRequest.getTimeStamp());
-        Assert.assertEquals(CREDIT_ORDER_ID, fromXmlRequest.getOrderId());
-        Assert.assertEquals(CREDIT_REQUEST_HASH, fromXmlRequest.getHash());
-        Assert.assertEquals(CREDIT_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
-        Assert.assertEquals(CREDIT_CURRENCY, fromXmlRequest.getAmount().getCurrency());
-        Assert.assertEquals(CREDIT_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(CREDIT_AUTH_CODE, fromXmlRequest.getAuthCode());
-        Assert.assertEquals(CREDIT_REFUND_HASH, fromXmlRequest.getRefundHash());
+        Assert.assertEquals(PaymentType.REFUND.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(REFUND_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(REFUND_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(REFUND_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(REFUND_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(REFUND_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(REFUND_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
+        Assert.assertEquals(REFUND_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+        Assert.assertEquals(REFUND_PASREF, fromXmlRequest.getPaymentsReference());
+        Assert.assertEquals(REFUND_AUTH_CODE, fromXmlRequest.getAuthCode());
+        Assert.assertEquals(REFUND_REFUND_HASH, fromXmlRequest.getRefundHash());
     }
 
     /**
@@ -725,7 +725,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(ReasonCode.HOLD.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(ReasonCode.NOT_GIVEN.getType(), fromXmlRequest.getReasonCode());
     }
     /**
      * Check all fields match expected values.
@@ -741,7 +741,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(ReasonCode.RELEASE, fromXmlRequest.getReasonCode());
+        Assert.assertEquals(ReasonCode.NOT_GIVEN.getType(), fromXmlRequest.getReasonCode());
 
     }
 
@@ -759,7 +759,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(HOLD_REASON_CODE, fromXmlRequest.getReasonCode());
+        Assert.assertEquals(HOLD_REASON_CODE.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -792,7 +792,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(RELEASE_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(RELEASE_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(RELEASE_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(RELEASE_REASON_CODE.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(RELEASE_REASON_CODE.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -1114,7 +1114,7 @@ public class SampleXmlValidationUtils {
     public static void checkUnmarshalledDccAuthLookUpPaymentRequest(PaymentRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
 
-        Assert.assertEquals(PaymentType.DCC_AUTH.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(PaymentType.AUTH.getType(), fromXmlRequest.getType());
         Assert.assertEquals(DCC_AUTH_ACCOUNT, fromXmlRequest.getAccount());
         Assert.assertEquals(DCC_AUTH_MERCHANT_ID, fromXmlRequest.getMerchantId());
         Assert.assertEquals(DCC_AUTH_TIMESTAMP, fromXmlRequest.getTimeStamp());

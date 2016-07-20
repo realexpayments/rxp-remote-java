@@ -319,7 +319,7 @@ public class XmlUtilsTest {
         PaymentRequest request = new PaymentRequest();
         request.setAccount(DCC_AUTH_ACCOUNT);
         request.setMerchantId(DCC_AUTH_MERCHANT_ID);
-        request.setType(PaymentType.DCC_AUTH.getType());
+        request.setType(PaymentType.AUTH.getType());
 
         Card card = new Card();
         card.setExpiryDate(DCC_AUTH_CARD_EXPIRY_DATE);
@@ -1329,14 +1329,14 @@ public class XmlUtilsTest {
         ArrayList<ReasonCode> reasons = new ArrayList<ReasonCode>();
         reasons.add(ReasonCode.FALSE_POSITIVE);
         reasons.add(ReasonCode.FRAUD);
-        reasons.add(ReasonCode.INSTOCK);
-        reasons.add(ReasonCode.NOTGIVEN);
+        reasons.add(ReasonCode.IN_STOCK);
+        reasons.add(ReasonCode.NOT_GIVEN);
         reasons.add(ReasonCode.OTHER);
-        reasons.add(ReasonCode.OUTOFSTOCK);
+        reasons.add(ReasonCode.OUT_OF_STOCK);
 
         for (ReasonCode reason:reasons) {
 
-            request.setReasonCode(reason);
+            request.setReasonCode(reason.getType());
             //convert to XML
             String xml = request.toXml();
 

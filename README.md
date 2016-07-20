@@ -165,7 +165,7 @@ PaymentResponse response = client.send(request);
 PaymentRequest request = new PaymentRequest()
 	.addAccount("yourAccount")
 	.addMerchantId("yourMerchantId")
-	.addType(PaymentType.CREDIT)
+	.addType(PaymentType.REFUND)
 	.addAmount(100)
 	.addCurrency("EUR")
 	.addPaymentsReference("Pasref from original transaction")
