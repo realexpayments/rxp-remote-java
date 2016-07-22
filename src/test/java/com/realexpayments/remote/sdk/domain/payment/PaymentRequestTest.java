@@ -426,21 +426,21 @@ public class PaymentRequestTest {
      * Tests the hash calculation for a card-update transaction.
      */
     @Test
-    public void testRealVaultHashGeneration() {
+    public void testStoredCardDccRateHashGeneration() {
 
         PaymentRequest request = new PaymentRequest()
                 .addType(PaymentType.STORED_CARD_DCC_RATE)
-                .addTimeStamp(DCC_REAL_VAULT_TIMESTAMP)
-                .addMerchantId(DCC_REAL_VAULT_MERCHANT_ID)
-                .addAmount(Long.parseLong(DCC_REAL_VAULT_AMOUNT))
-                .addCurrency(DCC_REAL_VAULT_CURRENCY)
-                .addOrderId(DCC_REAL_VAULT_ORDER_ID)
-                .addPayerReference(DCC_REAL_VAULT_PAYREF);
+                .addTimeStamp(STORED_CARD_DCC_RATE_TIMESTAMP)
+                .addMerchantId(STORED_CARD_DCC_RATE_MERCHANT_ID)
+                .addAmount(Long.parseLong(STORED_CARD_DCC_RATE_AMOUNT))
+                .addCurrency(STORED_CARD_DCC_RATE_CURRENCY)
+                .addOrderId(STORED_CARD_DCC_RATE_ORDER_ID)
+                .addPayerReference(STORED_CARD_DCC_RATE_PAYREF);
 
 
         request.hash(SECRET);
 
-        Assert.assertEquals(DCC_REAL_VAULT_REQUEST_HASH, request.getHash());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_REQUEST_HASH, request.getHash());
     }
 }
 

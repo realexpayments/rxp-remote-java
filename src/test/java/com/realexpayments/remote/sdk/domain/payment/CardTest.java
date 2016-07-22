@@ -1,5 +1,10 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
+import com.realexpayments.remote.sdk.RealexClient;
+import com.realexpayments.remote.sdk.RealexException;
+import com.realexpayments.remote.sdk.domain.Cvn;
+import com.realexpayments.remote.sdk.http.HttpConfiguration;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,5 +26,6 @@ public class CardTest {
 
 		Assert.assertTrue("Results are not as expected.", expectedResult.equals(result));
 	}
+
 
 }

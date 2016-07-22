@@ -484,7 +484,7 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);	
 ```
 
-### DCC Real Vault
+### DCC Stored Card Dcc Rate
 
 ```java
 
@@ -500,7 +500,7 @@ DccInfo dccInfo = new DccInfo()
 PaymentRequest request = new PaymentRequest()
   .addAccount("yourAccount")
   .addMerchantId("yourMerchantId")
-  .addType(PaymentType.REALVAULT_DCCRATE)
+  .addType(PaymentType.STORED_CARD_DCC_RATE)
   .addAmount(100)
   .addCurrency("EUR")
   .addCard(card)

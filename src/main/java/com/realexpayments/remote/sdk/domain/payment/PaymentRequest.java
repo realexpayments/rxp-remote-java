@@ -430,7 +430,7 @@ import java.util.List;
  * </pre></code></p>
  *
  * <p>
- * Example DCC Real Vault:
+ * Example Stored Card Dcc Rate:
  * </p>
  * <p><code><pre>
  * Card card = new Card()
@@ -494,7 +494,7 @@ import java.util.List;
  * for (FraudFilterRule rule :rules ) {
  *  System.out.print(rule.getId());
  *  System.out.print(rule.getName());
- *  System.out.print(rule.getValue());
+ *  System.out.print(rule.getAction());
  * }
  * //or
  * rules.get(0).getId();
