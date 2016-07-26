@@ -10,7 +10,7 @@ public enum ReasonCode {
         OUT_OF_STOCK("OUTOFSTOCK"),
         OTHER("OTHER"),
         FALSE_POSITIVE("FALSEPOSITIVE"),
-        IN_STOCK("IN_STOCK"),
+        IN_STOCK("INSTOCK"),
         NOT_GIVEN("NOTGIVEN");
         // @formatter:on
 
