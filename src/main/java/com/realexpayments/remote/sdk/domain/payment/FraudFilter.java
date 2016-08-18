@@ -107,7 +107,7 @@ public class FraudFilter {
 	/**
 	 * The FraudFilter mode value.
 	 */
-	@XmlElementWrapper(name = "rules",nillable=true)
+	@XmlElementWrapper(name = "rules")
 	@XmlElement(name = "rule", type = FraudFilterRule.class)
 	private List<FraudFilterRule> rules;
 	/**
