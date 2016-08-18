@@ -66,10 +66,12 @@ public class SampleXmlValidationUtils {
     public static final String RECEIPT_IN_OTB_PAYMENT_REQUEST_XML_PATH = "/sample-xml/receipt-in-otb-payment-request-sample.xml";
     public static final String HOLD_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/hold-payment-request-with-reasoncode-sample.xml";
     public static final String RELEASE_PAYMENT_REQUEST_REASONCODE_XML_PATH = "/sample-xml/release-payment-request-with-reasoncode-sample.xml";
-    public static final String DCC_REAL_VAULT_REQUEST_XML_PATH = "/sample-xml/realvault-dccrate-request.xml";
+    public static final String DCC_STORED_CARD_REQUEST_XML_PATH = "/sample-xml/storedcard-dccrate-request.xml";
     public static final String  HOLD_PAYMENT_REASON_REQUEST_XML_PATH = "/sample-xml/hold-payment-reason-hold-request.xml";
+    public static final String  HOLD_PAYMENT_REASON_FALSE_REQUEST_XML_PATH = "/sample-xml/hold-payment-reason-falsepositive-request.xml";
     public static final String  RELEASE_PAYMENT_REASON_REQUEST_XML_PATH = "/sample-xml/hold-payment-reason-release-request.xml";
     public static final String  PAYMENT_RESPONSE_WITH_FRAUD_FILTER_XML_PATH = "/sample-xml/payment-response-fraud.xml";
+    public static final String  PAYMENT_RESPONSE_WITH_FRAUD_FILTER_NO_RULES_XML_PATH = "/sample-xml/payment-response-fraud-no-rules.xml";
 
 
 
@@ -229,17 +231,17 @@ public class SampleXmlValidationUtils {
     public static final String OTB_ORDER_ID = "3be87fe9-db95-470f-ab04-b82f965f5b17";
     public static final String OTB_REQUEST_HASH = "c05460fa3d195c1ee6ac97d3594e8cace4449cb2";
 
-    //credit fields
-    public static final String CREDIT_TIMESTAMP = "20151204145825";
-    public static final String CREDIT_MERCHANT_ID = "thestore";
-    public static final String CREDIT_ACCOUNT = "internet";
-    public static final String CREDIT_PASREF = "13276780809852";
-    public static final String CREDIT_AUTH_CODE = "AP12346";
-    public static final String CREDIT_AMOUNT = "3000";
-    public static final String CREDIT_CURRENCY = "EUR";
-    public static final String CREDIT_ORDER_ID = "6df026a7-15d6-4b92-86e1-9f7b2b1d97c5";
-    public static final String CREDIT_REFUND_HASH = "52ed08590ab0bb6c2e5e4c9584aca0f6e9635a3a";
-    public static final String CREDIT_REQUEST_HASH = "c1319b2999608fcfa3e71d583627affaeb25d961";
+    //REFUND fields
+    public static final String REFUND_TIMESTAMP = "20151204145825";
+    public static final String REFUND_MERCHANT_ID = "thestore";
+    public static final String REFUND_ACCOUNT = "internet";
+    public static final String REFUND_PASREF = "13276780809852";
+    public static final String REFUND_AUTH_CODE = "AP12346";
+    public static final String REFUND_AMOUNT = "3000";
+    public static final String REFUND_CURRENCY = "EUR";
+    public static final String REFUND_ORDER_ID = "6df026a7-15d6-4b92-86e1-9f7b2b1d97c5";
+    public static final String REFUND_REFUND_HASH = "52ed08590ab0bb6c2e5e4c9584aca0f6e9635a3a";
+    public static final String REFUND_REQUEST_HASH = "c1319b2999608fcfa3e71d583627affaeb25d961";
 
     //hold fields
     public static final String HOLD_TIMESTAMP = "20151204161419";
@@ -257,7 +259,7 @@ public class SampleXmlValidationUtils {
     public static final String RELEASE_PASREF = "ABC123456";
     public static final String RELEASE_ORDER_ID = "292af5fa-6cbc-43d5-b2f0-7fd134d78d95";
     public static final String RELEASE_REQUEST_HASH = "eec6d1f5dcc51a6a2d2b59af5d2cdb965806d96c";
-    public static final ReasonCode RELEASE_REASON_CODE =  ReasonCode.OUTOFSTOCK;
+    public static final ReasonCode RELEASE_REASON_CODE =  ReasonCode.OUT_OF_STOCK;
 
 
     // receipt-in fields
@@ -314,7 +316,7 @@ public class SampleXmlValidationUtils {
     public static final String PAYER_NEW_PAYER_EMAIL = "jsmith@acme.com";
     public static final String PAYER_NEW_PAYER_COMMENT_1 = "comment 1";
     public static final String PAYER_NEW_PAYER_COMMENT_2 = "";
-    public static final ReasonCode PAYER_REASON_CODE = ReasonCode.FALSE_POSITIVE;
+    public static final String PAYER_REASON_CODE = ReasonCode.FALSE_POSITIVE.getType();
 
 
 
@@ -403,21 +405,21 @@ public class SampleXmlValidationUtils {
     public static final String CARD_PAYMENT_DATA_CVN = "123";
 
 
-    //dcc realvaulr
-     public static final String REALVAULT_DCCRATE = PaymentType.REALVAULT_DCCRATE.getType();
-     public static final String DCC_REAL_VAULT_TIMESTAMP = "20140520151742";
-     public static final String DCC_REAL_VAULT_MERCHANT_ID = "yourmerchantid";
-     public static final String DCC_REAL_VAULT_ACCOUNT = "internet";
-     public static final String DCC_REAL_VAULT_ORDER_ID = "transaction01";
-     public static final String DCC_REAL_VAULT_CURRENCY = "EUR";
-     public static final String DCC_REAL_VAULT_AMOUNT = "9999";
-     public static final String DCC_REAL_VAULT_PAYREF = "smith01";
-     public static final String DCC_REAL_VAULT_PAYMENT_METHOD = "visa01";
-     public static final String DCC_REAL_VAULT_DCC_CCP = "fexco";
-     public static final String DCC_REAL_VAULT_DCC_TYPE = "1";
-     public static final String DCC_REAL_VAULT_REQUEST_HASH = "500a6c67d7ec3e196b60efdfb4cdc5ab8366416a";
-     public static final String DCC_REAL_VAULT_COMMENT_1 = "";
-     public static final String DCC_REAL_VAULT_COMMENT_2 = "";
+    //dcc STORED_CARD_DCC_RATE
+     public static final String STORED_CARD_DCC_RATE = PaymentType.STORED_CARD_DCC_RATE.getType();
+     public static final String STORED_CARD_DCC_RATE_TIMESTAMP = "20140520151742";
+     public static final String STORED_CARD_DCC_RATE_MERCHANT_ID = "yourmerchantid";
+     public static final String STORED_CARD_DCC_RATE_ACCOUNT = "internet";
+     public static final String STORED_CARD_DCC_RATE_ORDER_ID = "transaction01";
+     public static final String STORED_CARD_DCC_RATE_CURRENCY = "EUR";
+     public static final String STORED_CARD_DCC_RATE_AMOUNT = "9999";
+     public static final String STORED_CARD_DCC_RATE_PAYREF = "smith01";
+     public static final String STORED_CARD_DCC_RATE_PAYMENT_METHOD = "visa01";
+     public static final String STORED_CARD_DCC_RATE_DCC_CCP = "fexco";
+     public static final String STORED_CARD_DCC_RATE_DCC_TYPE = "1";
+     public static final String STORED_CARD_DCC_RATE_REQUEST_HASH = "500a6c67d7ec3e196b60efdfb4cdc5ab8366416a";
+     public static final String STORED_CARD_DCC_RATE_COMMENT_1 = "";
+     public static final String STORED_CARD_DCC_RATE_COMMENT_2 = "";
 
     // dcc rate lookup
     public static final String DCC_RATE_TIMESTAMP = "20160205175725";
@@ -484,20 +486,29 @@ public class SampleXmlValidationUtils {
     public static final String RECEIPT_IN_OTB_REQUEST_HASH = "ceeeb16edfeda0dc919db1be1b0e9db7b01b24cf";
 
     //fraud filter values
-    public static final String FRAUD_FILTER_MODE = FraudFilter.FraudFilterMode.ACTIVE.toString();
-    public static final String FRAUD_FILTER_RESULT = "BLOCK";
-    public static final String FRAUD_FILTER_RULE_1_ID = "e5964ac0-ace0-477a-98ef-f467772d6a76";
-    public static final String FRAUD_FILTER_RULE_1_NAME = "ScreenedCardNumber";
-    public static final String FRAUD_FILTER_RULE_1_VALUE = "PASS";
-    public static final String FRAUD_FILTER_RULE_2_ID = "234mk2k3-ace0-477a-98ef-qe782bqa5f4s";
-    public static final String FRAUD_FILTER_RULE_2_NAME = "GeoShipBillCo";
-    public static final String FRAUD_FILTER_RULE_2_VALUE = "HOLD";
-    public static final String FRAUD_FILTER_RULE_3_ID = "d6y38qk3-ace0-477a-98ef-23kjh234i5o2";
-    public static final String FRAUD_FILTER_RULE_3_NAME = "PtrnCardNumName";
-    public static final String FRAUD_FILTER_RULE_3_VALUE = "BLOCK";
-    public static final String FRAUD_FILTER_RULE_4_ID = "234mk2k3-ace0-477a-98ef-8h9jn34nj456";
-    public static final String FRAUD_FILTER_RULE_4_NAME = "VelCardNum24h";
-    public static final String FRAUD_FILTER_RULE_4_VALUE = "HOLD";
+    public static final String FRAUD_FILTER_MODE = FraudFilter.FraudFilterMode.PASSIVE.toString();
+    public static final String FRAUD_FILTER_RESULT = "PASS";
+    public static final String FRAUD_FILTER_RULE_1_ID = "478a55db-5430-4c2a-afca-7dde181eb9f4";
+    public static final String FRAUD_FILTER_RULE_1_NAME = "Customer IP List";
+    public static final String FRAUD_FILTER_RULE_1_ACTION = "PASS";
+    public static final String FRAUD_FILTER_RULE_2_ID = "cf609cf9-9e5a-4700-ac69-8aa09c119305";
+    public static final String FRAUD_FILTER_RULE_2_NAME = "Card Numbers";
+    public static final String FRAUD_FILTER_RULE_2_ACTION = "PASS";
+    public static final String FRAUD_FILTER_TIMESTAMP = "20150224160453";
+    public static final String FRAUD_FILTER_MERCHANT_ID = "testMerchant";
+    public static final String FRAUD_FILTER_ACCOUNT = "internet";
+    public static final String FRAUD_FILTER_ORDER_ID = "OrderOne";
+    public static final String FRAUD_FILTER_AUTH_CODE = "071757";
+    public static final String FRAUD_FILTER_RESULTT= "00";
+    public static final String FRAUD_FILTER_CVN_RESULT = "M";
+    public static final String FRAUD_FILTER_AVS_POST = "U";
+    public static final String FRAUD_FILTER_AVS_ADD = "U";
+    public static final String FRAUD_FILTER_BATCH_ID = "3452232";
+    public static final String FRAUD_FILTER_MESSAGE = "(00)AUTH CODE 071757";
+    public static final String FRAUD_FILTER_PAS_REF = "14247938905185175";
+    public static final String FRAUD_FILTER_TIME_TAKEN = "2";
+    public static final String FRAUD_FILTER_AUTH_TIME = "2";
+    public static final String FRAUD_FILTER_HASH = "bd5550299e4508873a2cf6e435ad74a5455ad648";
 
     /**
      * Check all fields match expected values.
@@ -530,7 +541,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(PASREF, fromXmlRequest.getPaymentsReference());
         Assert.assertEquals(AUTH_CODE, fromXmlRequest.getAuthCode());
         Assert.assertEquals(REFUND_HASH, fromXmlRequest.getRefundHash());
-        Assert.assertEquals(FRAUD_FILTER, fromXmlRequest.getFraudFilter().getMode());
+        Assert.assertEquals(FRAUD_FILTER.toString(), fromXmlRequest.getFraudFilter().getMode().toString());
         Assert.assertEquals(RECURRING_FLAG.getRecurringFlag(), fromXmlRequest.getRecurring().getFlag());
         Assert.assertEquals(RECURRING_TYPE.getType(), fromXmlRequest.getRecurring().getType());
         Assert.assertEquals(RECURRING_SEQUENCE.getSequence(), fromXmlRequest.getRecurring().getSequence());
@@ -561,7 +572,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
-        Assert.assertEquals(HOLD_REASON_CODE.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(HOLD_REASON_CODE.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -576,7 +587,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
-        Assert.assertEquals(reason.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(reason.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -683,17 +694,17 @@ public class SampleXmlValidationUtils {
      */
     public static void checkUnmarshalledCreditPaymentRequest(PaymentRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
-        Assert.assertEquals(PaymentType.CREDIT.getType(), fromXmlRequest.getType());
-        Assert.assertEquals(CREDIT_ACCOUNT, fromXmlRequest.getAccount());
-        Assert.assertEquals(CREDIT_MERCHANT_ID, fromXmlRequest.getMerchantId());
-        Assert.assertEquals(CREDIT_TIMESTAMP, fromXmlRequest.getTimeStamp());
-        Assert.assertEquals(CREDIT_ORDER_ID, fromXmlRequest.getOrderId());
-        Assert.assertEquals(CREDIT_REQUEST_HASH, fromXmlRequest.getHash());
-        Assert.assertEquals(CREDIT_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
-        Assert.assertEquals(CREDIT_CURRENCY, fromXmlRequest.getAmount().getCurrency());
-        Assert.assertEquals(CREDIT_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(CREDIT_AUTH_CODE, fromXmlRequest.getAuthCode());
-        Assert.assertEquals(CREDIT_REFUND_HASH, fromXmlRequest.getRefundHash());
+        Assert.assertEquals(PaymentType.REFUND.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(REFUND_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(REFUND_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(REFUND_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(REFUND_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(REFUND_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(REFUND_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
+        Assert.assertEquals(REFUND_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+        Assert.assertEquals(REFUND_PASREF, fromXmlRequest.getPaymentsReference());
+        Assert.assertEquals(REFUND_AUTH_CODE, fromXmlRequest.getAuthCode());
+        Assert.assertEquals(REFUND_REFUND_HASH, fromXmlRequest.getRefundHash());
     }
 
     /**
@@ -725,7 +736,23 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(ReasonCode.HOLD.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(ReasonCode.NOT_GIVEN.getType(), fromXmlRequest.getReasonCode());
+    }
+    /**
+     * Check all fields match expected values.
+     *
+     * @param fromXmlRequest
+     */
+    public static void checkUnmarshalledHoldReasonFalsePositivePaymentRequest(PaymentRequest fromXmlRequest) {
+        Assert.assertNotNull(fromXmlRequest);
+        Assert.assertEquals(PaymentType.HOLD.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(HOLD_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(HOLD_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(HOLD_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
+        Assert.assertEquals(ReasonCode.FALSE_POSITIVE.getType(), fromXmlRequest.getReasonCode());
     }
     /**
      * Check all fields match expected values.
@@ -741,7 +768,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(ReasonCode.RELEASE, fromXmlRequest.getReasonCode());
+        Assert.assertEquals(ReasonCode.NOT_GIVEN.getType(), fromXmlRequest.getReasonCode());
 
     }
 
@@ -759,7 +786,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(HOLD_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(HOLD_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(HOLD_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(HOLD_REASON_CODE, fromXmlRequest.getReasonCode());
+        Assert.assertEquals(HOLD_REASON_CODE.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -792,7 +819,7 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals(RELEASE_ORDER_ID, fromXmlRequest.getOrderId());
         Assert.assertEquals(RELEASE_REQUEST_HASH, fromXmlRequest.getHash());
         Assert.assertEquals(RELEASE_PASREF, fromXmlRequest.getPaymentsReference());
-        Assert.assertEquals(RELEASE_REASON_CODE.getType(), fromXmlRequest.getReasonCode().getType());
+        Assert.assertEquals(RELEASE_REASON_CODE.getType(), fromXmlRequest.getReasonCode());
     }
 
     /**
@@ -1114,7 +1141,7 @@ public class SampleXmlValidationUtils {
     public static void checkUnmarshalledDccAuthLookUpPaymentRequest(PaymentRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
 
-        Assert.assertEquals(PaymentType.DCC_AUTH.getType(), fromXmlRequest.getType());
+        Assert.assertEquals(PaymentType.AUTH.getType(), fromXmlRequest.getType());
         Assert.assertEquals(DCC_AUTH_ACCOUNT, fromXmlRequest.getAccount());
         Assert.assertEquals(DCC_AUTH_MERCHANT_ID, fromXmlRequest.getMerchantId());
         Assert.assertEquals(DCC_AUTH_TIMESTAMP, fromXmlRequest.getTimeStamp());
@@ -1403,23 +1430,23 @@ public class SampleXmlValidationUtils {
      *
      * @param fromXmlRequest
      */
-    public static void checkUnmarshalledDccRealVaultPaymentRequest(PaymentRequest fromXmlRequest) {
+    public static void checkUnmarshalledDccStoreCardPaymentRequest(PaymentRequest fromXmlRequest) {
         Assert.assertNotNull(fromXmlRequest);
 
-        Assert.assertEquals(REALVAULT_DCCRATE, fromXmlRequest.getType());
-        Assert.assertEquals(DCC_REAL_VAULT_ACCOUNT, fromXmlRequest.getAccount());
-        Assert.assertEquals(DCC_REAL_VAULT_MERCHANT_ID, fromXmlRequest.getMerchantId());
-        Assert.assertEquals(DCC_REAL_VAULT_TIMESTAMP, fromXmlRequest.getTimeStamp());
-        Assert.assertEquals(DCC_REAL_VAULT_PAYREF, fromXmlRequest.getPayerRef());
-        Assert.assertEquals(DCC_REAL_VAULT_PAYMENT_METHOD, fromXmlRequest.getPaymentMethod());
-        Assert.assertEquals(DCC_REAL_VAULT_ORDER_ID, fromXmlRequest.getOrderId());
-        Assert.assertEquals(DCC_REAL_VAULT_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
-        Assert.assertEquals(DCC_REAL_VAULT_CURRENCY, fromXmlRequest.getAmount().getCurrency());
-        Assert.assertEquals(DCC_REAL_VAULT_DCC_CCP, fromXmlRequest.getDccInfo().getDccProcessor());
-        Assert.assertEquals(DCC_REAL_VAULT_DCC_TYPE, fromXmlRequest.getDccInfo().getType());
-        Assert.assertEquals(DCC_REAL_VAULT_COMMENT_1, fromXmlRequest.getComments().get(0).getComment());
-        Assert.assertEquals(DCC_REAL_VAULT_COMMENT_2, fromXmlRequest.getComments().get(1).getComment());
-        Assert.assertEquals(DCC_REAL_VAULT_REQUEST_HASH, fromXmlRequest.getHash());
+        Assert.assertEquals(STORED_CARD_DCC_RATE, fromXmlRequest.getType());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_ACCOUNT, fromXmlRequest.getAccount());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_MERCHANT_ID, fromXmlRequest.getMerchantId());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_TIMESTAMP, fromXmlRequest.getTimeStamp());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_PAYREF, fromXmlRequest.getPayerRef());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_PAYMENT_METHOD, fromXmlRequest.getPaymentMethod());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_ORDER_ID, fromXmlRequest.getOrderId());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_AMOUNT, fromXmlRequest.getAmount().getAmount().toString());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_CURRENCY, fromXmlRequest.getAmount().getCurrency());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_DCC_CCP, fromXmlRequest.getDccInfo().getDccProcessor());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_DCC_TYPE, fromXmlRequest.getDccInfo().getType());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_COMMENT_1, fromXmlRequest.getComments().get(0).getComment());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_COMMENT_2, fromXmlRequest.getComments().get(1).getComment());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_REQUEST_HASH, fromXmlRequest.getHash());
 
     }
     public static void checkUnmarshalledPaymentResponseWithFraudFilter(PaymentResponse fromXmlResponse) {
@@ -1432,15 +1459,55 @@ public class SampleXmlValidationUtils {
         Assert.assertEquals( FRAUD_FILTER_RESULT, fraudFilter.getResult().toString());
         Assert.assertEquals( FRAUD_FILTER_RULE_1_ID, rules.get(0).getId());
         Assert.assertEquals( FRAUD_FILTER_RULE_1_NAME, rules.get(0).getName());
-        Assert.assertEquals( FRAUD_FILTER_RULE_1_VALUE, rules.get(0).getValue());
+        Assert.assertEquals(FRAUD_FILTER_RULE_1_ACTION, rules.get(0).getAction());
 
         Assert.assertEquals( FRAUD_FILTER_RULE_2_ID, rules.get(1).getId());
         Assert.assertEquals( FRAUD_FILTER_RULE_2_NAME, rules.get(1).getName());
-        Assert.assertEquals( FRAUD_FILTER_RULE_2_VALUE, rules.get(1).getValue());
+        Assert.assertEquals(FRAUD_FILTER_RULE_2_ACTION, rules.get(1).getAction());
 
-        Assert.assertEquals( FRAUD_FILTER_RULE_3_ID, rules.get(2).getId());
-        Assert.assertEquals( FRAUD_FILTER_RULE_3_NAME, rules.get(2).getName());
-        Assert.assertEquals( FRAUD_FILTER_RULE_3_VALUE, rules.get(2).getValue());
+        Assert.assertEquals( FRAUD_FILTER_TIMESTAMP, fromXmlResponse.getTimeStamp());
+        Assert.assertEquals( FRAUD_FILTER_MERCHANT_ID, fromXmlResponse.getMerchantId());
+        Assert.assertEquals( FRAUD_FILTER_ACCOUNT, fromXmlResponse.getAccount());
+        Assert.assertEquals( FRAUD_FILTER_ORDER_ID, fromXmlResponse.getOrderId());
+        Assert.assertEquals( FRAUD_FILTER_AUTH_CODE, fromXmlResponse.getAuthCode());
+        Assert.assertEquals( FRAUD_FILTER_RESULTT, fromXmlResponse.getResult());
+        Assert.assertEquals( FRAUD_FILTER_CVN_RESULT, fromXmlResponse.getCvnResult());
+        Assert.assertEquals( FRAUD_FILTER_AVS_POST, fromXmlResponse.getAvsPostcodeResponse());
+        Assert.assertEquals( FRAUD_FILTER_AVS_ADD, fromXmlResponse.getAvsAddressResponse());
+        Assert.assertEquals( FRAUD_FILTER_BATCH_ID, fromXmlResponse.getBatchId().toString());
+        Assert.assertEquals( FRAUD_FILTER_MESSAGE, fromXmlResponse.getMessage());
+        Assert.assertEquals( FRAUD_FILTER_PAS_REF, fromXmlResponse.getPaymentsReference());
+        Assert.assertEquals( FRAUD_FILTER_TIME_TAKEN, fromXmlResponse.getTimeTaken().toString());
+        Assert.assertEquals( FRAUD_FILTER_AUTH_TIME, fromXmlResponse.getAuthTimeTaken().toString());
+        Assert.assertEquals( FRAUD_FILTER_HASH, fromXmlResponse.getHash());
+
+    }
+
+    public static void checkUnmarshalledPaymentResponseWithFraudFilterNoRules(PaymentResponse fromXmlResponse) {
+        Assert.assertNotNull(fromXmlResponse);
+
+        FraudFilter fraudFilter = fromXmlResponse.getFraudFilter();
+
+        Assert.assertEquals(FraudFilter.FraudFilterMode.ACTIVE.toString(), fraudFilter.getMode());
+        Assert.assertEquals(FraudFilter.FraudFilterResult.NOT_EXECUTED.toString(), fraudFilter.getResult());
+        Assert.assertNull(fraudFilter.getRules());
+
+        Assert.assertEquals( FRAUD_FILTER_TIMESTAMP, fromXmlResponse.getTimeStamp());
+        Assert.assertEquals( FRAUD_FILTER_MERCHANT_ID, fromXmlResponse.getMerchantId());
+        Assert.assertEquals( FRAUD_FILTER_ACCOUNT, fromXmlResponse.getAccount());
+        Assert.assertEquals( FRAUD_FILTER_ORDER_ID, fromXmlResponse.getOrderId());
+        Assert.assertEquals( FRAUD_FILTER_AUTH_CODE, fromXmlResponse.getAuthCode());
+        Assert.assertEquals( FRAUD_FILTER_RESULTT, fromXmlResponse.getResult());
+        Assert.assertEquals( FRAUD_FILTER_CVN_RESULT, fromXmlResponse.getCvnResult());
+        Assert.assertEquals( FRAUD_FILTER_AVS_POST, fromXmlResponse.getAvsPostcodeResponse());
+        Assert.assertEquals( FRAUD_FILTER_AVS_ADD, fromXmlResponse.getAvsAddressResponse());
+        Assert.assertEquals( FRAUD_FILTER_BATCH_ID, fromXmlResponse.getBatchId().toString());
+        Assert.assertEquals( FRAUD_FILTER_MESSAGE, fromXmlResponse.getMessage());
+        Assert.assertEquals( FRAUD_FILTER_PAS_REF, fromXmlResponse.getPaymentsReference());
+        Assert.assertEquals( FRAUD_FILTER_TIME_TAKEN, fromXmlResponse.getTimeTaken().toString());
+        Assert.assertEquals( FRAUD_FILTER_AUTH_TIME, fromXmlResponse.getAuthTimeTaken().toString());
+        Assert.assertEquals( FRAUD_FILTER_HASH, fromXmlResponse.getHash());
+
     }
 
 }

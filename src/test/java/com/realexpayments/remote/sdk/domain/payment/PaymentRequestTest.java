@@ -175,12 +175,12 @@ public class PaymentRequestTest {
      */
     @Test
     public void creditHashGenerationTest() {
-        PaymentRequest request = new PaymentRequest().addType(PaymentType.CREDIT).addTimeStamp(CREDIT_TIMESTAMP).addMerchantId(CREDIT_MERCHANT_ID)
-                .addOrderId(CREDIT_ORDER_ID).addPaymentsReference(CREDIT_PASREF).addAuthCode(CREDIT_AUTH_CODE)
-                .addAmount(Long.parseLong(CREDIT_AMOUNT)).addCurrency(CREDIT_CURRENCY).addRefundHash(CREDIT_REFUND_HASH);
+        PaymentRequest request = new PaymentRequest().addType(PaymentType.REFUND).addTimeStamp(REFUND_TIMESTAMP).addMerchantId(REFUND_MERCHANT_ID)
+                .addOrderId(REFUND_ORDER_ID).addPaymentsReference(REFUND_PASREF).addAuthCode(REFUND_AUTH_CODE)
+                .addAmount(Long.parseLong(REFUND_AMOUNT)).addCurrency(REFUND_CURRENCY).addRefundHash(REFUND_REFUND_HASH);
         request.hash(SECRET);
 
-        Assert.assertEquals(CREDIT_REQUEST_HASH, request.getHash());
+        Assert.assertEquals(REFUND_REQUEST_HASH, request.getHash());
     }
 
     /**
@@ -387,7 +387,7 @@ public class PaymentRequestTest {
 
 
         PaymentRequest request = new PaymentRequest()
-                .addType(PaymentType.DCC_AUTH)
+                .addType(PaymentType.AUTH)
                 .addTimeStamp(DCC_AUTH_TIMESTAMP)
                 .addMerchantId(DCC_AUTH_MERCHANT_ID)
                 .addAmount(Long.parseLong(DCC_AUTH_AMOUNT))
@@ -426,21 +426,21 @@ public class PaymentRequestTest {
      * Tests the hash calculation for a card-update transaction.
      */
     @Test
-    public void testRealVaultHashGeneration() {
+    public void testStoredCardDccRateHashGeneration() {
 
         PaymentRequest request = new PaymentRequest()
-                .addType(PaymentType.REALVAULT_DCCRATE)
-                .addTimeStamp(DCC_REAL_VAULT_TIMESTAMP)
-                .addMerchantId(DCC_REAL_VAULT_MERCHANT_ID)
-                .addAmount(Long.parseLong(DCC_REAL_VAULT_AMOUNT))
-                .addCurrency(DCC_REAL_VAULT_CURRENCY)
-                .addOrderId(DCC_REAL_VAULT_ORDER_ID)
-                .addPayerReference(DCC_REAL_VAULT_PAYREF);
+                .addType(PaymentType.STORED_CARD_DCC_RATE)
+                .addTimeStamp(STORED_CARD_DCC_RATE_TIMESTAMP)
+                .addMerchantId(STORED_CARD_DCC_RATE_MERCHANT_ID)
+                .addAmount(Long.parseLong(STORED_CARD_DCC_RATE_AMOUNT))
+                .addCurrency(STORED_CARD_DCC_RATE_CURRENCY)
+                .addOrderId(STORED_CARD_DCC_RATE_ORDER_ID)
+                .addPayerReference(STORED_CARD_DCC_RATE_PAYREF);
 
 
         request.hash(SECRET);
 
-        Assert.assertEquals(DCC_REAL_VAULT_REQUEST_HASH, request.getHash());
+        Assert.assertEquals(STORED_CARD_DCC_RATE_REQUEST_HASH, request.getHash());
     }
 }
 
