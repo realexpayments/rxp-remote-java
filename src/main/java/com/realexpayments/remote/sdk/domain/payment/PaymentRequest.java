@@ -445,7 +445,7 @@ import java.util.List;
  * PaymentRequest request = new PaymentRequest()
  *  .addAccount("yourAccount")
  *  .addMerchantId("yourMerchantId")
- *  .addType(PaymentType.REALVAULT_DCCRATE)
+ *  .addType(PaymentType.STORED_CARD_DCC_RATE)
  *  .addAmount(100)
  *  .addCurrency("EUR")
  *  .addCard(card)
@@ -530,7 +530,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         DCC_RATE_LOOKUP("dccrate"),
         DCC_AUTH("auth"),
         RECEIPT_IN_OTB("receipt-in-otb"),
-        REALVAULT_DCCRATE("realvault-dccrate");
+        STORED_CARD_DCC_RATE("realvault-dccrate");
 
 
 
@@ -1782,7 +1782,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
                     .append(payerRef)
                     .toString();
 
-        } else if (PaymentType.REALVAULT_DCCRATE.getType().equals(this.type)) {
+        } else if (PaymentType.STORED_CARD_DCC_RATE.getType().equals(this.type)) {
             toHash = new StringBuilder().append(timeStamp)
                     .append(".")
                     .append(merchantId)

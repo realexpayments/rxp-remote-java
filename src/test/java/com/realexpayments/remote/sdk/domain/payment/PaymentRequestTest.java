@@ -429,7 +429,7 @@ public class PaymentRequestTest {
     public void testRealVaultHashGeneration() {
 
         PaymentRequest request = new PaymentRequest()
-                .addType(PaymentType.REALVAULT_DCCRATE)
+                .addType(PaymentType.STORED_CARD_DCC_RATE)
                 .addTimeStamp(DCC_REAL_VAULT_TIMESTAMP)
                 .addMerchantId(DCC_REAL_VAULT_MERCHANT_ID)
                 .addAmount(Long.parseLong(DCC_REAL_VAULT_AMOUNT))

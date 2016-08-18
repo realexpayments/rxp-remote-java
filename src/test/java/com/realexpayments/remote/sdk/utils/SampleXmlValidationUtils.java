@@ -404,7 +404,7 @@ public class SampleXmlValidationUtils {
 
 
     //dcc realvaulr
-     public static final String REALVAULT_DCCRATE = PaymentType.REALVAULT_DCCRATE.getType();
+     public static final String REALVAULT_DCCRATE = PaymentType.STORED_CARD_DCC_RATE.getType();
      public static final String DCC_REAL_VAULT_TIMESTAMP = "20140520151742";
      public static final String DCC_REAL_VAULT_MERCHANT_ID = "yourmerchantid";
      public static final String DCC_REAL_VAULT_ACCOUNT = "internet";
