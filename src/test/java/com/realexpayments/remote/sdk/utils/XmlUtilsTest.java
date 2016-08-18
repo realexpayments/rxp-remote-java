@@ -57,8 +57,7 @@ public class XmlUtilsTest {
                         .addCode(ADDRESS_CODE_SHIPPING)
                         .addCountry(ADDRESS_COUNTRY_SHIPPING));
 
-        FraudFilter ff = new FraudFilter();
-        ff.setMode(FRAUD_FILTER);
+        FraudFilter ff = new FraudFilter().addMode(FRAUD_FILTER);
 
 
         PaymentRequest request = new PaymentRequest()
@@ -125,8 +124,7 @@ public class XmlUtilsTest {
                         .addCode(ADDRESS_CODE_SHIPPING)
                         .addCountry(ADDRESS_COUNTRY_SHIPPING));
 
-        FraudFilter ff = new FraudFilter();
-        ff.setMode(FRAUD_FILTER);
+        FraudFilter ff = new FraudFilter().addMode(FRAUD_FILTER);
 
         PaymentRequest request = new PaymentRequest()
                 .addAccount(ACCOUNT)
@@ -213,7 +211,7 @@ public class XmlUtilsTest {
         request.setComments(comments);
 
         FraudFilter ff = new FraudFilter();
-        ff.setMode(FRAUD_FILTER);
+        ff.setMode(FRAUD_FILTER.toString());
         request.setFraudFilter(ff);
 
 
@@ -319,7 +317,7 @@ public class XmlUtilsTest {
         PaymentRequest request = new PaymentRequest();
         request.setAccount(DCC_AUTH_ACCOUNT);
         request.setMerchantId(DCC_AUTH_MERCHANT_ID);
-        request.setType(PaymentType.DCC_AUTH.getType());
+        request.setType(PaymentType.AUTH.getType());
 
         Card card = new Card();
         card.setExpiryDate(DCC_AUTH_CARD_EXPIRY_DATE);
@@ -1277,10 +1275,10 @@ public class XmlUtilsTest {
 
 
     /**
-     * Tests conversion of {@link PaymentRequest} from XML file for settle payment types.
+     * Tests Fraud Code Request Type
      */
     @Test
-    public void paymentRequestXmlFromFileSettleWithReasonCodeTest() {
+    public void testPaymentRequestFraudReasonCodeXmlFromFile() {
 
         File file = new File(this.getClass().getResource(RELEASE_PAYMENT_REQUEST_REASONCODE_XML_PATH).getPath());
         StreamSource source = new StreamSource(file);
@@ -1292,10 +1290,10 @@ public class XmlUtilsTest {
     }
 
     /**
-     * Tests conversion of {@link PaymentRequest} from XML file for settle payment types.
+     * Tests all reasons code cases
      */
     @Test
-    public void testPaymentRequestCodeXmlFromCode() {
+    public void testPaymentRequestAllReasonCodeXmlFromCode() {
         PaymentRequest request = new PaymentRequest()
                 .addAccount(HOLD_ACCOUNT)
                 .addMerchantId(HOLD_MERCHANT_ID)
@@ -1314,10 +1312,10 @@ public class XmlUtilsTest {
     }
 
     /**
-     * Tests conversion of {@link PaymentRequest} from XML file for settle payment types.
+     * Tests Fake reason code
      */
     @Test
-    public void testAllReasonsPaymentRequestCodeXmlFromCode() {
+    public void testPaymentRequestCodeXmlFromCodeFailed() {
         PaymentRequest request = new PaymentRequest()
                 .addAccount(HOLD_ACCOUNT)
                 .addMerchantId(HOLD_MERCHANT_ID)
@@ -1329,14 +1327,14 @@ public class XmlUtilsTest {
         ArrayList<ReasonCode> reasons = new ArrayList<ReasonCode>();
         reasons.add(ReasonCode.FALSE_POSITIVE);
         reasons.add(ReasonCode.FRAUD);
-        reasons.add(ReasonCode.INSTOCK);
-        reasons.add(ReasonCode.NOTGIVEN);
+        reasons.add(ReasonCode.IN_STOCK);
+        reasons.add(ReasonCode.NOT_GIVEN);
         reasons.add(ReasonCode.OTHER);
-        reasons.add(ReasonCode.OUTOFSTOCK);
+        reasons.add(ReasonCode.OUT_OF_STOCK);
 
         for (ReasonCode reason:reasons) {
 
-            request.setReasonCode(reason);
+            request.setReasonCode(reason.getType());
             //convert to XML
             String xml = request.toXml();
 
@@ -1347,21 +1345,21 @@ public class XmlUtilsTest {
     }
 
     /**
-     * Tests conversion of {@link PaymentRequest} from XML file for dcc real vault payment types.
+     * Tests conversion of {@link PaymentRequest} from XML file for stored card dcc rate payment types.
      */
     @Test
-    public void testPaymentRequestXmlFromFileDccRealVault() {
+    public void testPaymentRequestXmlFromFileDccStoredCard() {
 
-        File file = new File(this.getClass().getResource(DCC_REAL_VAULT_REQUEST_XML_PATH).getPath());
+        File file = new File(this.getClass().getResource(DCC_STORED_CARD_REQUEST_XML_PATH).getPath());
         StreamSource source = new StreamSource(file);
 
         //Convert from XML back to PaymentRequest
         PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
-        checkUnmarshalledDccRealVaultPaymentRequest(fromXmlRequest);
+        checkUnmarshalledDccStoreCardPaymentRequest(fromXmlRequest);
     }
 
     /**
-     * Tests conversion of {@link PaymentRequest} from XML file for dcc real vault payment types.
+     * Tests conversion of {@link PaymentRequest} from XML file for hold payment types.
      */
     @Test
     public void testPaymentRequestXmlFromFileHoldReasonCodeHold() {
@@ -1375,7 +1373,21 @@ public class XmlUtilsTest {
     }
 
     /**
-     * Tests conversion of {@link PaymentRequest} from XML file for dcc real vault payment types.
+     * Tests conversion of {@link PaymentRequest} from XML file for false positive reason code.
+     */
+    @Test
+    public void testPaymentRequestXmlFromFileFalsePositiveReasonCodeHold() {
+
+        File file = new File(this.getClass().getResource(HOLD_PAYMENT_REASON_FALSE_REQUEST_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentRequest fromXmlRequest = new PaymentRequest().fromXml(source);
+        checkUnmarshalledHoldReasonFalsePositivePaymentRequest(fromXmlRequest);
+    }
+
+    /**
+     * Tests conversion of {@link PaymentRequest} from XML file for release payment types.
      */
     @Test
     public void testPaymentRequestXmlFromFileHoldReasonCodeRelease() {
@@ -1399,6 +1411,20 @@ public class XmlUtilsTest {
         //Convert from XML back to PaymentRequest
         PaymentResponse fromXmlRequest = new PaymentResponse().fromXml(source);
         checkUnmarshalledPaymentResponseWithFraudFilter( fromXmlRequest );
+
+    }
+
+    /**
+     * Tests conversion of {@link PaymentResponse} from XML file
+     */
+    @Test
+    public void testPaymentResponseWithFraudFilterNoRulesXmlFromFile() {
+        File file = new File(this.getClass().getResource(PAYMENT_RESPONSE_WITH_FRAUD_FILTER_NO_RULES_XML_PATH).getPath());
+        StreamSource source = new StreamSource(file);
+
+        //Convert from XML back to PaymentRequest
+        PaymentResponse fromXmlRequest = new PaymentResponse().fromXml(source);
+        checkUnmarshalledPaymentResponseWithFraudFilterNoRules( fromXmlRequest );
     }
 
 

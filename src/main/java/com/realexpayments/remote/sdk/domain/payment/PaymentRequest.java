@@ -142,13 +142,13 @@ import java.util.List;
  * </pre></code></p>
  * <p/>
  * <p>
- * Example CREDIT:
+ * Example REFUND:
  * </p>
  * <p><code><pre>
  * PaymentRequest request = new PaymentRequest()
  * 	.addAccount("yourAccount")
  * 	.addMerchantId("yourMerchantId")
- * 	.addType(PaymentType.CREDIT)
+ * 	.addType(PaymentType.REFUND)
  * 	.addAmount(100)
  * 	.addCurrency("EUR")
  * 	.addPaymentsReference("Pasref from original transaction")
@@ -430,7 +430,7 @@ import java.util.List;
  * </pre></code></p>
  *
  * <p>
- * Example DCC Real Vault:
+ * Example Stored Card Dcc Rate:
  * </p>
  * <p><code><pre>
  * Card card = new Card()
@@ -445,7 +445,7 @@ import java.util.List;
  * PaymentRequest request = new PaymentRequest()
  *  .addAccount("yourAccount")
  *  .addMerchantId("yourMerchantId")
- *  .addType(PaymentType.REALVAULT_DCCRATE)
+ *  .addType(PaymentType.STORED_CARD_DCC_RATE)
  *  .addAmount(100)
  *  .addCurrency("EUR")
  *  .addCard(card)
@@ -494,7 +494,7 @@ import java.util.List;
  * for (FraudFilterRule rule :rules ) {
  *  System.out.print(rule.getId());
  *  System.out.print(rule.getName());
- *  System.out.print(rule.getValue());
+ *  System.out.print(rule.getAction());
  * }
  * //or
  * rules.get(0).getId();
@@ -517,7 +517,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         VOID("void"),
         REBATE("rebate"),
         OTB("otb"),
-        CREDIT("credit"),
+        REFUND("credit"),
         HOLD("hold"),
         RELEASE("release"),
         RECEIPT_IN("receipt-in"),
@@ -528,9 +528,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         CARD_UPDATE("card-update-card"),
         CARD_CANCEL("card-cancel-card"),
         DCC_RATE_LOOKUP("dccrate"),
-        DCC_AUTH("auth"),
         RECEIPT_IN_OTB("receipt-in-otb"),
-        REALVAULT_DCCRATE("realvault-dccrate");
+        STORED_CARD_DCC_RATE("realvault-dccrate");
 
 
 
@@ -717,10 +716,10 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      *            value that is allowed for that transaction
      *            type.
      *          If no value is supplied, the default reason
-     *            code NOTGIVEN will be applied to the holdrequest
+     *            code NOT_GIVEN will be applied to the holdrequest
      */
     @XmlElement(name = "reasoncode")
-    private ReasonCode reasonCode;
+    private String reasonCode;
 
     /**
      * Contains payment information to be used on Receipt-in transactions
@@ -1203,14 +1202,14 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      *
      * @return reasonCode
      */
-    public ReasonCode getReasonCode() { return reasonCode; }
+    public String getReasonCode() { return reasonCode; }
 
     /**
      * Setter for reasonCode.
      *
      * @param reasonCode
      */
-    public void setReasonCode(ReasonCode reasonCode) {
+    public void setReasonCode(String reasonCode) {
         this.reasonCode = reasonCode;
     }
 
@@ -1533,7 +1532,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      * @return PaymentRequest
      */
     public PaymentRequest addReasonCode(ReasonCode reasonCode) {
-        this.reasonCode = reasonCode;
+        this.reasonCode = reasonCode.getType();
         return this;
     }
     /**
@@ -1782,7 +1781,7 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
                     .append(payerRef)
                     .toString();
 
-        } else if (PaymentType.REALVAULT_DCCRATE.getType().equals(this.type)) {
+        } else if (PaymentType.STORED_CARD_DCC_RATE.getType().equals(this.type)) {
             toHash = new StringBuilder().append(timeStamp)
                     .append(".")
                     .append(merchantId)

@@ -171,7 +171,7 @@ public class PaymentResponse implements Response<PaymentResponse> {
 	/**
 	 * The fraudFilter field.
 	 */
-	@XmlElement(name = "fraudfilter")
+	@XmlElement(name = "fraudresponse")
 	private FraudFilter fraudFilter;
 
 	/**

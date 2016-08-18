@@ -1,34 +1,32 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
-import javax.swing.text.StringContent;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.*;
 
 /**
  * Created by alessandro on 17/06/2016.
  */
+
+@XmlRootElement(name = "rule")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class FraudFilterRule {
 
     /**
-     * The FraudFilterRule id value.
+     * The FraudFilterRule id action.
      */
     @XmlAttribute(name = "id")
     private String id;
 
     /**
-     * The FraudFilterRule name value.
+     * The FraudFilterRule name action.
      */
     @XmlAttribute(name = "name")
     private String name;
 
     /**
-     * The FraudFilterRule value value.
+     * The FraudFilterRule action action.
      */
-    @XmlValue
-    private String value;
+    @XmlElement(name = "action")
+    private String action;
 
     /**
      * Getter for id
@@ -49,21 +47,21 @@ public class FraudFilterRule {
     }
 
     /**
-     * Getter for value
+     * Getter for action
      *
      * @return string
      */
-    public String getValue() {
-        return this.value;
+    public String getAction() {
+        return this.action;
     }
 
     /**
-     * Setter for value
+     * Setter for action
      *
-     * @param value
+     * @param action
      */
-    public void setValue(String value ) {
-        this.value = value;
+    public void setAction(String action) {
+        this.action = action;
     }
 
     /**

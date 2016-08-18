@@ -7,13 +7,11 @@ public enum ReasonCode {
 
         // @formatter:off
         FRAUD("FRAUD"),
-        OUTOFSTOCK("OUTOFSTOCK"),
+        OUT_OF_STOCK("OUTOFSTOCK"),
         OTHER("OTHER"),
         FALSE_POSITIVE("FALSEPOSITIVE"),
-        INSTOCK("INSTOCK"),
-        NOTGIVEN("NOTGIVEN"),
-        HOLD("HOLD"),
-        RELEASE("RELEASE");
+        IN_STOCK("INSTOCK"),
+        NOT_GIVEN("NOTGIVEN");
         // @formatter:on
 
         /**
@@ -23,6 +21,7 @@ public enum ReasonCode {
 
         /**
          * Constructor for enum.
+         * @param reason
          */
         ReasonCode(String reason) {
             this.reason = reason;

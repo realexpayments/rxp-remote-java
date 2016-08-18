@@ -1,7 +1,7 @@
 package com.realexpayments.remote.sdk.domain.payment;
 
 import javax.xml.bind.annotation.*;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -66,7 +66,8 @@ public class FraudFilter {
 		BLOCK("BLOCK"),
 		PASS("PASS"),
 		HOLD("HOLD"),
-		NOT_SUPPORTED("NOT SUPPORTED");
+		NOT_SUPPORTED("NOT SUPPORTED"),
+		NOT_EXECUTED("NOT_EXECUTED");
 
 		/**
 		 * The result field.
@@ -95,18 +96,19 @@ public class FraudFilter {
 	 * The FraudFilter mode value.
 	 */
 	@XmlAttribute(name = "mode")
-	private FraudFilterMode mode;
+	private String mode;
 
 	/**
 	 * The FraudFilter mode value.
 	 */
 	@XmlElement(name = "result")
-	private FraudFilterResult result;
+	private String result;
 
 	/**
 	 * The FraudFilter mode value.
 	 */
-	@XmlElements(@XmlElement(name = "rule", type = FraudFilterRule.class))
+	@XmlElementWrapper(name = "rules")
+	@XmlElement(name = "rule", type = FraudFilterRule.class)
 	private List<FraudFilterRule> rules;
 	/**
 	 * FraudFilter constructor
@@ -119,7 +121,7 @@ public class FraudFilter {
 	 *
 	 * @return FraudFilterMode
 	 */
-	public FraudFilterMode getMode() {
+	public String getMode() {
 		return mode;
 	}
 
@@ -128,8 +130,19 @@ public class FraudFilter {
 	 *
 	 * @param mode
 	 */
-	public void setMode(FraudFilterMode mode) {
+	public void setMode(String mode) {
 		this.mode = mode;
+	}
+
+	/**
+	 * Helper method for adding the mode value.
+	 *
+	 * @param  mode
+	 * @return FraudFilter
+	 */
+	public FraudFilter addMode(FraudFilterMode mode) {
+		this.mode = mode.toString();
+		return this;
 	}
 
 	/**
@@ -138,7 +151,7 @@ public class FraudFilter {
 	 * @param mode
 	 * @return FraudFilter
 	 */
-	public FraudFilter addMode(FraudFilterMode mode) {
+	public FraudFilter addMode(String mode) {
 		this.mode = mode;
 		return this;
 	}
@@ -149,7 +162,7 @@ public class FraudFilter {
 	 *
 	 * @param result
 	 */
-	public void setResult(FraudFilterResult result) {
+	public void setResult(String result) {
 		this.result = result;
 	}
 
@@ -158,7 +171,7 @@ public class FraudFilter {
 	 *
 	 * @return result
 	 */
-	public FraudFilterResult getResult() {
+	public String getResult() {
 		return result;
 	}
 
@@ -169,6 +182,17 @@ public class FraudFilter {
 	 * @return FraudFilter
 	 */
 	public FraudFilter addResult(FraudFilterResult result) {
+		this.result = result.toString();
+		return this;
+	}
+
+	/**
+	 * Helper method for adding the {@link FraudFilter} value.
+	 *
+	 * @param result
+	 * @return FraudFilter
+	 */
+	public FraudFilter addResult(String result) {
 		this.result = result;
 		return this;
 	}
@@ -199,8 +223,9 @@ public class FraudFilter {
 	 */
 	@Override
 	public String toString() {
-		if (this.getResult() == null)
+		if (this.getResult() == null || this.getRules() == null)
 			return "";
+
 
 		StringBuffer rules = new StringBuffer(this.getResult().toString());
 		rules.append(":");
@@ -209,7 +234,7 @@ public class FraudFilter {
 			rules.append("-");
 			rules.append(check.getName());
 			rules.append("-");
-			rules.append(check.getValue());
+			rules.append(check.getAction());
 			rules.append(";");
 		}
 		return rules.toString();
