@@ -9,14 +9,14 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.realexpayments.remote.sdk</groupId>
   <artifactId>rxp-remote-java</artifactId>
-  <version>1.1</version>
+  <version>1.2</version>
 </dependency>
 ```
 
 ### Gradle users
 Add this dependency to your project's build file:
 ```
-compile "com.realexpayments.remote.sdk:rxp-remote-java:1.1"
+compile "com.realexpayments.remote.sdk:rxp-remote-java:1.2"
 ```
 ## Usage
 
@@ -34,8 +34,8 @@ Card card = new Card()
 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
 
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.AUTH)
 	.addAmount(100)
 	.addCurrency("EUR")
@@ -58,8 +58,8 @@ Card card = new Card()
 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
  
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.AUTH)
 	.addAmount(100)
 	.addCurrency("EUR")
@@ -75,8 +75,8 @@ PaymentResponse response = client.send(request);
 
 ```java
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.AUTH_MOBILE)
 	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
 	.addMobile("apple-pay")
@@ -86,20 +86,17 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
-
 ### Settle
 
 ```java
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.SETTLE)
 	.addOrderId("Order ID from original transaction")
 	.addAmount(100)
 	.addCurrency("EUR")
-	.addPaymentsReference("pasref from original transaction")
-	.addAuthCode("Auth code from original transaction");
-
+	.addPaymentsReference("pasref from original transaction");
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
@@ -109,12 +106,11 @@ PaymentResponse response = client.send(request);
 
 ```java
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.VOID)
 	.addOrderId("Order ID from original transaction")
-	.addPaymentsReference("pasref from original transaction")
-	.addAuthCode("Auth code from original transaction");
+	.addPaymentsReference("pasref from original transaction");
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
@@ -124,15 +120,15 @@ PaymentResponse response = client.send(request);
 
 ```java
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.REBATE)
 	.addOrderId("Order ID from original transaction")
 	.addAmount(100)
 	.addCurrency("EUR")
 	.addPaymentsReference("pasref from original transaction")
 	.addAuthCode("Auth code from original transaction")
-	.addRefundHash("Hash of rebate password shared with Realex");
+	.addRefundHash("SHA1 hash of rebate password");
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
@@ -150,8 +146,8 @@ Card card = new Card()
 	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
  
  PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.OTB)
 	.addCard(card);
 	
@@ -159,18 +155,25 @@ RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);	
 ```
 
-### Credit
+### Refund
 
 ```java
+Card card = new Card()
+	.addExpiryDate("0119")
+	.addNumber("420000000000000000")
+	.addType(CardType.VISA)
+	.addCardHolderName("Joe Smith")
+	.addCvn("123")
+	.addCvnPresenceIndicator(PresenceIndicator.CVN_PRESENT);
+	
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.REFUND)
 	.addAmount(100)
 	.addCurrency("EUR")
-	.addPaymentsReference("Pasref from original transaction")
-	.addAuthCode("Auth code from original transaction")
-	.addRefundHash("Hash of credit password shared with Realex");
+	.addCard(card)
+	.addRefundHash("SHA1 hash of refund password");
  
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
@@ -180,9 +183,10 @@ PaymentResponse response = client.send(request);
 
 ```java
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.HOLD)
+	.addReasonCode(ReasonCode.OUT_OF_STOCK)
 	.addOrderId("Order ID from original transaction")
 	.addPaymentsReference("Pasref from original transaction");
 
@@ -194,9 +198,10 @@ PaymentResponse response = client.send(request);
 
 ```java
 PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.RELEASE)
+	.addReasonCode(ReasonCode.FALSE_POSITIVE)
 	.addOrderId("Order ID from original transaction")
 	.addPaymentsReference("Pasref from original transaction");
 
@@ -211,13 +216,13 @@ PaymentData paymentData = new PaymentData()
   	.addCvnNumber("123");
 
 PaymentRequest request = new PaymentRequest()
- 	.addAccount("yourAccount")
- 	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
  	.addType(PaymentType.RECEIPT_IN)
  	.addAmount(100)
  	.addCurrency("EUR")
- 	.addPayerReference("payer ref from customer")
- 	.addPaymentMethod("payment method ref from customer")
+ 	.addPayerReference("payer ref for customer")
+ 	.addPaymentMethod("payment method ref for card")
  	.addPaymentData(paymentData);
 
 RealexClient client = new RealexClient("shared secret");
@@ -229,14 +234,14 @@ PaymentResponse response = client.send(request);
 ```java
 
 PaymentRequest request = new PaymentRequest()
- 	.addAccount("yourAccount")
- 	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
  	.addType(PaymentType.PAYMENT_OUT) 	
  	.addAmount(100)
  	.addCurrency("EUR")
- 	.addPayerReference("payer ref from customer")
- 	.addPaymentMethod("payment method ref from customer")
- 	.addRefundHash("Hash of rebate password shared with Realex");
+ 	.addPayerReference("payer ref for customer")
+ 	.addPaymentMethod("payment method ref for card")
+ 	.addRefundHash("SHA1 hash of refund password");
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
@@ -274,8 +279,8 @@ Payer payer = new Payer()
     .addComment("Comment2");
 
 PaymentRequest request = new PaymentRequest()
- 	.addAccount("yourAccount")
- 	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
  	.addType(PaymentType.PAYER_NEW)  	
  	.addPayer(payer);
 
@@ -315,8 +320,8 @@ Payer payer = new Payer()
     .addComment("Comment2");
 
 PaymentRequest request = new PaymentRequest()
- 	.addAccount("yourAccount")
- 	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
  	.addType(PaymentType.PAYER_EDIT)  	
  	.addPayer(payer);
 
@@ -338,8 +343,8 @@ Card card = new Card()
 	.addIssueNumber("1");
 
 PaymentRequest request = new PaymentRequest()
- 	.addAccount("yourAccount")
- 	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
  	.addType(PaymentType.CARD_NEW)  	
  	.addCard(card);
 
@@ -357,12 +362,11 @@ Card card = new Card()
     .addNumber("420000000000000000")    
 	.addExpiryDate("0119")	
 	.addCardHolderName("Joe Smith")
-	.addType(CardType.VISA)
-	.addIssueNumber("1");
+	.addType(CardType.VISA);
 
 PaymentRequest request = new PaymentRequest()
- 	.addAccount("yourAccount")
- 	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
  	.addType(PaymentType.CARD_UPDATE)  	
  	.addCard(card);
 
@@ -380,8 +384,8 @@ Card card = new Card()
     .addPayerReference("smithj01");
 
 PaymentRequest request = new PaymentRequest()
- 	.addAccount("yourAccount")
- 	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
  	.addType(PaymentType.CARD_CANCEL)  	
  	.addCard(card);
 
@@ -398,15 +402,15 @@ PaymentData paymentData = new PaymentData()
 
 
 ThreeDSecureRequest request = new ThreeDSecureRequest()
-  .addAccount("yourAccount")
-  .addMerchantId("yourMerchantId")
-  .addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
-  .addAmount(100)
-  .addCurrency("EUR")
-  .addPayerReference("payer ref from customer")
-  .addPaymentMethod("payment method ref from customer")
-  .addPaymentData(paymentData)
-  .addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE));
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
+  	.addType(ThreeDSecureType.VERIFY_CARD_ENROLLED)
+  	.addAmount(100)
+  	.addCurrency("EUR")
+  	.addPayerReference("payer ref from customer")
+  	.addPaymentMethod("payment method ref from customer")
+  	.addPaymentData(paymentData)
+  	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE));
  	
 
 RealexClient client = new RealexClient("shared secret");
@@ -427,20 +431,20 @@ DccInfo dccInfo = new DccInfo()
     .addDccProcessor("fexco");
 
 PaymentRequest request = new PaymentRequest()
-  .addAccount("yourAccount")
-  .addMerchantId("yourMerchantId")
-  .addType(PaymentType.DCC_RATE_LOOKUP)
-  .addAmount(100)
-  .addCurrency("EUR")
-  .addCard(card)
-  .addDccInfo(dccInfo);
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
+  	.addType(PaymentType.DCC_RATE_LOOKUP)
+  	.addAmount(100)
+  	.addCurrency("EUR")
+  	.addCard(card)
+  	.addDccInfo(dccInfo);
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
 ```
 
 
-### DCC + Auth
+### Authorisation with DCC Information
 
 ```java
 
@@ -457,13 +461,13 @@ DccInfo dccInfo = new DccInfo()
     .addCurrency("GBP");
 
 PaymentRequest request = new PaymentRequest()
-  .addAccount("yourAccount")
-  .addMerchantId("yourMerchantId")
-  .addType(PaymentType.DCC_AUTH)
-  .addAmount(19000)
-  .addCurrency("EUR")
-  .addCard(card)
-  .addDccInfo(dccInfo);
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
+  	.addType(PaymentType.DCC_AUTH)
+  	.addAmount(19000)
+  	.addCurrency("EUR")
+  	.addCard(card)
+  	.addDccInfo(dccInfo);
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
@@ -474,8 +478,8 @@ PaymentResponse response = client.send(request);
 ```java
  
  PaymentRequest request = new PaymentRequest()
-	.addAccount("yourAccount")
-	.addMerchantId("yourMerchantId")
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
 	.addType(PaymentType.RECEIPT_IN_OTB)
 	.addPayerReference("payer ref from customer")
     .addPaymentMethod("payment method ref from customer");
@@ -487,24 +491,19 @@ PaymentResponse response = client.send(request);
 ### DCC Stored Card Dcc Rate
 
 ```java
-
-Card card = new Card()    
-    .addNumber("420000000000000000")    
-	.addExpiryDate("0119")	
-	.addCardHolderName("Joe Smith")
-	.addType(CardType.VISA);
 	
 DccInfo dccInfo = new DccInfo()
     .addDccProcessor("fexco");
 
 PaymentRequest request = new PaymentRequest()
-  .addAccount("yourAccount")
-  .addMerchantId("yourMerchantId")
-  .addType(PaymentType.STORED_CARD_DCC_RATE)
-  .addAmount(100)
-  .addCurrency("EUR")
-  .addCard(card)
-  .addDccInfo(dccInfo);
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
+  	.addType(PaymentType.STORED_CARD_DCC_RATE)
+  	.addAmount(100)
+  	.addCurrency("EUR")
+ 	.addPayerReference("payer ref for customer")
+ 	.addPaymentMethod("payment method ref for card")
+  	.addDccInfo(dccInfo);
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
@@ -515,21 +514,21 @@ PaymentResponse response = client.send(request);
 ```java
 
 Card card = new Card()
-  .addExpiryDate("0119")
-  .addNumber("4242424242424242")
-  .addType(CardType.VISA)
-  .addCardHolderName("Joe Smith")
-  .addCvn("123");
+  	.addExpiryDate("0119")
+  	.addNumber("4242424242424242")
+  	.addType(CardType.VISA)
+  	.addCardHolderName("Joe Smith")
+  	.addCvn("123");
 
 PaymentRequest request = new PaymentRequest()
-  .addAccount("yourAccount")
-  .addMerchantId("yourMerchantId")
-  .addType(PaymentType.AUTH)
-  .addAmount(1000)
-  .addCurrency("EUR")
-  .addCard(card)
-  .addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
-  .addFraudFilter(new FraudFilter().addMode(FraudFilter.FraudFilterMode.ACTIVE));
+	.addMerchantId("Merchant ID")
+	.addAccount("internet")
+  	.addType(PaymentType.AUTH)
+  	.addAmount(1000)
+  	.addCurrency("EUR")
+  	.addCard(card)
+  	.addAutoSettle(new AutoSettle().addFlag(AutoSettleFlag.TRUE))
+  	.addFraudFilter(new FraudFilter().addMode(FraudFilter.FraudFilterMode.PASSIVE));
 
 RealexClient client = new RealexClient("shared secret");
 PaymentResponse response = client.send(request);
