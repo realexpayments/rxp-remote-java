@@ -8,7 +8,7 @@ public class HttpConfiguration {
 	/**
 	 * The default endpoint for all requests
 	 */
-	private static final String DEFAULT_ENDPOINT = "https://epage.payandshop.com/epage-remote.cgi";
+	private static final String DEFAULT_ENDPOINT = "https://api.realexpayments.com/epage-remote.cgi";
 
 	/**
 	 * The default timeout in milliseconds.
