@@ -3,3 +3,5 @@
 .project
 /.settings/
 .springBeans
+rxp-remote-java.iml
+PrivateTest.java
