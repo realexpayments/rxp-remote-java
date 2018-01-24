@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to the SDK will be documented in this file.
 
+## [1.3.1]
+- Updated hash for Mobile-Auth to support Google Pay.
+
+## [1.3]
+- Updated endpoints.
+
 ## [1.2]
 - Added Card Storage: Receipt-in, Payment-out, Payer-New, Payer-Edit, Card-new, Card-update, Card-delete, Verify Enrolled Card, DCC Rate Lookup, DCC + Auth, Receipt in OTB
 
