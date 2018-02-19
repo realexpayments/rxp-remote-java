@@ -31,7 +31,7 @@ public class CardValidationUtils_ExpiryDateTest {
 				{ "Incorrect date MMYY", "1212", false },
 				{ "Incorrect date MMYY", "0015", false },
 				{ "Incorrect date MMYY", "0415", false },
-				{ "Correct date MMYY", "1216", true },
+				{ "Correct date MMYY", "1225", true },
 				{ "Incorrect date MMYY", "0021", false },
 		};
 		return Arrays.asList(testCases);
