@@ -1686,7 +1686,11 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
                     .append(merchantId)
                     .append(".")
                     .append(orderId)
-                    .append("...")
+                    .append(".")
+                    .append(amount)
+                    .append(".")
+                    .append(currency)
+                    .append(".")
                     .append(token)
                     .toString();
 
