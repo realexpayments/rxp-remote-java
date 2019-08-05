@@ -31,6 +31,7 @@ import com.realexpayments.remote.sdk.RealexException;
 public class HttpUtils {
 
     private final static String HTTPS_PROTOCOL = "https";
+    private final static String UTF_8 = "UTF-8";
 
     private final static Logger logger = LoggerFactory.getLogger(HttpUtils.class);
 
@@ -89,7 +90,7 @@ public class HttpUtils {
 
         try {
             logger.debug("Setting entity in POST message.");
-            httpPost.setEntity(new StringEntity(xml));
+            httpPost.setEntity(new StringEntity(xml, UTF_8));
 
             logger.debug("Executing HTTP Post message to: " + httpPost.getURI());
             response = httpClient.execute(httpPost);
