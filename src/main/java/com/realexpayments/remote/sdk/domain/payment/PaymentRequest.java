@@ -529,7 +529,8 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         CARD_CANCEL("card-cancel-card"),
         DCC_RATE_LOOKUP("dccrate"),
         RECEIPT_IN_OTB("receipt-in-otb"),
-        STORED_CARD_DCC_RATE("realvault-dccrate");
+        STORED_CARD_DCC_RATE("realvault-dccrate"),
+        MULTI_SETTLE("multisettle");
 
 
 
@@ -738,6 +739,18 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
      */
     @XmlElement(name = "dccinfo")
     private DccInfo dccInfo;
+
+    /**
+     * The payment transaction sequence
+     */
+    @XmlElement(name = "txnseq")
+    private TransactionSequence transactionSequence;
+
+    /**
+     * Optional Estimated Transactions Number
+     */
+    @XmlElement(name = "estnumtxn")
+    private Integer estimatedTransactionNumber;
 
     /**
      * Constructor for PaymentRequest.
@@ -1214,6 +1227,38 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
     }
 
     /**
+     * Getter for transactionSequence.
+     *
+     * @return transactionSequence
+     */
+    public TransactionSequence getTransactionSequence() {
+        return transactionSequence;
+    }
+
+    /**
+     * Setter for transactionSequence.
+     */
+    public void setTransactionSequence(final TransactionSequence transactionSequence) {
+        this.transactionSequence = transactionSequence;
+    }
+
+    /**
+     * Getter for estimatedTransactionNumber.
+     *
+     * @return estimatedTransactionNumber
+     */
+    public Integer getEstimatedTransactionNumber() {
+        return estimatedTransactionNumber;
+    }
+
+    /**
+     * Setter for estimatedTransactionNumber.
+     */
+    public void setEstimatedTransactionNumber(final Integer estimatedTransactionNumber) {
+        this.estimatedTransactionNumber = estimatedTransactionNumber;
+    }
+
+    /**
      * Helper method for adding a merchant ID.
      *
      * @param merchantId
@@ -1535,6 +1580,29 @@ public class PaymentRequest implements Request<PaymentRequest, PaymentResponse> 
         this.reasonCode = reasonCode.getType();
         return this;
     }
+
+    /**
+     * Helper method for adding the transactionSequence.
+     *
+     * @param transactionSequence
+     * @return PaymentRequest
+     */
+    public PaymentRequest addTransactionSequence(TransactionSequence transactionSequence) {
+        this.transactionSequence = transactionSequence;
+        return this;
+    }
+
+    /**
+     * Helper method for adding the estimatedTransactionNumber.
+     *
+     * @param estimatedTransactionNumber
+     * @return PaymentRequest
+     */
+    public PaymentRequest addEstimatedTransactionNumber(Integer estimatedTransactionNumber) {
+        this.estimatedTransactionNumber = estimatedTransactionNumber;
+        return this;
+    }
+
     /**
      * <p>
      * This helper method adds Address Verification Service (AVS) fields to the request.
