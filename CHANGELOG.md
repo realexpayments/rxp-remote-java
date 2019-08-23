@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to the SDK will be documented in this file.
 
+## [1.3.2]
+- Added new multi-capture flagging.
+
 ## [1.3.1]
 - Updated hash for Mobile-Auth to support Google Pay.
 
