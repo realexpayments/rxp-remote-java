@@ -1,5 +1,10 @@
+# Please use our new Java SDK
+We've moved. We highly recommend you use the Global Payments Java SDK
+which supports all the features of this SDK and will benefit from all future releases:
+https://github.com/globalpayments/java-sdk
+
 # Realex Remote Java SDK
-You can sign up for a Realex account at https://developer.realexpayments.com
+You can sign up for a Global Payments (formerly Realex Payments) account at https://developer.globalpay.com
 ## Requirements
 Java 1.6 and later.
 ## Installation
@@ -9,18 +14,18 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.realexpayments.remote.sdk</groupId>
   <artifactId>rxp-remote-java</artifactId>
-  <version>1.3.1</version>
+  <version>1.3.2</version>
 </dependency>
 ```
 
 ### Gradle users
 Add this dependency to your project's build file:
 ```
-compile "com.realexpayments.remote.sdk:rxp-remote-java:1.3.1"
+implementation 'com.realexpayments.remote.sdk:rxp-remote-java:1.3.2'
 ```
 ## Usage
 
-Please see https://developer.realexpayments.com for more comprehensive integration guides.
+Please see https://developer.globalpay.com for more comprehensive integration guides.
 
 ### Authorisation
 
